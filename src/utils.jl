@@ -114,11 +114,35 @@ function wrapper(sfn::Symbol, args...;kwargs...)
   pars
 end
 
+###
 
+### TableTraits.jl integration
 
-### pipe operator definition
+function vlplot(;url=nothing)
+    if url!==nothing
+        return VLSpec{:plot}(Dict("data"=>Dict("url"=>url), "encoding"=>Dict()))
+    else
+        return VLSpec{:plot}(Dict("data"=>Dict(), "encoding"=>Dict()))
+    end
+end
 
-function |>(a::VLSpec, b::VLSpec)
+function vlplot(d)
+  TableTraits.isiterabletable(d) || error("Only iterable tables can be passed to vlplot.")
+
+  it = IteratorInterfaceExtensions.getiterator(d)
+
+  recs = [Dict(c[1]=>isa(c[2], DataValues.DataValue) ? (isnull(c[2]) ? nothing : c[2][]) : c[2] for c in zip(keys(r), values(r))) for r in it ]
+
+  VegaLite.VLSpec{:data}(Dict("values" => recs))
+end
+
+function (v::VLSpec)(d)
+    vldata = vlplot(d)
+
+    return v(vldata)
+end
+
+function (b::VLSpec{T1})(a::VLSpec{T2}) where {T1,T2}
   parsa = if isa(a,VLSpec{:plot})
             a.params
           else
