@@ -17,7 +17,7 @@ Install with `Pkg.add("VegaLite")`. Most functions are documented, with the full
 This package is essentially a thin layer between Julia and the VegaLite javascript library that translates Julia statements into a JSON graph specification. Statements such as :
 
 ```julia
-data(url="https://raw.githubusercontent.com/vega/new-editor/master/data/movies.json") |>
+vlplot(url="https://raw.githubusercontent.com/vega/new-editor/master/data/movies.json") |>
   markcircle() |>
   encoding(xquantitative(vlbin(maxbins=10), field=:IMDB_Rating),
            yquantitative(vlbin(maxbins=10), field=:Rotten_Tomatoes_Rating),

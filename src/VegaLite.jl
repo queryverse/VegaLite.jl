@@ -2,9 +2,7 @@ __precompile__()
 module VegaLite
 
 using JSON, Compat, Requires, NodeJS, Cairo, Rsvg
-import IteratorInterfaceExtensions, TableTraits
-
-import Base: |>
+import IteratorInterfaceExtensions, TableTraits, DataValues
 
 # This import can eventually be removed, it currently just makes sure
 # that the iterable tables integration for DataFrames and friends
@@ -12,7 +10,7 @@ import Base: |>
 import IterableTables
 
 export renderer, actionlinks, junoplotpane, png, svg, jgp, pdf, savefig,
-    loadspec, savespec, @vl_str
+    loadspec, savespec, @vl_str, vlplot
 
 
 ########################  settings functions  ###############################
@@ -85,20 +83,6 @@ include("juno_integration.jl")
 include("io.jl")
 include("show.jl")
 include("macro.jl")
-
-### TableTraits.jl integration
-
-function vldata(d)
-    TableTraits.isiterabletable(d) || error("Only iterable tables can be passed to vldata.")
-
-    it = IteratorInterfaceExtensions.getiterator(d)
-
-    recs = [Dict(c[1]=>isnull(c[2]) ? nothing : get(c[2])  for c in zip(keys(r), values(r))) for r in it ]
-
-    VegaLite.VLSpec{:data}(Dict("values" => recs))
-end
-
-|>(a, b::VLSpec) = vldata(a) |> b
 
 ########################  conditional definitions  #######################
 
