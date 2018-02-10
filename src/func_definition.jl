@@ -115,8 +115,14 @@ type VLSpec{T}
 end
 vltype{T}(::VLSpec{T}) = T
 
+open("foo.jl", "w") do f
+
+  for sfn in keys(funcs)
+    println(f, Expr(:export, sfn))
+  end
 for sfn in keys(funcs)
   if isdefined(sfn)
+    println("DOOOO ", sfn)
     mt = @eval typeof($sfn).name.mt
     if isdefined(mt, :module) && mt.module != current_module()
       println("   importing $sfn from $(mt.module)")
@@ -129,6 +135,12 @@ for sfn in keys(funcs)
            $(Expr(:curly, :VLSpec, QuoteNode(specnm)))( wrapper($(QuoteNode(sfn)), args...; kwargs...) )
          end  )
 
+  println(f, :(
+  function ($sfn)(args...;kwargs...)
+    $(Expr(:curly, :VLSpec, QuoteNode(specnm)))( wrapper($(QuoteNode(sfn)), args...; kwargs...) )
+  end
+        ))
   # export
   eval( Expr(:export, sfn) )
+end
 end
