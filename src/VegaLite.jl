@@ -4,7 +4,7 @@ module VegaLite
 using JSON, Compat, Requires, NodeJS, Cairo, Rsvg
 import IteratorInterfaceExtensions, TableTraits, FileIO, DataValues
 
-import Base: |>
+import Base: |>, repeat
 
 # This import can eventually be removed, it currently just makes sure
 # that the iterable tables integration for DataFrames and friends
@@ -75,11 +75,13 @@ junoplotpane(b::Bool) = (global JUNOPLOTPANE ; JUNOPLOTPANE = b)
 
 ########################  includes  #####################################
 
-include("schema_parsing.jl")
-include("func_definition.jl")
-include("func_documentation.jl")
-include("spec_validation.jl")
+include("typedefs.jl")
+# include("schema_parsing.jl")
+include("generated/funcs.jl")
+include("generated/documentation.jl")
+include("generated/utils.jl")
 include("utils.jl")
+# include("spec_validation.jl")
 include("render.jl")
 include("juno_integration.jl")
 include("io.jl")

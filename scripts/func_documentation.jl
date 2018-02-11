@@ -99,6 +99,7 @@ end
 flatten(s::SpecDef)  = [s]
 flatten(s::UnionDef) = vcat(flatten.(s.items)...)
 
+open(joinpath(@__DIR__, "..", "src", "generated", "documentation.jl"), "w") do f
 # sfn, dvs = :plot, funcs[:plot]
 for (sfn, dvs) in funcs
   # organize defs of function by enclosing parent functions
@@ -142,9 +143,10 @@ for (sfn, dvs) in funcs
   end
 
   fulldoc = join(rstrip.(docstr), "\n")
-  eval(:( @doc $fulldoc $sfn ))
+  println(f, (:( @doc $fulldoc $sfn )))
 end
 
+end
 # vllayer
 # plot
 # vlorder
