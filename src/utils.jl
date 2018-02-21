@@ -2,7 +2,7 @@
 
 # ... x(typ=:quantitative, .. ))  => xquantitative()
 for chan in keys(refs["EncodingWithFacet"].props)
-  for typ in refs["Type"].enum
+  for typ in Iterators.flatten(i.enum for i in refs["Type"].items)
     sfn = Symbol(chan * typ)
 
     # function declaration and export
