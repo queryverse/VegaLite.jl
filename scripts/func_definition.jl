@@ -113,7 +113,7 @@ open(joinpath(@__DIR__, "..", "src", "generated", "funcs.jl"), "w") do f
 
     for sfn in keys(funcs)
         if isdefined(sfn)
-            println("DOOOO ", sfn)
+            error("This should never happen.")
             mt = @eval typeof($sfn).name.mt
             if isdefined(mt, :module) && mt.module != current_module()
                 println("   importing $sfn from $(mt.module)")
@@ -122,16 +122,11 @@ open(joinpath(@__DIR__, "..", "src", "generated", "funcs.jl"), "w") do f
         end
 
         specnm = Symbol(vlname(sfn)) # VegaLite property name
-  # @eval( function ($sfn)(args...;kwargs...)
-  #          $(Expr(:curly, :VLSpec, QuoteNode(specnm)))( wrapper($(QuoteNode(sfn)), args...; kwargs...) )
-  #        end  )
 
         println(f, :(
             function ($sfn)(args...;kwargs...)
                 $(Expr(:curly, :VLSpec, QuoteNode(specnm)))( wrapper($(QuoteNode(sfn)), args...; kwargs...) )
             end
         ))
-        # export
-        eval( Expr(:export, sfn) )
     end
 end
