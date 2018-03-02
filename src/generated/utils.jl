@@ -1,3 +1,15 @@
+function xgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlx(args...; nkw...)
+end
+export xgeojson
+@doc @doc(vlx) xgeojson
+function xlatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlx(args...; nkw...)
+end
+export xlatitude
+@doc @doc(vlx) xlatitude
 function xordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlx(args...; nkw...)
@@ -10,6 +22,12 @@ function xnominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scri
 end
 export xnominal
 @doc @doc(vlx) xnominal
+function xlongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlx(args...; nkw...)
+end
+export xlongitude
+@doc @doc(vlx) xlongitude
 function xquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlx(args...; nkw...)
@@ -22,6 +40,18 @@ function xtemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scr
 end
 export xtemporal
 @doc @doc(vlx) xtemporal
+function rowgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlrow(args...; nkw...)
+end
+export rowgeojson
+@doc @doc(vlrow) rowgeojson
+function rowlatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlrow(args...; nkw...)
+end
+export rowlatitude
+@doc @doc(vlrow) rowlatitude
 function rowordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlrow(args...; nkw...)
@@ -34,6 +64,12 @@ function rownominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\sc
 end
 export rownominal
 @doc @doc(vlrow) rownominal
+function rowlongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlrow(args...; nkw...)
+end
+export rowlongitude
+@doc @doc(vlrow) rowlongitude
 function rowquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlrow(args...; nkw...)
@@ -46,6 +82,18 @@ function rowtemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\s
 end
 export rowtemporal
 @doc @doc(vlrow) rowtemporal
+function opacitygeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlopacity(args...; nkw...)
+end
+export opacitygeojson
+@doc @doc(vlopacity) opacitygeojson
+function opacitylatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlopacity(args...; nkw...)
+end
+export opacitylatitude
+@doc @doc(vlopacity) opacitylatitude
 function opacityordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlopacity(args...; nkw...)
@@ -58,6 +106,12 @@ function opacitynominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLit
 end
 export opacitynominal
 @doc @doc(vlopacity) opacitynominal
+function opacitylongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlopacity(args...; nkw...)
+end
+export opacitylongitude
+@doc @doc(vlopacity) opacitylongitude
 function opacityquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlopacity(args...; nkw...)
@@ -70,6 +124,18 @@ function opacitytemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLi
 end
 export opacitytemporal
 @doc @doc(vlopacity) opacitytemporal
+function columngeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlcolumn(args...; nkw...)
+end
+export columngeojson
+@doc @doc(vlcolumn) columngeojson
+function columnlatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlcolumn(args...; nkw...)
+end
+export columnlatitude
+@doc @doc(vlcolumn) columnlatitude
 function columnordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlcolumn(args...; nkw...)
@@ -82,6 +148,12 @@ function columnnominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite
 end
 export columnnominal
 @doc @doc(vlcolumn) columnnominal
+function columnlongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlcolumn(args...; nkw...)
+end
+export columnlongitude
+@doc @doc(vlcolumn) columnlongitude
 function columnquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlcolumn(args...; nkw...)
@@ -94,6 +166,18 @@ function columntemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLit
 end
 export columntemporal
 @doc @doc(vlcolumn) columntemporal
+function shapegeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlshape(args...; nkw...)
+end
+export shapegeojson
+@doc @doc(vlshape) shapegeojson
+function shapelatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlshape(args...; nkw...)
+end
+export shapelatitude
+@doc @doc(vlshape) shapelatitude
 function shapeordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlshape(args...; nkw...)
@@ -106,6 +190,12 @@ function shapenominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\
 end
 export shapenominal
 @doc @doc(vlshape) shapenominal
+function shapelongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlshape(args...; nkw...)
+end
+export shapelongitude
+@doc @doc(vlshape) shapelongitude
 function shapequantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlshape(args...; nkw...)
@@ -118,6 +208,60 @@ function shapetemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite
 end
 export shapetemporal
 @doc @doc(vlshape) shapetemporal
+function hrefgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hrefgeojson
+@doc @doc(vlhref) hrefgeojson
+function hreflatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hreflatitude
+@doc @doc(vlhref) hreflatitude
+function hrefordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hrefordinal
+@doc @doc(vlhref) hrefordinal
+function hrefnominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "nominal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hrefnominal
+@doc @doc(vlhref) hrefnominal
+function hreflongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hreflongitude
+@doc @doc(vlhref) hreflongitude
+function hrefquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hrefquantitative
+@doc @doc(vlhref) hrefquantitative
+function hreftemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "temporal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlhref(args...; nkw...)
+end
+export hreftemporal
+@doc @doc(vlhref) hreftemporal
+function ygeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vly(args...; nkw...)
+end
+export ygeojson
+@doc @doc(vly) ygeojson
+function ylatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vly(args...; nkw...)
+end
+export ylatitude
+@doc @doc(vly) ylatitude
 function yordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vly(args...; nkw...)
@@ -130,6 +274,12 @@ function ynominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scri
 end
 export ynominal
 @doc @doc(vly) ynominal
+function ylongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vly(args...; nkw...)
+end
+export ylongitude
+@doc @doc(vly) ylongitude
 function yquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vly(args...; nkw...)
@@ -142,6 +292,18 @@ function ytemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scr
 end
 export ytemporal
 @doc @doc(vly) ytemporal
+function tooltipgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vltooltip(args...; nkw...)
+end
+export tooltipgeojson
+@doc @doc(vltooltip) tooltipgeojson
+function tooltiplatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vltooltip(args...; nkw...)
+end
+export tooltiplatitude
+@doc @doc(vltooltip) tooltiplatitude
 function tooltipordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vltooltip(args...; nkw...)
@@ -154,6 +316,12 @@ function tooltipnominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLit
 end
 export tooltipnominal
 @doc @doc(vltooltip) tooltipnominal
+function tooltiplongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vltooltip(args...; nkw...)
+end
+export tooltiplongitude
+@doc @doc(vltooltip) tooltiplongitude
 function tooltipquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vltooltip(args...; nkw...)
@@ -166,6 +334,18 @@ function tooltiptemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLi
 end
 export tooltiptemporal
 @doc @doc(vltooltip) tooltiptemporal
+function x2geojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlx2(args...; nkw...)
+end
+export x2geojson
+@doc @doc(vlx2) x2geojson
+function x2latitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlx2(args...; nkw...)
+end
+export x2latitude
+@doc @doc(vlx2) x2latitude
 function x2ordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlx2(args...; nkw...)
@@ -178,6 +358,12 @@ function x2nominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scr
 end
 export x2nominal
 @doc @doc(vlx2) x2nominal
+function x2longitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlx2(args...; nkw...)
+end
+export x2longitude
+@doc @doc(vlx2) x2longitude
 function x2quantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlx2(args...; nkw...)
@@ -190,6 +376,18 @@ function x2temporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\sc
 end
 export x2temporal
 @doc @doc(vlx2) x2temporal
+function sizegeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlsize(args...; nkw...)
+end
+export sizegeojson
+@doc @doc(vlsize) sizegeojson
+function sizelatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlsize(args...; nkw...)
+end
+export sizelatitude
+@doc @doc(vlsize) sizelatitude
 function sizeordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlsize(args...; nkw...)
@@ -202,6 +400,12 @@ function sizenominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\s
 end
 export sizenominal
 @doc @doc(vlsize) sizenominal
+function sizelongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlsize(args...; nkw...)
+end
+export sizelongitude
+@doc @doc(vlsize) sizelongitude
 function sizequantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlsize(args...; nkw...)
@@ -214,6 +418,18 @@ function sizetemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\
 end
 export sizetemporal
 @doc @doc(vlsize) sizetemporal
+function detailgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vldetail(args...; nkw...)
+end
+export detailgeojson
+@doc @doc(vldetail) detailgeojson
+function detaillatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vldetail(args...; nkw...)
+end
+export detaillatitude
+@doc @doc(vldetail) detaillatitude
 function detailordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vldetail(args...; nkw...)
@@ -226,6 +442,12 @@ function detailnominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite
 end
 export detailnominal
 @doc @doc(vldetail) detailnominal
+function detaillongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vldetail(args...; nkw...)
+end
+export detaillongitude
+@doc @doc(vldetail) detaillongitude
 function detailquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vldetail(args...; nkw...)
@@ -238,6 +460,18 @@ function detailtemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLit
 end
 export detailtemporal
 @doc @doc(vldetail) detailtemporal
+function ordergeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlorder(args...; nkw...)
+end
+export ordergeojson
+@doc @doc(vlorder) ordergeojson
+function orderlatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlorder(args...; nkw...)
+end
+export orderlatitude
+@doc @doc(vlorder) orderlatitude
 function orderordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlorder(args...; nkw...)
@@ -250,6 +484,12 @@ function ordernominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\
 end
 export ordernominal
 @doc @doc(vlorder) ordernominal
+function orderlongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlorder(args...; nkw...)
+end
+export orderlongitude
+@doc @doc(vlorder) orderlongitude
 function orderquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlorder(args...; nkw...)
@@ -262,6 +502,18 @@ function ordertemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite
 end
 export ordertemporal
 @doc @doc(vlorder) ordertemporal
+function y2geojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vly2(args...; nkw...)
+end
+export y2geojson
+@doc @doc(vly2) y2geojson
+function y2latitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vly2(args...; nkw...)
+end
+export y2latitude
+@doc @doc(vly2) y2latitude
 function y2ordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vly2(args...; nkw...)
@@ -274,6 +526,12 @@ function y2nominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scr
 end
 export y2nominal
 @doc @doc(vly2) y2nominal
+function y2longitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vly2(args...; nkw...)
+end
+export y2longitude
+@doc @doc(vly2) y2longitude
 function y2quantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vly2(args...; nkw...)
@@ -286,6 +544,18 @@ function y2temporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\sc
 end
 export y2temporal
 @doc @doc(vly2) y2temporal
+function colorgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlcolor(args...; nkw...)
+end
+export colorgeojson
+@doc @doc(vlcolor) colorgeojson
+function colorlatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlcolor(args...; nkw...)
+end
+export colorlatitude
+@doc @doc(vlcolor) colorlatitude
 function colorordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlcolor(args...; nkw...)
@@ -298,6 +568,12 @@ function colornominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\
 end
 export colornominal
 @doc @doc(vlcolor) colornominal
+function colorlongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vlcolor(args...; nkw...)
+end
+export colorlongitude
+@doc @doc(vlcolor) colorlongitude
 function colorquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vlcolor(args...; nkw...)
@@ -310,6 +586,18 @@ function colortemporal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite
 end
 export colortemporal
 @doc @doc(vlcolor) colortemporal
+function textgeojson(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "geojson")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vltext(args...; nkw...)
+end
+export textgeojson
+@doc @doc(vltext) textgeojson
+function textlatitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "latitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vltext(args...; nkw...)
+end
+export textlatitude
+@doc @doc(vltext) textlatitude
 function textordinal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "ordinal")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vltext(args...; nkw...)
@@ -322,6 +610,12 @@ function textnominal(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\s
 end
 export textnominal
 @doc @doc(vltext) textnominal
+function textlongitude(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
+    nkw = [kwargs; (:type, "longitude")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
+    vltext(args...; nkw...)
+end
+export textlongitude
+@doc @doc(vltext) textlongitude
 function textquantitative(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 13:
     nkw = [kwargs; (:type, "quantitative")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 14:
     vltext(args...; nkw...)
@@ -554,6 +848,50 @@ function encode_shape(shorthand::String, args...; kwargs...) # C:\Users\david\.j
     encoding(vlshape(args...; nkw...))
 end
 export encode_shape
+function encode_href(field::Symbol, args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 31:
+    contains((i->begin  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 31:
+                    i[1]
+                end), kwargs, :field) && error("You cannot pass a keyword argument named 'field'.") # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 32:
+    nkw = [kwargs; (:field, field)] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 33:
+    encoding(vlhref(args...; nkw...))
+end
+function encode_href(shorthand::String, args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 37:
+    parts = match(@r_str("(\\w+)(\\(\\w+\\))?(:[QqOoNnTt])?"), shorthand) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 39:
+    if parts[2] == nothing # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 40:
+        field_name = parts[1] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 41:
+        agg_name = nothing
+    else  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 43:
+        field_name = (parts[2])[2:end - 1] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 44:
+        agg_name = parts[1]
+    end # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 46:
+    vl_type = if parts[3] != nothing && uppercase((parts[3])[2:end]) == "Q" # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 47:
+            "quantitative"
+        else  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 48:
+            if parts[3] != nothing && uppercase((parts[3])[2:end]) == "O" # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 49:
+                "ordinal"
+            else  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 50:
+                if parts[3] != nothing && uppercase((parts[3])[2:end]) == "N" # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 51:
+                    "nominal"
+                else  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 52:
+                    if parts[3] != nothing && uppercase((parts[3])[2:end]) == "T" # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 53:
+                        "temporal"
+                    else  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 55:
+                        nothing
+                    end
+                end
+            end
+        end # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 58:
+    parts = split(shorthand, ':') # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 60:
+    nkw = [kwargs; (:field, Symbol(field_name))] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 61:
+    if vl_type != nothing # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 62:
+        nkw = [nkw; (:type, vl_type)]
+    end # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 64:
+    if agg_name != nothing # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 65:
+        nkw = [nkw; (:aggregate, String(agg_name))]
+    end # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 68:
+    encoding(vlhref(args...; nkw...))
+end
+export encode_href
 function encode_y(field::Symbol, args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 31:
     contains((i->begin  # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 31:
                     i[1]
@@ -950,6 +1288,24 @@ function encode_text(shorthand::String, args...; kwargs...) # C:\Users\david\.ju
     encoding(vltext(args...; nkw...))
 end
 export encode_text
+function marktick(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
+    nkw = [kwargs; (:type, "tick")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
+    vlmark(args...; nkw...)
+end
+export marktick
+@doc @doc(vlmark) marktick
+function markbar(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
+    nkw = [kwargs; (:type, "bar")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
+    vlmark(args...; nkw...)
+end
+export markbar
+@doc @doc(vlmark) markbar
+function marksquare(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
+    nkw = [kwargs; (:type, "square")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
+    vlmark(args...; nkw...)
+end
+export marksquare
+@doc @doc(vlmark) marksquare
 function markpoint(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
     nkw = [kwargs; (:type, "point")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
     vlmark(args...; nkw...)
@@ -962,18 +1318,6 @@ function markline(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scri
 end
 export markline
 @doc @doc(vlmark) markline
-function markbar(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
-    nkw = [kwargs; (:type, "bar")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
-    vlmark(args...; nkw...)
-end
-export markbar
-@doc @doc(vlmark) markbar
-function marktick(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
-    nkw = [kwargs; (:type, "tick")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
-    vlmark(args...; nkw...)
-end
-export marktick
-@doc @doc(vlmark) marktick
 function markrect(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
     nkw = [kwargs; (:type, "rect")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
     vlmark(args...; nkw...)
@@ -992,12 +1336,6 @@ function markcircle(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\sc
 end
 export markcircle
 @doc @doc(vlmark) markcircle
-function marksquare(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
-    nkw = [kwargs; (:type, "square")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
-    vlmark(args...; nkw...)
-end
-export marksquare
-@doc @doc(vlmark) marksquare
 function markrule(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
     nkw = [kwargs; (:type, "rule")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
     vlmark(args...; nkw...)
@@ -1010,6 +1348,12 @@ function marktext(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scri
 end
 export marktext
 @doc @doc(vlmark) marktext
+function markgeoshape(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 81:
+    nkw = [kwargs; (:type, "geoshape")] # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 82:
+    vlmark(args...; nkw...)
+end
+export markgeoshape
+@doc @doc(vlmark) markgeoshape
 function config(args...; kwargs...) # C:\Users\david\.julia\v0.6\VegaLite\scripts\func_utils.jl, line 100:
     vlconfig(args...; kwargs...)
 end
