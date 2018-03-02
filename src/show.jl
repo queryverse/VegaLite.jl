@@ -73,35 +73,3 @@ function Base.show(io::IO, m::MIME"image/png", v::VLSpec{:plot})
     Rsvg.handle_render_cairo(c,r)
     Cairo.write_to_png(cs,io)
 end
-
-@compat function Base.show(io::IO, m::MIME"juliavscode/html", plt::VLSpec{:plot})
-    divid = "vg" * randstring(3)
-    spec = JSON.json(plt.params)
-    html = """
-        <html>
-        <head>
-            <title>Vega-lite plot</title>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.8/vega.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.3/vega-lite.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-rc7/vega-embed.min.js"></script>
-        </head>
-        <body>
-            <div id="$divid"></div>
-        </body>
-
-        <script type="text/javascript">
-            var opt = {
-                mode: "vega-lite",
-                renderer: "canvas",
-                actions: false
-            }
-
-            var spec = $spec
-
-            vegaEmbed('#$divid', spec, opt);
-
-        </script>
-        </html>
-    """
-    print(io, html)
-end

@@ -147,7 +147,7 @@ function toDef(spec::Dict)
   end
 end
 
-fn = joinpath(@__DIR__, "../assets/", "vega-lite-schema.json")
+fn = joinpath(@__DIR__, "../deps/lib/", "vega-lite-schema.json")
 schema = JSON.parsefile(fn)
 # showall(keys(schema["definitions"]))
 # schema["definitions"]["TopLevelProperties"]
@@ -156,8 +156,6 @@ schema = JSON.parsefile(fn)
 
 refs = Dict{String, SpecDef}()
 rootSpec = toDef(schema["definitions"]["TopLevelExtendedSpec"])
-
-
 
 # length(refs) # 124
 # dl = rootSpec.items[2].props["layer"]

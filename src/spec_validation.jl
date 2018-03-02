@@ -36,8 +36,14 @@ end
 function conforms(d, ps::String, spec::ObjDef)
   isa(d, Dict) || throw("expected object got '$d' in $ps")
   for (k,v) in d
-    haskey(spec.props, k) || throw("unexpected param '$k' in $ps")
-    conforms(v, "$ps.$k", spec.props[k])
+    if haskey(spec.props, k)
+      conforms(v, "$ps.$k", spec.props[k])
+    elseif ! isa(spec.addprops, VoidDef) # if additional properties
+      conforms(v, "$ps.$k", spec.addprops)
+    elseif length(spec.props) == 0  # if empty object, accept
+    else
+      throw("unexpected param '$k' in $ps")
+    end
   end
   for k in spec.required
     haskey(d, k) || throw("required param '$k' missing in $ps")
