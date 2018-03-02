@@ -77,6 +77,7 @@ junoplotpane(b::Bool) = (global JUNOPLOTPANE ; JUNOPLOTPANE = b)
 
 include("typedefs.jl")
 include("schema_parsing.jl")
+include("func_definition.jl")
 include("generated/funcs.jl")
 include("generated/documentation.jl")
 include("generated/utils.jl")
