@@ -100,51 +100,51 @@ flatten(s::SpecDef)  = [s]
 flatten(s::UnionDef) = vcat(flatten.(s.items)...)
 
 open(joinpath(@__DIR__, "..", "src", "generated", "documentation.jl"), "w") do f
-# sfn, dvs = :plot, funcs[:plot]
-for (sfn, dvs) in funcs
-  # organize defs of function by enclosing parent functions
-  pfuncs = Dict{Symbol,Any}()
-  for (def, pset) in dvs
-    # skip array defs for special functions (arrayprops)
-    Symbol(vlname(sfn)) in arrayprops &&
-      isa(def, ArrayDef) && continue
+  # sfn, dvs = :plot, funcs[:plot]
+  for (sfn, dvs) in funcs
+    # organize defs of function by enclosing parent functions
+    pfuncs = Dict{Symbol,Any}()
+    for (def, pset) in dvs
+      # skip array defs for special functions (arrayprops)
+      Symbol(vlname(sfn)) in arrayprops &&
+        isa(def, ArrayDef) && continue
 
-    # unfold unions to find more factorizations of docs
-    vdef = flatten(def)
-    for pdef in pset
-      pfns = get(def2funcs, pdef, [:unknown])
-      for pfn in pfns
-        for d in vdef
-          # println(pfn)
-          pfuncs[pfn] = push!(get(pfuncs, pfn, Set()), d)
+      # unfold unions to find more factorizations of docs
+      vdef = flatten(def)
+      for pdef in pset
+        pfns = get(def2funcs, pdef, [:unknown])
+        for pfn in pfns
+          for d in vdef
+            # println(pfn)
+            pfuncs[pfn] = push!(get(pfuncs, pfn, Set()), d)
+          end
         end
       end
     end
-  end
 
-  # gather docs by enclosing funcs having same defs
-  docdict = Dict()
-  for (pfn, defset) in pfuncs
-    docdict[defset] = push!(get(docdict, defset, []), pfn)
-  end
-
-  # create doc string
-  docstr = String[]
-  for (defset, pfnset) in docdict
-    header = "## `$sfn`"
-    pfns = filter(f -> f != :unknown, collect(pfnset))
-    if length(pfns) > 0
-      flist = join("`" .* string.(pfns) .* "()`", ", ", " and ")
-      header *= " in $flist"
+    # gather docs by enclosing funcs having same defs
+    docdict = Dict()
+    for (pfn, defset) in pfuncs
+      docdict[defset] = push!(get(docdict, defset, []), pfn)
     end
-    push!(docstr, header)
-    append!(docstr, mkdoc(UnionDef("", collect(defset)), sfn, 0))
-    push!(docstr, "")
-  end
 
-  fulldoc = join(rstrip.(docstr), "\n")
-  println(f, (:( @doc $fulldoc $sfn )))
-end
+    # create doc string
+    docstr = String[]
+    for (defset, pfnset) in docdict
+      header = "## `$sfn`"
+      pfns = filter(f -> f != :unknown, collect(pfnset))
+      if length(pfns) > 0
+        flist = join("`" .* string.(pfns) .* "()`", ", ", " and ")
+        header *= " in $flist"
+      end
+      push!(docstr, header)
+      append!(docstr, mkdoc(UnionDef("", collect(defset)), sfn, 0))
+      push!(docstr, "")
+    end
+
+    fulldoc = join(rstrip.(docstr), "\n")
+    println(f, (:( @doc $fulldoc $sfn )))
+  end
 
 end
 # vllayer
