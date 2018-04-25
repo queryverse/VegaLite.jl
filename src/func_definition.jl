@@ -2,16 +2,6 @@
 #   VegaLite public API definition
 ###################################################################
 
-### list of VegaLite property names that need a new denomination in Julia
-const sp2jl = Dict{Symbol,Symbol}(:type => :typ)
-const jl2sp = Dict( (v,k) for (k,v) in sp2jl)
-
-### conversion between property name in VegaLite and julia function name
-jlfunc(vln::String) = jlfunc(Symbol(vln))
-jlfunc(vln::Symbol) = Symbol("vl" * string(vln))
-vlname(fn::Symbol)  = replace(string(fn), r"^vl", "")
-
-
 ### step 1 : build a dict linking SpecDefs to (possibly several) parent SpecDef
 #             with their property name
 
@@ -82,6 +72,10 @@ for (def, ns) in deftree
       nns = unique(collect(v[1] for v in nsp))
       # (length(nsp) > 1) && warn("which name ? $(join(nns, "," ))")
       sfn        = Symbol(nsp[1][1])
+      if sfn==:*
+          # TODO Sort out what to do here.
+          sfn = :unclear_what_to_do
+      end
       realparent = nsp[1][2]
     else
       sfn = Symbol(name)
@@ -105,30 +99,3 @@ end
 #   nna = sum( !isa(d, ArrayDef) for d in v2 )
 #   (na > 0 ) && println("$k : $na $nna")
 # end
-
-const arrayprops = Symbol[:layer, :transform, :hconcat, :vconcat]
-
-### step 3 : declare functions
-
-type VLSpec{T}
-  params::Union{Dict, Vector}
-end
-vltype{T}(::VLSpec{T}) = T
-
-for sfn in keys(funcs)
-  if isdefined(sfn)
-    mt = @eval typeof($sfn).name.mt
-    if isdefined(mt, :module) && mt.module != current_module()
-      println("   importing $sfn from $(mt.module)")
-      eval( Expr(:import, Symbol(mt.module), sfn) )
-    end
-  end
-
-  specnm = Symbol(vlname(sfn)) # VegaLite property name
-  @eval( function ($sfn)(args...;kwargs...)
-           $(Expr(:curly, :VLSpec, QuoteNode(specnm)))( wrapper($(QuoteNode(sfn)), args...; kwargs...) )
-         end  )
-
-  # export
-  eval( Expr(:export, sfn) )
-end
