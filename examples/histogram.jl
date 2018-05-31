@@ -3,7 +3,8 @@ using DataFrames
 
 # a simple histogram of random standard normal draws
 DataFrame(x=randn(200)) |>
-  markbar() |>
-  encoding(xquantitative(field=:x, vlbin(maxbins=20), vlaxis(title="values")),
-           yquantitative(field=:*, aggregate=:count, vlaxis(title="number of draws"))
-           )
+  plot(
+    mk.bar(),
+    enc.x.quantitative(:x, bin=@NT(maxbins=20), axis=@NT(title="values")),
+    enc.y.quantitative(:*, aggregate=:count, axis=@NT(title="number of draws"))
+  )

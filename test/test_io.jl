@@ -1,13 +1,10 @@
 using Base.Test
-using Compat
 using VegaLite
 using DataFrames
 
 @testset "io" begin
 
-p = VegaLite.data(DataFrame(x = [1,2,3], y=[1,2,3])) |>
-    markpoint() |>
-    encoding(xquantitative(field=:x), yquantitative(field=:y))
+p = DataFrame(x = [1,2,3], y=[1,2,3]) |> @vlplot(:point, x="x:q", y="y:q")
 
 Base.Filesystem.mktempdir() do folder
     svg(joinpath(folder,"test1.svg"), p)

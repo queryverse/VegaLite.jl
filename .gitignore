@@ -7,3 +7,4 @@ deps/node_modules/
 deps/lib/
 deps/npm-debug.log
 .directory
+.ipynb_checkpoints

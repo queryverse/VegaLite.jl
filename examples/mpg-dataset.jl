@@ -5,47 +5,53 @@ mpg = dataset("ggplot2", "mpg") # load the 'mpg' dataframe
 
 # Scatter plot
 
-VegaLite.data(mpg) |>                   # add values (qualify 'data' because it is exported by RDatasets too)
-  markpoint() |>                        # mark type = points
-  encoding(xquantitative(field=:Cty),   # bind x dimension to :Cty field in mpg
-           yquantitative(field=:Hwy))   # bind y dimension to :Hwy field in mpg
+mpg |>                             # add values (qualify 'data' because it is exported by RDatasets too)
+  plot(mk.point(),                 # mark type = points
+       enc.x.quantitative(:Cty),   # bind x dimension to :Cty field in mpg
+       enc.y.quantitative(:Hwy))   # bind y dimension to :Hwy field in mpg
 
 # Scatter plot with color encoding manufacturer
 
 mpg |>
-  markpoint() |>
-  encoding(xquantitative(field=:Cty, axis=nothing),
-           yquantitative(field=:Hwy, vlscale(zero=false)),
-           colornominal(field=:Manufacturer)) |>    # bind color to :Manufacturer, nominal scale
-  config(vlcell(width=250, height=250))
+  plot(
+    mk.point(),
+    enc.x.quantitative(:Cty, axis=nothing),
+    enc.y.quantitative(:Hwy, scale=@NT(zero=false)),
+    enc.color.nominal(:Manufacturer),
+    width=250, height=250)
 
 # A slope graph:
 
 mpg |>
-  markline() |>
-  encoding(xordinal(field=:Year,
-                    vlaxis(labelAngle=-45, labelPadding=10),
-                    vlscale(rangeStep=50)),
-           yquantitative(field=:Hwy, aggregate=:mean),
-           colornominal(field=:Manufacturer))
+  plot(
+    mk.line(),
+    enc.x.ordinal(:Year, axis=@NT(labelAngle=-45, labelPadding=10),
+                  scale=@NT(rangeStep=50)),
+    enc.y.quantitative(:Hwy, aggregate=:mean),
+    enc.color.nominal(:Manufacturer))
 
 # A facetted plot:
 
 mpg |>
-  markpoint() |>
-  encoding(columnordinal(field=:Cyl), # sets the column facet dimension
-           rowordinal(field=:Year),   # sets the row facet dimension
-           xquantitative(field=:Displ),
-           yquantitative(field=:Hwy),
-           sizequantitative(field=:Cty),
-           colornominal(field=:Manufacturer))
+  plot(
+    mk.point(),
+    enc.column.ordinal(:Cyl), # sets the column facet dimension
+    enc.row.ordinal(:Year),   # sets the row facet dimension
+    enc.x.quantitative(:Displ),
+    enc.y.quantitative(:Hwy),
+    enc.size.quantitative(:Cty),
+    enc.color.nominal(:Manufacturer))
 
 
 # A table:
 
 mpg |>
-  marktext() |>
-  encoding(columnordinal(field=:Cyl),
-           rowordinal(field=:Year),
-           textquantitative(field=:Displ, aggregate=:mean)) |>
-  config(vlmark(fontStyle="italic", fontSize=15, font="helvetica"))
+  plot(
+    mk.text(),
+    enc.x.ordinal(:Cyl), # sets the column facet dimension
+    enc.y.ordinal(:Year),   # sets the row facet dimension
+    enc.text.quantitative(:Displ, aggregate=:mean),
+    background=:white,
+    config(
+        numberFormat=".2r",
+        mark=@NT( fontStyle="italic", fontSize=15, font="helvetica") ))

@@ -3,10 +3,10 @@
 using BinDeps
 @BinDeps.setup
 
-uschema   = "https://vega.github.io/schema/vega-lite/v2.4.0.json"
+uschema   = "https://vega.github.io/schema/vega-lite/v2.5.0.json"
 uvega     = "https://cdnjs.cloudflare.com/ajax/libs/vega/3.3.1/vega.min.js"
-uvegalite = "https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.4.0/vega-lite.min.js"
-uembed    = "https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.7.1/vega-embed.min.js"
+uvegalite = "https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.5.0/vega-lite.min.js"
+uembed    = "https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.14.0/vega-embed.min.js"
 
 destdir      = joinpath(@__DIR__, "lib")
 

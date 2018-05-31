@@ -1,8 +1,13 @@
 __precompile__()
+
 module VegaLite
 
-using JSON, Compat, Requires, NodeJS, Cairo, Rsvg
-import IteratorInterfaceExtensions, TableTraits, FileIO, DataValues
+using JSON, Compat, Requires, NodeJS, Cairo, Rsvg, NamedTuples # 6s
+import IteratorInterfaceExtensions # 1s
+import TableTraits # 0
+import FileIO # 17s !!!
+import DataValues  # 1s
+import MacroTools
 
 import Base: |>
 
@@ -11,11 +16,12 @@ import Base: |>
 # is loaded
 import IterableTables
 
-export renderer, actionlinks, junoplotpane, png, svg, jgp, pdf, savefig,
-    loadspec, savespec, @vl_str
+export renderer, actionlinks
+export png, svg, jgp, pdf, savefig, loadspec, savespec, @vl_str, @vlplot
 
+export mk, enc
 
-########################  settings functions  ###############################
+########################  settings functions  ############################
 
 # Switch for plotting in SVGs or canvas
 
@@ -55,50 +61,79 @@ actionlinks() = ACTIONSLINKS
 actionlinks(b::Bool) = (global ACTIONSLINKS ; ACTIONSLINKS = b)
 
 
-# Switch for showing plots in a browser or in the plotpane when in Juno
-
-global JUNOPLOTPANE = false
-
-"""
-`junoplotpane()::Bool`
-
-when using Juno, show if plots will be rendered in plotpane or not
-
-`junoplotpane(::Bool)`
-
-set if plots should be rendered in Juno's plotpane or not
-"""
-junoplotpane() = JUNOPLOTPANE
-junoplotpane(b::Bool) = (global JUNOPLOTPANE ; JUNOPLOTPANE = b)
-
-
-
 ########################  includes  #####################################
 
-include("schema_parsing.jl")
-include("func_definition.jl")
-include("func_documentation.jl")
-include("spec_validation.jl")
-include("utils.jl")
-include("render.jl")
-include("juno_integration.jl")
-include("io.jl")
-include("show.jl")
+include("vlspec.jl")
+
+include("schema/schema_parsing.jl") # 8s
+include("schema/func_definition.jl") # 5s
+include("schema/func_documentation.jl") # 3s
+include("schema/spec_validation.jl") # 0s
+
+include("dsl.jl")
 include("macro.jl")
-include("fileio.jl")
 
-### TableTraits.jl integration
+include("rendering/render.jl")
+include("rendering/juno_integration.jl")
+include("rendering/io.jl")
+include("rendering/show.jl")
+include("rendering/fileio.jl")
 
-function vldata(d)
-    TableTraits.isiterabletable(d) || error("Only iterable tables can be passed to vldata.")
 
-    it = IteratorInterfaceExtensions.getiterator(d)
+function __init__()
 
-    recs = [Dict(c[1]=>isa(c[2], DataValues.DataValue) ? (isnull(c[2]) ? nothing : get(c[2])) : c[2] for c in zip(keys(r), values(r))) for r in it]
+    global mk, enc
 
-    VegaLite.VLSpec{:data}(Dict("values" => recs))
+    ### encoding family : enc.x.quantitative, ...
+
+    function mkfunc1(dim, typ)
+        if typ == :value
+            function (val, args...; kwargs...)
+                pars = todicttree(args...; value=val, kwargs...)
+                mkSpec(:vlencoding; [(dim, pars);]...)
+            end
+        else
+            function (field, args...; kwargs...)
+                pars = todicttree(args...; field=field, typ=typ, kwargs...)
+                mkSpec(:vlencoding; [(dim, pars);]...)
+            end
+        end
+    end
+
+    channels = Symbol.(collect(keys(refs["EncodingWithFacet"].props)))
+    chantyps = Symbol.(collect(union(refs["BasicType"].enum, refs["GeoType"].enum)))
+    push!(chantyps, :value)
+
+    typnt = NamedTuples.make_tuple( chantyps )
+
+    encs = []
+    for ch in channels
+        push!(encs, typnt( [ mkfunc1(ch, tp) for tp in chantyps ]... ) )
+    end
+    enc = NamedTuples.make_tuple( channels )( encs... )
+
+    #####  mark family : mk.line(), ...
+
+    function mkfunc2(typ)
+        function (args...; kwargs...)
+            mkSpec(:vlmark, args...; typ=typ, kwargs...)
+        end
+    end
+
+
+    # this fails at precompilation
+    marktyps = Symbol.(collect(refs["Mark"].enum))
+    marknt = NamedTuples.make_tuple( marktyps )
+
+    # => switch to explicit creation
+    # marktyps = Symbol[:tick, :bar, :square, :point, :line, :rect, :area, :circle, :rule, :text, :geoshape]
+    # marknt = @NT(tick, bar, square, point, line, rect, area, circle, rule, text, geoshape)
+    #
+    mk = marknt([ mkfunc2(typ) for typ in marktyps ]...)
+
 end
 
-|>(a, b::VLSpec) = vldata(a) |> b
+
+
 
 end

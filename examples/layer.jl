@@ -1,19 +1,18 @@
-using DataTables, VegaLite
+using VegaLite
 
 # Example 1 : interpolation mode comparisons
 
 df  = DataFrame(x=[0:5;], y=rand(6))
 
-encx = xquantitative(field=:x)
-ency = yquantitative(field=:y)
+encx = enc.x.quantitative(:x)
+ency = enc.y.quantitative(:y)
 
-df |>
-  plot(width=500) |>
-  layer(markline(interpolate="linear"),
-        encoding(encx, ency, vlcolor(value="green"))) |>
-  layer(markline(interpolate="basis"),
-        encoding(encx, ency, vlcolor(value="red"))) |>
-  layer(markpoint(), encoding(encx, ency, vlcolor(value="black")))
+plot(
+    data(df),
+    width=300, background=:white,
+    layer= [ (mk.line(interpolate="linear"), encx, ency, enc.color.value(:green) ),
+             (mk.line(interpolate="basis"),  encx, ency, enc.color.value(:red)   ),
+             (mk.point(),                    encx, ency, enc.color.value(:black)) ] )
 
 
 # Example 2 : closed shape w/ points
@@ -23,34 +22,39 @@ df = DataFrame(n = [1:nb;],
                x = r * (0.2 + rand(nb)) .* cos.(2π * linspace(0,1,nb)),
                y = r * (0.2 + rand(nb)) .* sin.(2π * linspace(0,1,nb)))
 
-encx = xquantitative(field=:x, vlscale(zero=false))
-ency = yquantitative(field=:y, vlscale(zero=false))
-encn = orderquantitative(field=:n)
+encx = enc.x.quantitative(:x, scale=@NT(zero=false))
+ency = enc.y.quantitative(:y, scale=@NT(zero=false))
+encn = enc.order.quantitative(:n)
+encgreen = enc.color.value(:green)
+encblack = enc.color.value(:black)
+enc50 = enc.size.value(50)
 
-df |>
-  layer(markpoint(),
-        encoding(encx, ency, vlcolor(value="black"), vlsize(value=50))) |>
-  layer(markline(interpolate="cardinal-closed"),
-        encoding(encx, ency, encn, vlcolor(value="green")))
-
+plot(
+    data(df),
+    width=300, background=:white,
+    layer= [ (mk.line(interpolate="cardinal-closed"), encx, ency, encn, encgreen ),
+             (mk.point(), encx, ency, encblack, enc50) ] )
 
 # Example 3 : error bars
 
 rooturl = "https://raw.githubusercontent.com/vega/new-editor/master/"
 durl = rooturl * "data/population.json"
 
-xchan = xordinal(field=:age, vlaxis(labelAngle=-45))
-ychan = yquantitative(field=:people)
+xchan = enc.x.ordinal(:age, axis=@NT(labelAngle=-45))
 
-tpop = vlaxis(title="population")
-ymin = yquantitative(aggregate=:min, field=:people, tpop)
-ymax = yquantitative(aggregate=:max, field=:people, tpop)
-y2max = y2quantitative(aggregate=:max, field=:people)
-ymean = yquantitative(aggregate=:mean, field=:people, tpop)
+ymin = enc.y.quantitative(:people, aggregate=:min, axis=@NT(title="population"))
+ymax = enc.y.quantitative(:people, aggregate=:max, axis=@NT(title="population"))
+y2max = enc.y2.quantitative(:people, aggregate=:max)
+ymean = enc.y.quantitative(:people, aggregate=:mean, axis=@NT(title="population"))
 
-VegaLite.data(url=durl) |>
-  transform(filter="datum.year==2000") |>
-  layer(marktick(),  encoding(xchan, ymin, vlsize(value=5))) |>
-  layer(marktick(),  encoding(xchan, ymax, vlsize(value=5))) |>
-  layer(markpoint(), encoding(xchan, ymean, vlsize(value=5))) |>
-  layer(markrule(),  encoding(xchan, ymin, y2max))
+size10 = enc.size.value(10)
+colblack = enc.color.value(:black)
+
+plot(
+    data(url=durl),
+    transform([@NT(filter="datum.year==2000")]),
+    layer((mk.tick(),  xchan, ymin,  size10, colblack),
+          (mk.tick(),  xchan, ymax,  size10,  colblack),
+          (mk.rule(),  xchan, ymin,  y2max,  colblack),
+          (mk.point(filled=true), xchan, ymean, enc.size.value(30)))
+    )
