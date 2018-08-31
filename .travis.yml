@@ -6,6 +6,7 @@ os:
 julia:
   - 0.7
   - 1.0
+  - nightly
 notifications:
   email: false
 branches:
@@ -13,18 +14,21 @@ branches:
   - master
   - /release-.*/
   - /v(\d+)\.(\d+)\.(\d+)/
+matrix:
+  allow_failures:
+  - julia: nightly  
 addons:
     apt:
         packages:
             - xvfb
             - xauth
             - libgtk-3-0
-script:
-  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - if [[ `uname` = "Linux" ]]; then TESTCMD="xvfb-run julia"; else TESTCMD="julia"; fi
-  - $TESTCMD --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("VegaLite"); Pkg.test("VegaLite"; coverage=true)'
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start            
 after_success:
   - julia -e 'cd(Pkg.dir("VegaLite")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
   - julia -e 'cd(Pkg.dir("VegaLite")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
   - julia -e 'Pkg.add("Documenter")'
-  - $TESTCMD -e 'cd(Pkg.dir("VegaLite")); include(joinpath("docs", "make.jl"))'
+  - julia -e 'cd(Pkg.dir("VegaLite")); include(joinpath("docs", "make.jl"))'
