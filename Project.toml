@@ -1,0 +1,31 @@
+name = "VegaLite"
+uuid = "112f6efa-9a02-5b7d-90c0-432ed331239a"
+author = ["fredo-dedup"]
+version = "0.5.3"
+
+[deps]
+BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
+Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
+DataValues = "e7dc6d0d-1eca-5fa6-8ad6-5aecde8b7ea5"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+FilePaths = "8fc22ac5-c921-52a6-82fd-178b2807b824"
+IterableTables = "1c8ee90f-4401-5389-894e-7a04a3dc0f4d"
+IteratorInterfaceExtensions = "82899510-4779-5014-852e-03e436cf321d"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+NodeJS = "2bd173c7-0d6d-553b-b6af-13a54713934c"
+REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Requires = "ae029012-a4dd-5104-9daa-d747884805df"
+Rsvg = "c4c386cf-5103-5370-be45-f3a111cca3b8"
+TableTraits = "3783bdb8-4a98-5b6b-af9a-565f29a5fe9c"
+URIParser = "30578b45-9adc-5946-b283-645ec420af67"
+
+[extras]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+VegaDatasets = "0ae4a718-28b7-58ec-9efb-cded64d6d5b4"
+
+[targets]
+test = ["DataFrames", "Test", "VegaDatasets"]
