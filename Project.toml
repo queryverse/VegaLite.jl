@@ -1,0 +1,46 @@
+name = "VegaLite"
+uuid = "112f6efa-9a02-5b7d-90c0-432ed331239a"
+
+[deps]
+Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
+DataValues = "e7dc6d0d-1eca-5fa6-8ad6-5aecde8b7ea5"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+FilePaths = "8fc22ac5-c921-52a6-82fd-178b2807b824"
+IterableTables = "1c8ee90f-4401-5389-894e-7a04a3dc0f4d"
+IteratorInterfaceExtensions = "82899510-4779-5014-852e-03e436cf321d"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+JSONSchema = "7d188eb4-7ad8-530c-ae41-71a32a6d4692"
+MacroTools = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+NodeJS = "2bd173c7-0d6d-553b-b6af-13a54713934c"
+REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Requires = "ae029012-a4dd-5104-9daa-d747884805df"
+Rsvg = "c4c386cf-5103-5370-be45-f3a111cca3b8"
+TableTraits = "3783bdb8-4a98-5b6b-af9a-565f29a5fe9c"
+URIParser = "30578b45-9adc-5946-b283-645ec420af67"
+
+[compat]
+Cairo = "≥ 0.5.6"
+DataValues = "≥ 0.4.4"
+FileIO = "≥ 1.0.1"
+FilePaths = "≥ 0.7.0"
+IterableTables = "≥ 0.8.3"
+IteratorInterfaceExtensions = "≥ 0.1.1"
+JSON = "≥ 0.19.0"
+MacroTools = "≥ 0.4.4"
+NodeJS = "≥ 0.5.1"
+Requires = "≥ 0.5.2"
+Rsvg = "≥ 0.2.2"
+TableTraits = "≥ 0.3.1"
+URIParser = "≥ 0.4.0"
+julia = "≥ 0.7.0"
+
+[extras]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+VegaDatasets = "0ae4a718-28b7-58ec-9efb-cded64d6d5b4"
+
+[targets]
+test = ["VegaDatasets", "Dates", "Test", "DataFrames"]
