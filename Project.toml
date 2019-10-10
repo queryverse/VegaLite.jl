@@ -17,6 +17,7 @@ REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Setfield = "efcf1570-3423-57d1-acb7-fd33fddbac46"
 TableTraits = "3783bdb8-4a98-5b6b-af9a-565f29a5fe9c"
+Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
 URIParser = "30578b45-9adc-5946-b283-645ec420af67"
 
 [compat]

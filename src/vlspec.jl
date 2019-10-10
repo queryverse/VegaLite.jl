@@ -42,11 +42,10 @@ function detect_encoding_type!(specdict, datait)
 end
 
 function (p::VLSpec{:plot})(data)
-    TableTraits.isiterabletable(data) || throw(ArgumentError("'data' is not a table."))
+    it = _getiterator(data)
 
     new_dict = copy(getparams(p))
 
-    it = IteratorInterfaceExtensions.getiterator(data)
     vl_set_spec_data!(new_dict, it)
     detect_encoding_type!(new_dict, it)
 

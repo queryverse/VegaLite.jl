@@ -17,13 +17,12 @@ function vg_set_spec_data!(specdict, datait, name)
 end
 
 function (p::VGSpec)(data, name::String)
-    TableTraits.isiterabletable(data) || throw(ArgumentError("'data' is not a table."))
+    it = _getiterator(data)
 
     new_dict = copy(getparams(p))
 
     @assert haskey(new_dict, "data") "Must have data array in specification"
 
-    it = IteratorInterfaceExtensions.getiterator(data)
     vg_set_spec_data!(new_dict, it, name)
     detect_encoding_type!(new_dict, it)
 

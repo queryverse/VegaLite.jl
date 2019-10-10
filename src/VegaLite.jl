@@ -3,6 +3,7 @@ module VegaLite
 using JSON, NodeJS # 6s
 import IteratorInterfaceExtensions # 1s
 import TableTraits # 0
+import Tables
 using FileIO # 17s !!!
 using DataValues  # 1s
 import MacroTools

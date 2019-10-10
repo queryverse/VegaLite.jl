@@ -44,3 +44,10 @@ end
 
 _maybeparams(value) = value
 _maybeparams(value::ObjectLike) = getparams(value)
+
+_getiterator(data) =
+    if TableTraits.isiterabletable(data)
+        IteratorInterfaceExtensions.getiterator(data)
+    else
+        Tables.rowtable(data)
+    end
