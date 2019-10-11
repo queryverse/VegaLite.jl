@@ -90,3 +90,32 @@ end
 Create a copy of `spec` without data.  See also [`deletedata!`](@ref).
 """
 deletedata(spec::VLSpec) = deletedata!(copy(spec))
+
+push_field!(fields, _) = fields
+push_field!(fields, xs::AbstractVector) = foldl(push_field!, xs; init=fields)
+function push_field!(fields, dict::AbstractDict)
+    f = get(dict, "field", nothing)
+    f !== nothing && push!(fields, string(f))
+    for v in values(dict)
+        push_field!(fields, v)
+    end
+    return fields
+end
+
+encoding_fields(spec::VLSpec) = encoding_fields(getparams(spec))
+function encoding_fields(specdict)
+    fields = Set{String}()
+    for (k, v) in specdict
+        k == "data" && continue
+        push_field!(fields, v)
+    end
+    return sort!(collect(fields))
+end
+
+function with_stripped_data(spec::VLSpec)
+    fields = encoding_fields(spec)
+    vals = get(get(getparams(spec), "data", Dict()), "values", nothing)
+    vals isa AbstractVector || return spec
+    vals = map(row -> Dict(f => get(row, f, nothing) for f in fields), vals)
+    return @set spec.data.values = vals
+end
