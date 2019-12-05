@@ -21,7 +21,7 @@ end
 
 function convert_vl_to_vg(v::VLSpec{:plot})
     vl2vg_script_path = joinpath(@__DIR__, "vl2vg.js")
-    data = JSON.json(getparams(v))
+    data = render_json(v)
     p = open(`$(nodejs_cmd()) $vl2vg_script_path`, "r+")
     writer = @async begin
         write(p, data)
@@ -39,7 +39,7 @@ end
 function convert_vl_to_x(v::VLSpec{:plot}, second_script)
     vl2vg_script_path = joinpath(@__DIR__, "vl2vg.js")
     full_second_script_path = joinpath(@__DIR__, "..", "..", "deps", "node_modules", "vega-cli", "bin", second_script)
-    data = JSON.json(getparams(v))
+    data = render_json(v)
     p = open(pipeline(`$(nodejs_cmd()) $vl2vg_script_path`, `$(nodejs_cmd()) $full_second_script_path`), "r+")
     writer = @async begin
         write(p, data)
@@ -75,7 +75,7 @@ Base.Multimedia.istextmime(::MIME{Symbol("application/vnd.vegalite.v3+json")}) =
 Base.Multimedia.istextmime(::MIME{Symbol("application/vnd.vega.v5+json")}) = true
 
 function Base.show(io::IO, m::MIME"application/vnd.vegalite.v3+json", v::VLSpec{:plot})
-     print(io, JSON.json(getparams(v)))
+    render_json(io, v)
 end
 
 function Base.show(io::IO, m::MIME"application/vnd.vega.v5+json", v::VGSpec)
