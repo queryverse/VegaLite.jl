@@ -26,7 +26,7 @@ function writehtml_full(io::IO, spec::VLSpec; title="VegaLite plot")
       <script>$(read(asset("vega-embed.min.js"), String))</script>
     </head>
     <body>
-      <div id="$divid" style="width:100%;height:100%;"></div>
+      <div style="resize:both;overflow:auto;width:50%;height:50%;" id="$divid"></div>
     </body>
 
     <style media="screen">
@@ -54,6 +54,18 @@ function writehtml_full(io::IO, spec::VLSpec; title="VegaLite plot")
   println(io, """
       vegaEmbed('#$divid', spec, opt);
 
+      if(ResizeObserver) {
+        const divContainer = document.querySelector('#$divid');
+        const resizeObserver = new ResizeObserver(entries => {
+          for (let entry of entries) {
+            if(entry.contentBoxSize || entry.contentRect ) {
+              window.dispatchEvent(new Event('resize'));
+            }
+          }
+        });
+        resizeObserver.observe(divContainer);
+      }
+  
     </script>
 
   </html>
@@ -73,7 +85,7 @@ function writehtml_full(io::IO, spec::VGSpec; title="Vega plot")
       <script>$(read(asset("vega-embed.min.js"), String))</script>
     </head>
     <body>
-      <div id="$divid" style="width:100%;height:100%;"></div>
+      <div style="resize:both;overflow:auto;width:50%;height:50%;" id="$divid"></div>
     </body>
 
     <style media="screen">
@@ -101,6 +113,18 @@ function writehtml_full(io::IO, spec::VGSpec; title="Vega plot")
   println(io, """
       vegaEmbed('#$divid', spec, opt);
 
+      if(ResizeObserver) {
+        const divContainer = document.querySelector('#$divid');
+        const resizeObserver = new ResizeObserver(entries => {
+          for (let entry of entries) {
+            if(entry.contentBoxSize || entry.contentRect ) {
+              window.dispatchEvent(new Event('resize'));
+            }
+          }
+        });
+        resizeObserver.observe(divContainer);
+      }
+  
     </script>
 
   </html>
@@ -141,7 +165,7 @@ function writehtml_partial(io::IO, spec::String; title="VegaLite plot")
   """
   <html>
     <body>
-      <div id="$divid" style="width:100%;height:100%;"></div>
+      <div style="resize:both;overflow:auto;width:50%;height:50%;" id="$divid"></div>
     </body>
 
     <style media="screen">
@@ -188,7 +212,19 @@ function writehtml_partial(io::IO, spec::String; title="VegaLite plot")
 
     })
 
-    </script>
+    if(ResizeObserver) {
+      const divContainer = document.querySelector('#$divid');
+      const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          if(entry.contentBoxSize || entry.contentRect ) {
+            window.dispatchEvent(new Event('resize'));
+          }
+        }
+      });
+      resizeObserver.observe(divContainer);
+    }
+
+  </script>
 
   </html>
   """)
