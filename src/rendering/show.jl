@@ -1,6 +1,6 @@
 function convert_vl_to_vg(v::VLSpec)
     vl2vg_script_path = joinpath(vegaliate_app_path, "vl2vg.js")
-    p = open(Cmd(`$(nodejs_cmd()) $vl2vg_script_path`, dir=vegaliate_app_path), "r+")
+    p = open(Cmd(`$(nodejs_cmd()) $vl2vg_script_path`, dir = vegaliate_app_path), "r+")
     writer = @async begin
         our_json_print(p, v)
         close(p.in)
@@ -8,7 +8,7 @@ function convert_vl_to_vg(v::VLSpec)
     reader = @async read(p, String)
     wait(p)
     res = fetch(reader)
-    if p.exitcode!=0
+    if p.exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
     return res
@@ -17,7 +17,7 @@ end
 function convert_vl_to_x(v::VLSpec, second_script)
     vl2vg_script_path = joinpath(vegaliate_app_path, "vl2vg.js")
     full_second_script_path = joinpath(vegaliate_app_path, "node_modules", "vega-cli", "bin", second_script)
-    p = open(pipeline(Cmd(`$(nodejs_cmd()) $vl2vg_script_path`, dir=vegaliate_app_path), Cmd(`$(nodejs_cmd()) $full_second_script_path -l error`, dir=vegaliate_app_path)), "r+")
+    p = open(pipeline(Cmd(`$(nodejs_cmd()) $vl2vg_script_path`, dir = vegaliate_app_path), Cmd(`$(nodejs_cmd()) $full_second_script_path -l error`, dir = vegaliate_app_path)), "r+")
     writer = @async begin
         our_json_print(p, v)
         close(p.in)
@@ -25,7 +25,7 @@ function convert_vl_to_x(v::VLSpec, second_script)
     reader = @async read(p, String)
     wait(p)
     res = fetch(reader)
-    if p.processes[1].exitcode!=0 || p.processes[2].exitcode!=0
+    if p.processes[1].exitcode != 0 || p.processes[2].exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
     return res
@@ -34,7 +34,7 @@ end
 function convert_vl_to_svg(v::VLSpec)
     vl2vg_script_path = joinpath(vegaliate_app_path, "vl2vg.js")
     vg2svg_script_path = joinpath(vegaliate_app_path, "vg2svg.js")
-    p = open(pipeline(Cmd(`$(nodejs_cmd()) $vl2vg_script_path`, dir=vegaliate_app_path), Cmd(`$(nodejs_cmd()) $vg2svg_script_path`, dir=vegaliate_app_path)), "r+")
+    p = open(pipeline(Cmd(`$(nodejs_cmd()) $vl2vg_script_path`, dir = vegaliate_app_path), Cmd(`$(nodejs_cmd()) $vg2svg_script_path`, dir = vegaliate_app_path)), "r+")
     writer = @async begin
         our_json_print(p, v)
         close(p.in)
@@ -42,7 +42,7 @@ function convert_vl_to_svg(v::VLSpec)
     reader = @async read(p, String)
     wait(p)
     res = fetch(reader)
-    if p.processes[1].exitcode!=0 || p.processes[2].exitcode!=0
+    if p.processes[1].exitcode != 0 || p.processes[2].exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
     return res

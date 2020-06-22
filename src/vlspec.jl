@@ -10,7 +10,7 @@ end
 
 # data is an object in vega lite
 function vl_set_spec_data!(specdict, datait)
-    recs = [OrderedDict{String,Any}(string(c[1])=>isa(c[2], DataValues.DataValue) ? (isna(c[2]) ? nothing : get(c[2])) : c[2] for c in zip(keys(r), values(r))) for r in datait]
+    recs = [OrderedDict{String,Any}(string(c[1]) => isa(c[2], DataValues.DataValue) ? (isna(c[2]) ? nothing : get(c[2])) : c[2] for c in zip(keys(r), values(r))) for r in datait]
     specdict["data"] = OrderedDict{String,Any}("values" => recs)
 end
 
@@ -31,21 +31,21 @@ function augment_encoding_type(x::AbstractDict, data::Vega.DataValuesNode)
         elseif jl_type <: Dates.AbstractTime
             new_x["type"] = "temporal"
         end
-        
+
         return new_x
     else
         return x
     end
 end
 
-function add_encoding_types(specdict, parentdata=nothing)
-    if (haskey(specdict, "data") && haskey(specdict["data"], "values") && specdict["data"]["values"] isa Vega.DataValuesNode) || parentdata!==nothing       
+function add_encoding_types(specdict, parentdata = nothing)
+    if (haskey(specdict, "data") && haskey(specdict["data"], "values") && specdict["data"]["values"] isa Vega.DataValuesNode) || parentdata !== nothing
         data = (haskey(specdict, "data") && haskey(specdict["data"], "values") && specdict["data"]["values"] isa Vega.DataValuesNode) ? specdict["data"]["values"] : parentdata
 
         newspec = OrderedDict{String,Any}(
-            (k=="encoding" && v isa AbstractDict) ? k=>OrderedDict{String,Any}(kk=>augment_encoding_type(vv, data) for (kk,vv) in v) : 
-                k=="spec" ? k=>add_encoding_types(v, data) :
-                k in ("layer", "concat", "vconcat", "hconcat") ? k=>[add_encoding_types(i, data) for i in v] : k=>v for (k,v) in specdict
+            (k == "encoding" && v isa AbstractDict) ? k => OrderedDict{String,Any}(kk => augment_encoding_type(vv, data) for (kk, vv) in v) :
+                k == "spec" ? k => add_encoding_types(v, data) :
+                k in ("layer", "concat", "vconcat", "hconcat") ? k => [add_encoding_types(i, data) for i in v] : k => v for (k, v) in specdict
         )
 
         return newspec
@@ -59,7 +59,7 @@ function our_json_print(io, spec::VLSpec)
 end
 
 function (p::VLSpec)(data)
-    TableTraits.isiterabletable(data) || throw(ArgumentError("'data' is not a table."))  
+    TableTraits.isiterabletable(data) || throw(ArgumentError("'data' is not a table."))
 
     it = IteratorInterfaceExtensions.getiterator(data)
 
@@ -119,7 +119,7 @@ function Base.:+(a::VLSpec, b::VLSpec)
     elseif haskey(Vega.getparams(b), "hconcat")
         new_spec["hconcat"] = deepcopy(Vega.getparams(b)["hconcat"])
     else
-        if !haskey(new_spec,"layer")
+        if !haskey(new_spec, "layer")
             new_spec["layer"] = []
         end
         push!(new_spec["layer"], deepcopy(Vega.getparams(b)))
@@ -138,10 +138,10 @@ function Base.hcat(A::VLSpec...)
 end
 
 function Base.vcat(A::VLSpec...)
-  spec = VLSpec(OrderedDict{String,Any}())
-  Vega.getparams(spec)["vconcat"] = []
-  for i in A
-      push!(Vega.getparams(spec)["vconcat"], deepcopy(Vega.getparams(i)))
-  end
-  return spec
+    spec = VLSpec(OrderedDict{String,Any}())
+    Vega.getparams(spec)["vconcat"] = []
+    for i in A
+        push!(Vega.getparams(spec)["vconcat"], deepcopy(Vega.getparams(i)))
+    end
+    return spec
 end

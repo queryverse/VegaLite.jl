@@ -9,7 +9,7 @@ include("testhelper_create_vg_plot.jl")
 
 @testset "VGSpec" begin
 
-@test vg"""{ "data": [ { "name": "test" } ] }"""(URI("http://www.foo.com/bar.json"), "test") == vg"""
+    @test vg"""{ "data": [ { "name": "test" } ] }"""(URI("http://www.foo.com/bar.json"), "test") == vg"""
     {
         "data": [{
             "name": "test",
@@ -18,8 +18,8 @@ include("testhelper_create_vg_plot.jl")
     }
     """
 
-if Sys.iswindows()
-    @test vg"""{ "data": [ { "name": "test" } ] }"""(Path("/julia/dev"), "test") == vg"""
+    if Sys.iswindows()
+        @test vg"""{ "data": [ { "name": "test" } ] }"""(Path("/julia/dev"), "test") == vg"""
         {
             "data": [{
                 "name": "test",
@@ -27,8 +27,8 @@ if Sys.iswindows()
             }]
         }
         """
-else
-    @test vg"""{ "data": [ { "name": "test" } ] }"""(Path("/julia/dev"), "test") == vg"""
+    else
+        @test vg"""{ "data": [ { "name": "test" } ] }"""(Path("/julia/dev"), "test") == vg"""
         {
             "data": [{
                 "name": "test",
@@ -36,21 +36,21 @@ else
             }]
         }
         """
-end
+    end
 
-df = DataFrame(a=[1.,2.], b=["A", "B"], c=[Date(2000), Date(2001)])
+    df = DataFrame(a = [1.,2.], b = ["A", "B"], c = [Date(2000), Date(2001)])
 
-p1 = getvgplot()
+    p1 = getvgplot()
 
-p2 = Vega.deletedata(p1)
-@test !haskey(Vega.getparams(p2)["data"][1], "values")
+    p2 = Vega.deletedata(p1)
+    @test !haskey(Vega.getparams(p2)["data"][1], "values")
 
-p3 = p2(df, "table")
+    p3 = p2(df, "table")
 
-@test Vega.getparams(p3)["data"][1]["values"][1]["b"] == "A"
+    @test Vega.getparams(p3)["data"][1]["values"][1]["b"] == "A"
 
-Vega.deletedata!(p1)
+    Vega.deletedata!(p1)
 
-@test p1 == p2
+    @test p1 == p2
 
 end
