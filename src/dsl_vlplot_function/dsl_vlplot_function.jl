@@ -7,6 +7,47 @@ function vlfrag(args...; kwargs...)
     return VLFrag(Any[args...], OrderedDict{String,Any}(string(k)=>convert_nt_to_dict(v, VLFrag) for (k,v) in kwargs))
 end
 
+convert_nt_to_dict(item, fragtype) = item
+
+function convert_nt_to_dict(item::NamedTuple, fragtype)
+    return fragtype(Any[], OrderedDict{String,Any}(string(k)=>convert_nt_to_dict(v, fragtype) for (k,v) in pairs(item)))
+end
+
+function convert_nt_to_dict(item::AbstractVegaFragment, fragtype)
+    return fragtype(item.positional, OrderedDict{String,Any}(string(k)=>convert_nt_to_dict(v, fragtype) for (k,v) in pairs(item.named)) )
+end
+
+function walk_dict(f, d::T, parent) where {T<:AbstractDict}
+    res = T()
+    for p in d
+        if p[2] isa Dict
+            new_p = f(p[1]=>walk_dict(f, p[2], p[1]), parent)
+
+            if new_p isa Vector
+                for i in new_p
+                    res[i[1]] = i[2]
+                end
+            elseif new_p isa Pair
+                res[new_p[1]] = new_p[2]
+            else
+                error("Invalid return type.")
+            end
+        else
+            new_p = f(p, parent)
+            if new_p isa Vector
+                for i in new_p
+                    res[i[1]] = i[2]
+                end
+            elseif new_p isa Pair
+                res[new_p[1]] = new_p[2]
+            else
+                error("Invalid return type.")
+            end
+        end
+    end
+    return res
+end
+
 fix_shortcut_level_mark(spec_frag) = spec_frag
 
 function fix_shortcut_level_mark(spec_frag::VLFrag)
