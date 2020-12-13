@@ -13,7 +13,7 @@ function convert_nt_to_dict(item::NamedTuple, fragtype)
     return fragtype(Any[], OrderedDict{String,Any}(string(k)=>convert_nt_to_dict(v, fragtype) for (k,v) in pairs(item)))
 end
 
-function convert_nt_to_dict(item::AbstractVegaFragment, fragtype)
+function convert_nt_to_dict(item::Vega.AbstractVegaFragment, fragtype)
     return fragtype(item.positional, OrderedDict{String,Any}(string(k)=>convert_nt_to_dict(v, fragtype) for (k,v) in pairs(item.named)) )
 end
 
