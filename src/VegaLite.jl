@@ -25,11 +25,11 @@ export load, save
 export deletedata, deletedata!
 
 const vegaliate_app_path = artifact"vegalite_app"
-const vegaliate_app_includes_canvas = ispath(joinpath(vegaliate_app_path, "node_modules", "canvas"))
+const vegaliate_app_includes_canvas =
+    ispath(joinpath(vegaliate_app_path, "node_modules", "canvas"))
 
-const vlschema = JSON.parsefile(
-    joinpath(vegaliate_app_path, "schemas", "vega-lite-schema.json")
-)
+const vlschema =
+    JSON.parsefile(joinpath(vegaliate_app_path, "schemas", "vega-lite-schema.json"))
 
 include("vlspec.jl")
 
