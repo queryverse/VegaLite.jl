@@ -6,13 +6,13 @@
 
 asset(url...) = normpath(joinpath(vegaliate_app_path, "minified", url...))
 
-#Vega Scaffold: https://github.com/vega/vega/wiki/Runtime
+# Vega Scaffold: https://github.com/vega/vega/wiki/Runtime
 
 """
 Creates standalone html file for showing the plot (typically in a browser tab).
 VegaLite js files are references to local copies.
 """
-function writehtml_full(io::IO, spec::VLSpec; title = "VegaLite plot")
+function writehtml_full(io::IO, spec::VLSpec; title="VegaLite plot")
     divid = "vg" * randstring(3)
 
     print(
@@ -65,11 +65,11 @@ function writehtml_full(io::IO, spec::VLSpec; title = "VegaLite plot")
     )
 end
 
-function writehtml_full(spec::VLSpec; title = "VegaLite plot")
+function writehtml_full(spec::VLSpec; title="VegaLite plot")
     tmppath = string(tempname(), ".vegalite.html")
 
     open(tmppath, "w") do io
-        writehtml_full(io, spec, title = title)
+        writehtml_full(io, spec, title=title)
     end
 
     tmppath
@@ -80,7 +80,7 @@ Creates a HTML script + div block for showing the plot (typically for IJulia).
 VegaLite js files are loaded from the web (to accommodate the security model of
 IJulia) using requirejs.
 """
-function writehtml_partial(io::IO, spec::String; title = "VegaLite plot")
+function writehtml_partial(io::IO, spec::String; title="VegaLite plot")
     divid = "vg" * randstring(3)
 
     println(

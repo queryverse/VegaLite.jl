@@ -1,4 +1,4 @@
-function Vega.printrepr(io::IO, v::VLSpec; indent = nothing, include_data = false)
+function Vega.printrepr(io::IO, v::VLSpec; indent=nothing, include_data=false)
     newlines = indent === nothing ? false : true
     indent = indent === nothing ? 0 : indent
 

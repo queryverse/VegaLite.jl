@@ -20,7 +20,7 @@ using VegaLite: Vega.getparams
     @test actionlinks() == false
 
     ###
-    ts = collect(range(0, stop = 2, length = 100))
+    ts = collect(range(0, stop=2, length=100))
     rs = Float64[rand() * 0.1 + cos(x) for x in ts]
     datvals = [Dict(:time => t, :res => r) for (t, r) in zip(ts, rs)]
 

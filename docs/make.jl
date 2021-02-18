@@ -12,39 +12,39 @@ function Base.show(io::IO, m::MIME"text/html", v::VegaLite.VLSpec)
 end
 
 makedocs(
-    modules = [VegaLite],
-    sitename = "VegaLite.jl",
-    pages = [
+    modules=[VegaLite],
+    sitename="VegaLite.jl",
+    pages=[
         "Home" => "index.md",
         "Getting Started" => Any[
-            "Installation"=>"gettingstarted/installation.md",
-            "Tutorial"=>"gettingstarted/tutorial.md",
+            "Installation" => "gettingstarted/installation.md",
+            "Tutorial" => "gettingstarted/tutorial.md",
         ],
         "User Guide" => Any[
-            "Vega-lite specifications"=>"userguide/vlspec.md",
-            "The @vlplot command"=>"userguide/vlplotmacro.md",
-            "Data sources"=>"userguide/data.md",
+            "Vega-lite specifications" => "userguide/vlspec.md",
+            "The @vlplot command" => "userguide/vlplotmacro.md",
+            "Data sources" => "userguide/data.md",
         ],
         "Examples" => Any[
-            "Single-View Plots"=>Any[
-                "Bar Charts"=>"examples/examples_barcharts.md",
-                "Histograms, Density Plots, and Dot Plots"=>"examples/examples_histograms.md",
-                "Scatter & Strip Plots"=>"examples/examples_scatter_strip_plots.md",
-                "Line Charts"=>"examples/examples_line_charts.md",
-                "Area Charts & Streamgraphs"=>"examples/examples_area_Charts_streamgraphs.md",
-                "Table-based Plots"=>"examples/examples_table_based_plots.md",
-                "Circular Plots"=>"examples/examples_circular_plots.md",
-                "Advanced Calculations"=>"examples/examples_advancedcalculations.md",
+            "Single-View Plots" => Any[
+                "Bar Charts" => "examples/examples_barcharts.md",
+                "Histograms, Density Plots, and Dot Plots" => "examples/examples_histograms.md",
+                "Scatter & Strip Plots" => "examples/examples_scatter_strip_plots.md",
+                "Line Charts" => "examples/examples_line_charts.md",
+                "Area Charts & Streamgraphs" => "examples/examples_area_Charts_streamgraphs.md",
+                "Table-based Plots" => "examples/examples_table_based_plots.md",
+                "Circular Plots" => "examples/examples_circular_plots.md",
+                "Advanced Calculations" => "examples/examples_advancedcalculations.md",
             ],
-            "Composite Mark"=>Any[
-                "Error Bars & Error Bands"=>"examples/examples_error_bars_bands.md",
-                "Box Plots"=>"examples/examples_box_plots.md",
+            "Composite Mark" => Any[
+                "Error Bars & Error Bands" => "examples/examples_error_bars_bands.md",
+                "Box Plots" => "examples/examples_box_plots.md",
             ],
-            "Multi-View Displays"=>Any[
-                "Faceting (Trellis Plot / Small Multiples)"=>"examples/examples_faceting.md",
-                "Repeat & Concatenation"=>"examples/examples_repeat_concatenation.md",
+            "Multi-View Displays" => Any[
+                "Faceting (Trellis Plot / Small Multiples)" => "examples/examples_faceting.md",
+                "Repeat & Concatenation" => "examples/examples_repeat_concatenation.md",
             ],
-            "Maps (Geographic Displays)"=>"examples/examples_maps.md",
+            "Maps (Geographic Displays)" => "examples/examples_maps.md",
         ],
         "Reference Manual" => [
             "Global settings" => "referencemanual/global.md",
@@ -53,4 +53,4 @@ makedocs(
     ],
 )
 
-deploydocs(repo = "github.com/queryverse/VegaLite.jl.git")
+deploydocs(repo="github.com/queryverse/VegaLite.jl.git")

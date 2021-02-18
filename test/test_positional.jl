@@ -1,6 +1,6 @@
 @testset "Positional shortcuts" begin
 
-    df = DataFrame(a = [1, 2, 3], b = [4, 5, 6])
+    df = DataFrame(a=[1, 2, 3], b=[4, 5, 6])
 
     @test @vlplot(:point, [1, 2, 3]) == @vlplot(:point, x = [1, 2, 3])
     @test @vlplot(:point, {[1, 2, 3]}) == @vlplot(:point, x = [1, 2, 3])

@@ -46,7 +46,7 @@ function augment_encoding_type(x::AbstractDict, data::Vega.DataValuesNode)
     end
 end
 
-function add_encoding_types(specdict, parentdata = nothing)
+function add_encoding_types(specdict, parentdata=nothing)
     if (
         haskey(specdict, "data") &&
         haskey(specdict["data"], "values") &&
@@ -66,8 +66,7 @@ function add_encoding_types(specdict, parentdata = nothing)
             ) :
             k == "spec" ? k => add_encoding_types(v, data) :
             k in ("layer", "concat", "vconcat", "hconcat") ?
-            k => [add_encoding_types(i, data) for i in v] : k => v for
-            (k, v) in specdict
+            k => [add_encoding_types(i, data) for i in v] : k => v for (k, v) in specdict
         )
 
         return newspec

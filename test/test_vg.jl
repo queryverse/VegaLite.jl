@@ -43,7 +43,7 @@ include("testhelper_create_vg_plot.jl")
 """
     end
 
-    df = DataFrame(a = [1.0, 2.0], b = ["A", "B"], c = [Date(2000), Date(2001)])
+    df = DataFrame(a=[1.0, 2.0], b=["A", "B"], c=[Date(2000), Date(2001)])
 
     p1 = getvgplot()
 

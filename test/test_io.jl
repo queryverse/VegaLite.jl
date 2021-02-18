@@ -7,7 +7,7 @@ using FileIO
 
 @testset "io" begin
 
-    p = DataFrame(x = [1, 2, 3], y = [1, 2, 3]) |> @vlplot(:point, x = "x:q", y = "y:q")
+    p = DataFrame(x=[1, 2, 3], y=[1, 2, 3]) |> @vlplot(:point, x = "x:q", y = "y:q")
     vgp = getvgplot()
     vlp = getvlplot()
 
@@ -16,19 +16,19 @@ using FileIO
 ],
         indent in [nothing, 4]
 
-        let json = sprint(io -> save(Stream(fmt, io), plt, indent = indent)),
+        let json = sprint(io -> save(Stream(fmt, io), plt, indent=indent)),
             code = "vg\"\"\"$json\"\"\""
 
             @test Vega.getparams(include_string(@__MODULE__, code)) == Vega.getparams(plt)
         end
 
         let io = IOBuffer()
-            save(Stream(fmt, io), plt, indent = indent)
+            save(Stream(fmt, io), plt, indent=indent)
             seek(io, 0)
             @test Vega.getparams(load(Stream(fmt, io))) == Vega.getparams(plt)
         end
 
-        let code = repr("text/plain", plt, context = :compact => false)
+        let code = repr("text/plain", plt, context=:compact => false)
             @test Vega.getparams(include_string(@__MODULE__, code)) == Vega.getparams(plt)
         end
     end
@@ -98,7 +98,7 @@ using FileIO
 
         vgpl1 = getvgplot()
 
-        Vega.savespec(joinpath(folder, "test1.vega"), vgpl1, include_data = true)
+        Vega.savespec(joinpath(folder, "test1.vega"), vgpl1, include_data=true)
 
         vgpl2 = VegaLite.Vega.loadvgspec(joinpath(folder, "test1.vega"))
 

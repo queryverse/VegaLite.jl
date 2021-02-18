@@ -71,7 +71,7 @@ function eps(filename::AbstractString, v::VLSpec)
     savefig(filename, "application/eps", v)
 end
 
-function Vega.savespec(io::IO, v::VLSpec; include_data = false, indent = nothing)
+function Vega.savespec(io::IO, v::VLSpec; include_data=false, indent=nothing)
     output_dict = copy(Vega.getparams(v))
     if !include_data
         delete!(output_dict, "data")

@@ -203,8 +203,7 @@ function fix_shortcut_level_spec(spec_frag::VLFrag)
                 spec["encoding"] = VLFrag(
                     [],
                     OrderedDict{String,Any}(
-                        k => fix_shortcut_level_encoding(k, v, inline_unnamed_data) for
-                        (k, v) in spec["encoding"].named
+                        k => fix_shortcut_level_encoding(k, v, inline_unnamed_data) for (k, v) in spec["encoding"].named
                     ),
                 )
             end
@@ -212,8 +211,7 @@ function fix_shortcut_level_spec(spec_frag::VLFrag)
             spec["encoding"] = VLFrag(
                 [],
                 OrderedDict{String,Any}(
-                    k => fix_shortcut_level_encoding(k, v, inline_unnamed_data) for
-                    (k, v) in spec["encoding"]
+                    k => fix_shortcut_level_encoding(k, v, inline_unnamed_data) for (k, v) in spec["encoding"]
                 ),
             )
         end

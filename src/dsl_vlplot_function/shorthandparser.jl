@@ -49,12 +49,10 @@ function decode_func(s::AbstractString)
     if s in vlschema["definitions"]["AggregateOp"]["enum"]
         return "aggregate" => s
     end
-    for key in (
-        "LocalMultiTimeUnit",
+    for key in ("LocalMultiTimeUnit",
         "LocalSingleTimeUnit",
         "UtcMultiTimeUnit",
-        "UtcSingleTimeUnit",
-    )
+        "UtcSingleTimeUnit",)
         if s in vlschema["definitions"][key]["enum"]
             return "timeUnit" => s
         end

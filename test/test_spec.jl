@@ -17,7 +17,7 @@ using VegaDatasets
 
     @test_throws ArgumentError @vlplot()(5)
 
-    df = DataFrame(a = [1.0, 2.0], b = ["A", "B"], c = [Date(2000), Date(2001)])
+    df = DataFrame(a=[1.0, 2.0], b=["A", "B"], c=[Date(2000), Date(2001)])
 
     p1 = (df |> @vlplot("line", x = :c, y = :a, color = :b))
     p2 = vl"""
@@ -46,7 +46,7 @@ using VegaDatasets
     @test p1 == p2
 
     p3 =
-        DataFrame(a = [1, 2, missing], b = [3.0, 2.0, 1.0]) |>
+        DataFrame(a=[1, 2, missing], b=[3.0, 2.0, 1.0]) |>
         @vlplot(:point, x = :a, y = :b)
 
     p4 = vl"""

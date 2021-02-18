@@ -28,8 +28,8 @@ using Test
     @test (URI("http://foo.com/bar.json") |> @vlplot(:point)) ==
           @vlplot(:point, data = {url = URI("http://foo.com/bar.json")})
 
-    @test (DataFrame(a = [1]) |> @vlplot(:point)) ==
-          @vlplot(:point, data = DataFrame(a = [1]))
+    @test (DataFrame(a=[1]) |> @vlplot(:point)) ==
+          @vlplot(:point, data = DataFrame(a=[1]))
 
     @test Vega.getparams(
         @vlplot(
@@ -130,8 +130,8 @@ using Test
           @vlplot(description = "foo", vconcat = [{mark = :point}, {mark = :circle}])
 
     @test (
-        @vlplot(:point, x = :a)(DataFrame(a = [1])) ==
-        @vlplot(:point, data = DataFrame(a = [1]), x = :a)
+        @vlplot(:point, x = :a)(DataFrame(a=[1])) ==
+        @vlplot(:point, data = DataFrame(a=[1]), x = :a)
     )
 
     @test @vlplot("point", wrap = :x) == vl"""

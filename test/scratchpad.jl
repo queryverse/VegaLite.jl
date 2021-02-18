@@ -17,19 +17,19 @@ rooturl = "https://raw.githubusercontent.com/vega/new-editor/master/data/"
 dataurl = rooturl * "data/cars.json"
 
 plot(
-    rep(row = ["Horsepower", "Acceleration"], column = ["Horsepower", "Miles_per_Gallon"]),
+    rep(row=["Horsepower", "Acceleration"], column=["Horsepower", "Miles_per_Gallon"]),
     spec(
-        data(url = durl),
+        data(url=durl),
         mk.point(),
         selection(
-            brush = @NT(
+            brush=@NT(
                 typ = "interval",
                 resolve = "union",
                 encodings = ["x"],
                 on = "[mousedown[event.shiftKey], mouseup] > mousemove",
                 translate = "[mousedown[event.shiftKey], mouseup] > mousemove"
             ),
-            grid = @NT(
+            grid=@NT(
                 typ = "interval",
                 resolve = "global",
                 bind = "scales",
@@ -38,6 +38,6 @@ plot(
         ),
         enc.x.quantitative(@NT(repeat = :row)),
         enc.y.quantitative(@NT(repeat = :column)),
-        enc.color.nominal(:Origin, condition = @NT(selection = "!brush", value = :grey)),
+        enc.color.nominal(:Origin, condition=@NT(selection = "!brush", value = :grey)),
     ),
 ) |> display

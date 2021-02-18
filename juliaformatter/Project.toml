@@ -1,2 +1,4 @@
 [deps]
+DocumentFormat = "ffa9a821-9c82-50df-894e-fbcef3ed31cd"
+FilePaths = "8fc22ac5-c921-52a6-82fd-178b2807b824"
 JuliaFormatter = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
