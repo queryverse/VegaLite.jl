@@ -1,6 +1,7 @@
 using Test
 using VegaLite
 using VegaLite: Vega.getparams
+using VegaDatasets
 using DataFrames
 using Dates
 using FileIO
