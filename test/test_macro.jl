@@ -1,5 +1,5 @@
 using VegaLite
-using VegaLite: Vega.getparams
+using VegaLite:Vega.getparams
 using JSON
 using Test
 

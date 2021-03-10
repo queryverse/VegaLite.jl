@@ -8,7 +8,7 @@ function convert_vl_to_vg(v::VLSpec)
     reader = @async read(p, String)
     wait(p)
     res = fetch(reader)
-    if p.exitcode!=0
+    if p.exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
     return res
@@ -25,7 +25,7 @@ function convert_vl_to_x(v::VLSpec, second_script)
     reader = @async read(p, String)
     wait(p)
     res = fetch(reader)
-    if p.processes[1].exitcode!=0 || p.processes[2].exitcode!=0
+    if p.processes[1].exitcode != 0 || p.processes[2].exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
     return res
@@ -42,7 +42,7 @@ function convert_vl_to_svg(v::VLSpec)
     reader = @async read(p, String)
     wait(p)
     res = fetch(reader)
-    if p.processes[1].exitcode!=0 || p.processes[2].exitcode!=0
+    if p.processes[1].exitcode != 0 || p.processes[2].exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
     return res

@@ -19,7 +19,7 @@ using VegaDatasets
 
 df = DataFrame(a=[1.,2.], b=["A", "B"], c=[Date(2000), Date(2001)])
 
-p1 = (df |> @vlplot("line", x=:c, y=:a, color=:b))
+p1 = (df |> @vlplot("line", x = :c, y = :a, color = :b))
 p2 = vl"""
 {
   "encoding": {
@@ -45,7 +45,7 @@ Vega.deletedata!(p1)
 
 @test p1 == p2
 
-p3 = DataFrame(a=[1,2,missing], b=[3.,2.,1.]) |> @vlplot(:point, x=:a, y=:b)
+p3 = DataFrame(a=[1,2,missing], b=[3.,2.,1.]) |> @vlplot(:point, x = :a, y = :b)
 
 p4 = vl"""
 {
@@ -81,8 +81,8 @@ p4 = vl"""
 
 # @test p3 == p4
 
-p5 = dataset("cars").path |> @vlplot(:point, x=:Miles_per_Gallon, y=:Acceleration)
+p5 = dataset("cars").path |> @vlplot(:point, x = :Miles_per_Gallon, y = :Acceleration)
 
-@test haskey(Vega.getparams(p5)["data"],"url")
+@test haskey(Vega.getparams(p5)["data"], "url")
 
 end

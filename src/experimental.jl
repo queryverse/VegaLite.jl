@@ -8,7 +8,7 @@ function interactive()
         Vega.getparams(i)["selection"]["selector001"]["on"] = "[mousedown, window:mouseup] > window:mousemove!"
         Vega.getparams(i)["selection"]["selector001"]["translate"] = "[mousedown, window:mouseup] > window:mousemove!"
         Vega.getparams(i)["selection"]["selector001"]["zoom"] = "wheel!"
-        Vega.getparams(i)["selection"]["selector001"]["mark"] = OrderedDict("fill"=>"#333", "fillOpacity"=>0.125, "stroke"=>"white")
+        Vega.getparams(i)["selection"]["selector001"]["mark"] = OrderedDict("fill" => "#333", "fillOpacity" => 0.125, "stroke" => "white")
         Vega.getparams(i)["selection"]["selector001"]["resolve"] = "global"
         return i
     end

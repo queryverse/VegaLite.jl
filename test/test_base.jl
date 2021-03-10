@@ -1,12 +1,12 @@
 using Test
 using VegaLite
-using VegaLite: Vega.getparams
+using VegaLite:Vega.getparams
 
 @testset "base" begin
 
 equiv(a::VegaLite.VLSpec, b::VegaLite.VLSpec) = false
 equiv(a::VegaLite.VLSpec, b::VegaLite.VLSpec) =
-  ==(Vega.getparams(a),Vega.getparams(b))
+  ==(Vega.getparams(a), Vega.getparams(b))
 
 ###
 @test isa(renderer(), Symbol)
@@ -21,9 +21,9 @@ actionlinks(false)
 @test actionlinks() == false
 
 ###
-ts = collect(range(0,stop=2,length=100))
-rs = Float64[ rand()*0.1 + cos(x) for x in ts]
-datvals = [ Dict(:time => t, :res => r) for (t,r) in zip(ts, rs) ]
+ts = collect(range(0, stop=2, length=100))
+rs = Float64[ rand() * 0.1 + cos(x) for x in ts]
+datvals = [ Dict(:time => t, :res => r) for (t, r) in zip(ts, rs) ]
 
 # @test isa(vlconfig(background="green"), VegaLite.VLSpec{:config})
 # @test isa(markline(), VegaLite.VLSpec{:mark})
