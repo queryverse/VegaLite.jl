@@ -33,7 +33,7 @@ vlp = getvlplot()
     end
 end
 
-@testset "pipe to save"
+@testset "pipe to save" begin
     # taken directly from VegaLite.jl readme
     plt = dataset("cars") |> @vlplot(:point, x=:Horsepower,y=:Miles_per_Gallon,color=:Origin,width=400,height=400)
     @test isnothing(plt |> save("testplot.png")) == true
