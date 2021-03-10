@@ -67,6 +67,9 @@ Base.Filesystem.mktempdir() do folder
     save(joinpath(folder,"test3.png"), p)
     @test isfile(joinpath(folder,"test3.png"))
 
+    p |> save("test3_1.png")
+    @test_broken isfile(joinpath(folder,"test3_1.png"))        
+        
     # save(joinpath(folder,"test2.eps"), p)
     # @test isfile(joinpath(folder,"test2.eps"))
 
