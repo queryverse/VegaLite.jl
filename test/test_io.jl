@@ -33,6 +33,13 @@ vlp = getvlplot()
     end
 end
 
+@testset "pipe to save"
+    # taken directly from VegaLite.jl readme
+    plt = dataset("cars") |> @vlplot(:point, x=:Horsepower,y=:Miles_per_Gallon,color=:Origin,width=400,height=400)
+    @test isnothing(plt |> save("testplot.png")) == true
+    @test isnothing(save("testplot.png", plt)) == true
+end
+
 Base.Filesystem.mktempdir() do folder
     VegaLite.svg(joinpath(folder,"test1.svg"), p)
     @test isfile(joinpath(folder,"test1.svg"))
