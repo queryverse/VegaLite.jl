@@ -88,6 +88,6 @@ p5 = dataset("cars").path |> @vlplot(:point, x = :Miles_per_Gallon, y = :Acceler
 end
 
 @testset "Array tooltip data" begin
-  p10 = @vlplot(:point,x=:Horsepower,y=:Miles_per_Gallon,tooltip=[:Horsepower,"Miles_per_Gallon:q"])
-  @test isa(p10, VegaLite.VLSpec)
+  p10 = dataset("cars")|> @vlplot(:point,x=:Horsepower,y=:Miles_per_Gallon,tooltip=[:Horsepower,"Miles_per_Gallon:q"])
+  @test isa(p10.encoding.tooltip, Vector)
 end
