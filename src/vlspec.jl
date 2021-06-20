@@ -38,10 +38,8 @@ function augment_encoding_type(x::AbstractDict, data::Vega.DataValuesNode)
     end
 end
 
-function augment_encoding_type(x::Array, data::Vega.DataValuesNode)
-    println(x)
+function augment_encoding_type(x::AbstractArray, data::Vega.DataValuesNode)
     x = [augment_encoding_type(k,data) for k in x]
-    println(x)
     return x
 end
 
