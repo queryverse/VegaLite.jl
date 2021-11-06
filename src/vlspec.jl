@@ -140,6 +140,8 @@ struct Concat <: MultiView  spec::VLSpec end
 struct HConcat <: MultiView  spec::VLSpec end
 struct VConcat <: MultiView  spec::VLSpec end
 
+const ConcatSpecs = Union{Concat, HConcat, VConcat}
+
 function VLSpecTyped(spec::VLSpec)
     specdict = Vega.getparams(spec)
     haskey(specdict, "layer") && return Layer(spec)
@@ -153,9 +155,19 @@ end
 
 Layer(spec::SingleView) = Layer(VLSpec(OrderedDict{String,Any}("layer" => [deepcopy(Vega.getparams(spec.spec))])))
 
+"""
+    spec1::VLSpec + spec2::VLSpec
+
+The addition of two `VLSpec` produces a new `VLSpec` with both specs layered. The order matters
+as `spec1` will appear below `spec2`.
+If the specs contain common data, it will be promoted to the top level specification.
+Layering layered specification will append the layers instead of creating a nested layer, so
+for example [l1, l2] + [l3, l4] will become [l1, l2, l3, l4] instead of [[l1, l2], [l3, l4]].
+Multi-view specs (facet, repeat, concat) cannot be layered.
+"""
 Base.:+(a::VLSpec, b::VLSpec) = Base.:+(VLSpecTyped(a), VLSpecTyped(b))
-Base.:+(a::VLSpecTyped, b::MultiView) = b + a
 Base.:+(a::MultiView, b::VLSpecTyped) = error("Multi-view spec $(typeof(a)) can not be layered")
+Base.:+(a::VLSpecTyped, b::MultiView) = error("Multi-view spec $(typeof(b)) can not be layered")
 Base.:+(a::MultiView, b::MultiView) = error("Multi-view spec $(typeof(a)) can not be layered")
 Base.:+(a::VLSpecTyped, b::VLSpecTyped) = error("Layering not implemented for $(typeof(a)) + $(typeof(b))")
 function Base.:+(a::Layer, b::Layer)
@@ -167,6 +179,51 @@ end
 Base.:+(a::SingleView, b::SingleView) = Layer(a) + Layer(b)
 Base.:+(a::SingleView, b::Layer) = Layer(a) + b
 Base.:+(a::Layer, b::SingleView) = a + Layer(b)
+
+"""
+    spec1::VLSpec * spec2::VLSpec
+
+Multiplicating two `VLSpec` creates a new `VLSpec` as a composition of the two specifications.
+Properties defined in `spec2` have precedence over `spec1`, meaning that if a given property
+is specified in both then the result specification will use the property from `spec2`.
+
+# Examples
+some examples
+"""
+Base.:*(a::VLSpec, b::VLSpec) = Base.:*(VLSpecTyped(a), VLSpecTyped(b))
+Base.:*(a::MultiView, b::MultiView) = error("Two multi-view specs ($(typeof(a)), $(typeof(b))) can not be composed")
+Base.:*(a::VLSpecTyped, b::MultiView) = b * Vega.deletedata(a)
+function Base.:*(a::MultiView, b::VLSpecTyped)
+        a_spec = deepcopy(Vega.getparams(a.spec))
+    b_spec = deepcopy(Vega.getparams(b.spec))
+    if haskey(b_spec, "data")
+        a_spec["data"] = b_spec["data"]
+        delete!(b_spec, "data")
+    end
+    if haskey(a_spec, "spec")
+        b_spec = _compose!(a_spec["spec"], b_spec)
+    end
+    a_spec["spec"] = b_spec
+    return VLSpec(a_spec)
+end
+Base.:*(a::ConcatSpecs, b::VLSpecTyped) = _compose(a, b) # FIXME: do something smarter
+Base.:*(a::VLSpecTyped, b::VLSpecTyped) = _compose(a, b)
+
+function _compose(a::VLSpec, b::VLSpec)
+    a_spec = deepcopy(Vega.getparams(a.spec))
+    b_spec = deepcopy(Vega.getparams(b.spec))
+    return VLSpec(_compose!(a_spec, b_spec))
+end
+function _compose!(a::OrderedDict, b::OrderedDict)
+    for (k, v) in b
+        if haskey(a, k) && a[k] isa OrderedDict && b[k] isa OrderedDict
+            _compose!(a[k], b[k])
+        else
+            a[k] = b[k]
+        end
+    end
+    return a
+end
 
 function Base.hcat(A::VLSpec...)
     spec = VLSpec(OrderedDict{String,Any}())
@@ -185,6 +242,3 @@ function Base.vcat(A::VLSpec...)
     end
     return promote_data_to_toplevel(spec, "vconcat")
 end
-
-#function Base.hvcat(ncols, A::VLSpec...)
-#end
