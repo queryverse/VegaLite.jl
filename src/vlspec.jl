@@ -110,6 +110,25 @@ Create a copy of `spec` without data.  See also [`Vega.deletedata!`](@ref).
 """
 Vega.deletedata(spec::VLSpec) = Vega.deletedata!(copy(spec))
 
+"""
+Remove potentially duplicated data in composed subspecs and promote it to the top level spec
+"""
+function promote_data_to_toplevel(spec::VLSpec, key)
+    specdict = deepcopy(Vega.getparams(spec))
+    (key in ("layer", "concat", "vconcat", "hconcat") && haskey(specdict, key)) || return specdict
+    parentdata = get(specdict, "data", nothing)
+    for subspec in specdict[key]
+        haskey(subspec, "data") || continue
+        data = subspec["data"]
+        if isnothing(parentdata)
+            parentdata = data
+            specdict["data"] = parentdata
+        end
+        parentdata == data && delete!(subspec, "data")
+    end
+    return VLSpec(specdict)
+end
+
 abstract type VLSpecTyped end
 struct SingleView <: VLSpecTyped spec::VLSpec end
 abstract type ComposedView <: VLSpecTyped end
@@ -132,44 +151,28 @@ function VLSpecTyped(spec::VLSpec)
     return SingleView(spec)
 end
 
-_check_layerable(spec::VLSpec) = _check_layerable(VLSpecTyped(spec))
-_check_layerable(mv::MultiView) = error("Multi-view spec $(typeof(mv)) can not be layered")
-_check_layerable(::VLSpecTyped) = true
+Layer(spec::SingleView) = Layer(VLSpec(OrderedDict{String,Any}("layer" => [deepcopy(Vega.getparams(spec.spec))])))
 
-"""
-Remove potentially duplicated data in composed subspecs and promote it to the top level spec
-"""
-function promote_data_to_toplevel(spec::VLSpec, key)
-    specdict = deepcopy(Vega.getparams(spec))
-    (key in ("layer", "concat", "vconcat", "hconcat") && haskey(specdict, key)) || return specdict
-    parentdata = get(specdict, "data", nothing)
-    for subspec in specdict[key]
-        haskey(subspec, "data") || continue
-        data = subspec["data"]
-        if isnothing(parentdata)
-            parentdata = data
-            specdict["data"] = parentdata
-        end
-        parentdata == data && delete!(subspec, "data")
-    end
-    return VLSpec(specdict)
-end
-
-function Base.:+(a::VLSpec, b::VLSpec)
-    _check_layerable(a)
-    _check_layerable(b)
-
-    a_spec = deepcopy(Vega.getparams(a))
-    b_spec = deepcopy(Vega.getparams(b))
+Base.:+(a::VLSpec, b::VLSpec) = Base.:+(VLSpecTyped(a), VLSpecTyped(b))
+Base.:+(a::VLSpecTyped, b::MultiView) = b + a
+Base.:+(a::MultiView, b::VLSpecTyped) = error("Multi-view spec $(typeof(a)) can not be layered")
+Base.:+(a::MultiView, b::MultiView) = error("Multi-view spec $(typeof(a)) can not be layered")
+Base.:+(a::VLSpecTyped, b::VLSpecTyped) = error("Layering not implemented for $(typeof(a)) + $(typeof(b))")
+function Base.:+(a::SingleView, b::SingleView)
+    a_spec = deepcopy(Vega.getparams(a.spec))
+    b_spec = deepcopy(Vega.getparams(b.spec))
     new_spec = OrderedDict{String,Any}()
-
     new_spec["layer"] = [a_spec, b_spec]
-
-    # TODO:
-    # - if the specs are layered themself, append layers instead
-
     return promote_data_to_toplevel(VLSpec(new_spec), "layer")
 end
+function Base.:+(a::Layer, b::Layer)
+    a_spec = deepcopy(Vega.getparams(a.spec))
+    b_spec = deepcopy(Vega.getparams(b.spec))
+    append!(a_spec["layer"], b_spec["layer"])
+    return promote_data_to_toplevel(VLSpec(a_spec), "layer")
+end
+Base.:+(a::SingleView, b::Layer) = Layer(a) + b
+Base.:+(a::Layer, b::SingleView) = a + Layer(b)
 
 function Base.hcat(A::VLSpec...)
     spec = VLSpec(OrderedDict{String,Any}())
