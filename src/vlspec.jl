@@ -158,19 +158,13 @@ Base.:+(a::VLSpecTyped, b::MultiView) = b + a
 Base.:+(a::MultiView, b::VLSpecTyped) = error("Multi-view spec $(typeof(a)) can not be layered")
 Base.:+(a::MultiView, b::MultiView) = error("Multi-view spec $(typeof(a)) can not be layered")
 Base.:+(a::VLSpecTyped, b::VLSpecTyped) = error("Layering not implemented for $(typeof(a)) + $(typeof(b))")
-function Base.:+(a::SingleView, b::SingleView)
-    a_spec = deepcopy(Vega.getparams(a.spec))
-    b_spec = deepcopy(Vega.getparams(b.spec))
-    new_spec = OrderedDict{String,Any}()
-    new_spec["layer"] = [a_spec, b_spec]
-    return promote_data_to_toplevel(VLSpec(new_spec), "layer")
-end
 function Base.:+(a::Layer, b::Layer)
     a_spec = deepcopy(Vega.getparams(a.spec))
     b_spec = deepcopy(Vega.getparams(b.spec))
     append!(a_spec["layer"], b_spec["layer"])
     return promote_data_to_toplevel(VLSpec(a_spec), "layer")
 end
+Base.:+(a::SingleView, b::SingleView) = Layer(a) + Layer(b)
 Base.:+(a::SingleView, b::Layer) = Layer(a) + b
 Base.:+(a::Layer, b::SingleView) = a + Layer(b)
 
