@@ -55,7 +55,7 @@ function add_encoding_types(specdict, parentdata=nothing)
 end
 
 function our_json_print(io, spec::VLSpec)
-    JSON.print(io, add_encoding_types(Vega.getparams(spec)))
+    JSON.print(io, add_encoding_types(Vega.getparams(promote_data_to_toplevel(spec))))
 end
 
 function (p::VLSpec)(data)
@@ -110,26 +110,8 @@ Create a copy of `spec` without data.  See also [`Vega.deletedata!`](@ref).
 """
 Vega.deletedata(spec::VLSpec) = Vega.deletedata!(copy(spec))
 
-"""
-Remove potentially duplicated data in composed subspecs and promote it to the top level spec
-"""
-function promote_data_to_toplevel(spec::VLSpec, key)
-    specdict = deepcopy(Vega.getparams(spec))
-    (key in ("layer", "concat", "vconcat", "hconcat") && haskey(specdict, key)) || return specdict
-    parentdata = get(specdict, "data", nothing)
-    for subspec in specdict[key]
-        haskey(subspec, "data") || continue
-        data = subspec["data"]
-        if isnothing(parentdata)
-            parentdata = data
-            specdict["data"] = parentdata
-        end
-        parentdata == data && delete!(subspec, "data")
-    end
-    return VLSpec(specdict)
-end
-
 abstract type VLSpecTyped end
+struct PropertySpec <: VLSpecTyped spec::VLSpec end
 struct SingleView <: VLSpecTyped spec::VLSpec end
 abstract type ComposedView <: VLSpecTyped end
 struct Layer <: ComposedView  spec::VLSpec end
@@ -141,6 +123,11 @@ struct HConcat <: MultiView  spec::VLSpec end
 struct VConcat <: MultiView  spec::VLSpec end
 
 const ConcatSpecs = Union{Concat, HConcat, VConcat}
+const FacetOrRepeat = Union{Facet, Repeat}
+const SingleOrLayeredView = Union{SingleView, Layer}
+
+_key(::FacetOrRepeat) = "spec"
+_key(::T) where T<:ComposedView = split(lowercase(string(T)), ".")[end]
 
 function VLSpecTyped(spec::VLSpec)
     specdict = Vega.getparams(spec)
@@ -150,7 +137,8 @@ function VLSpecTyped(spec::VLSpec)
     haskey(specdict, "concat") &&  return Concat(spec)
     haskey(specdict, "hconcat") &&  return HConcat(spec)
     haskey(specdict, "vconcat") &&  return VConcat(spec)
-    return SingleView(spec)
+    haskey(specdict, "mark") &&  return SingleView(spec)
+    return PropertySpec(spec)
 end
 
 Layer(spec::SingleView) = Layer(VLSpec(OrderedDict{String,Any}("layer" => [deepcopy(Vega.getparams(spec.spec))])))
@@ -166,19 +154,25 @@ for example [l1, l2] + [l3, l4] will become [l1, l2, l3, l4] instead of [[l1, l2
 Multi-view specs (facet, repeat, concat) cannot be layered.
 """
 Base.:+(a::VLSpec, b::VLSpec) = Base.:+(VLSpecTyped(a), VLSpecTyped(b))
-Base.:+(a::MultiView, b::VLSpecTyped) = error("Multi-view spec $(typeof(a)) can not be layered")
-Base.:+(a::VLSpecTyped, b::MultiView) = error("Multi-view spec $(typeof(b)) can not be layered")
-Base.:+(a::MultiView, b::MultiView) = error("Multi-view spec $(typeof(a)) can not be layered")
+Base.:+(a::MultiView, b::VLSpecTyped) = multiview_layering_error(a)
+Base.:+(a::VLSpecTyped, b::MultiView) = multiview_layering_error(b)
+Base.:+(a::MultiView, b::MultiView) = multiview_layering_error(a)
+Base.:+(a::PropertySpec, b::VLSpecTyped) = nonview_layering_error()
+Base.:+(a::VLSpecTyped, b::PropertySpec) = nonview_layering_error()
+Base.:+(a::PropertySpec, b::PropertySpec) = nonview_layering_error()
 Base.:+(a::VLSpecTyped, b::VLSpecTyped) = error("Layering not implemented for $(typeof(a)) + $(typeof(b))")
 function Base.:+(a::Layer, b::Layer)
     a_spec = deepcopy(Vega.getparams(a.spec))
     b_spec = deepcopy(Vega.getparams(b.spec))
     append!(a_spec["layer"], b_spec["layer"])
-    return promote_data_to_toplevel(VLSpec(a_spec), "layer")
+    return VLSpec(a_spec)
 end
 Base.:+(a::SingleView, b::SingleView) = Layer(a) + Layer(b)
 Base.:+(a::SingleView, b::Layer) = Layer(a) + b
 Base.:+(a::Layer, b::SingleView) = a + Layer(b)
+
+multiview_layering_error(a) = error("Multi-view spec $(typeof(a)) can not be layered")
+nonview_layering_error() = error("Not possible to layer specs. Make sure they are single views with the \"mark\" property or layered views")
 
 """
     spec1::VLSpec * spec2::VLSpec
@@ -191,27 +185,26 @@ is specified in both then the result specification will use the property from `s
 some examples
 """
 Base.:*(a::VLSpec, b::VLSpec) = Base.:*(VLSpecTyped(a), VLSpecTyped(b))
-Base.:*(a::MultiView, b::MultiView) = error("Two multi-view specs ($(typeof(a)), $(typeof(b))) can not be composed")
-Base.:*(a::VLSpecTyped, b::MultiView) = b * Vega.deletedata(a)
-function Base.:*(a::MultiView, b::VLSpecTyped)
-        a_spec = deepcopy(Vega.getparams(a.spec))
+Base.:*(a::MultiView, b::MultiView) = error("Two multi-view specs (facet, repeat, concat) can not be composed. Tried to compose ($(typeof(a)), $(typeof(b)))")
+Base.:*(a::Layer, b::SingleOrLayeredView) = error("A layered view can not be composed with a single of layered view ($(typeof(a)), $(typeof(b)))")
+Base.:*(a::SingleOrLayeredView, b::Layer) = error("A layered view can not be composed with a single of layered view ($(typeof(a)), $(typeof(b)))")
+Base.:*(a::SingleOrLayeredView, b::FacetOrRepeat) = *(b, a; b_precedence=false)
+function Base.:*(a::FacetOrRepeat, b::SingleOrLayeredView, b_precedence=true)
+    a_spec = deepcopy(Vega.getparams(a.spec))
     b_spec = deepcopy(Vega.getparams(b.spec))
-    if haskey(b_spec, "data")
-        a_spec["data"] = b_spec["data"]
-        delete!(b_spec, "data")
-    end
     if haskey(a_spec, "spec")
-        b_spec = _compose!(a_spec["spec"], b_spec)
+        b_spec = b_precedence ?
+            Vega.getparams(VLSpec(a_spec["spec"]) * VLSpec(b_spec)) :
+            Vega.getparams(VLSpec(b_spec) * VLSpec(a_spec["spec"]))
     end
     a_spec["spec"] = b_spec
     return VLSpec(a_spec)
 end
-Base.:*(a::ConcatSpecs, b::VLSpecTyped) = _compose(a, b) # FIXME: do something smarter
-Base.:*(a::VLSpecTyped, b::VLSpecTyped) = _compose(a, b)
+Base.:*(a::VLSpecTyped, b::VLSpecTyped) = _compose(a.spec, b.spec)
 
 function _compose(a::VLSpec, b::VLSpec)
-    a_spec = deepcopy(Vega.getparams(a.spec))
-    b_spec = deepcopy(Vega.getparams(b.spec))
+    a_spec = deepcopy(Vega.getparams(a))
+    b_spec = deepcopy(Vega.getparams(b))
     return VLSpec(_compose!(a_spec, b_spec))
 end
 function _compose!(a::OrderedDict, b::OrderedDict)
@@ -231,7 +224,7 @@ function Base.hcat(A::VLSpec...)
     for i in A
         push!(Vega.getparams(spec)["hconcat"], deepcopy(Vega.getparams(i)))
     end
-    return promote_data_to_toplevel(spec, "hconcat")
+    return spec
 end
 
 function Base.vcat(A::VLSpec...)
@@ -240,5 +233,26 @@ function Base.vcat(A::VLSpec...)
     for i in A
         push!(Vega.getparams(spec)["vconcat"], deepcopy(Vega.getparams(i)))
     end
-    return promote_data_to_toplevel(spec, "vconcat")
+    return spec
+end
+
+"""
+Remove potentially duplicated data in composed subspecs and promote it to the top level spec
+"""
+promote_data_to_toplevel(spec::VLSpec) = promote_data_to_toplevel!(VLSpecTyped(VLSpec(Vega.getparams(spec))))
+function promote_data_to_toplevel!(spec::VLSpecTyped, toplevel_data=nothing)
+    specdict = Vega.getparams(spec.spec)
+    haskey(specdict, "data") && toplevel_data == specdict["data"] && delete!(specdict, "data")
+    return VLSpec(specdict)
+end
+function promote_data_to_toplevel!(spec::ComposedView, toplevel_data=nothing)
+    specdict = Vega.getparams(spec.spec)
+    parentdata = get(specdict, "data", nothing)
+    !isnothing(parentdata) && toplevel_data == parentdata && delete!(specdict, "data")
+    key = _key(spec)
+    subspec_iter = key == "spec" ? [specdict[key]] : specdict[key]
+    for subspec in subspec_iter
+        promote_data_to_toplevel!(VLSpecTyped(VLSpec(subspec)), parentdata)
+    end
+    return VLSpec(specdict)
 end
