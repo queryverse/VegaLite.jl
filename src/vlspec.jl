@@ -177,11 +177,28 @@ multiview_layering_error(a) = error("Multi-view spec $(typeof(a)) can not be lay
     spec1::VLSpec * spec2::VLSpec
 
 Multiplicating two `VLSpec` creates a new `VLSpec` as a composition of the two specifications.
+For instance, `vlplot(:bar) * vlplot(x=:x)` will be equivalent to `vlplot(:bar, x=:x)`.
 Properties defined in `spec2` have precedence over `spec1`, meaning that if a given property
 is specified in both then the result specification will use the property from `spec2`.
 
-# Examples
-some examples
+# Example
+
+using VegaLite, VegaDatasets
+
+data = dataset("weather.csv") |> vlplot();
+rep = @vlplot(repeat={column=[:temp_max,:precipitation,:wind]});
+common = @vlplot(
+    :line,
+    y={field={repeat=:column},aggregate=:mean,type=:quantitative},
+    x="month(date):o",
+    color=:location
+);
+details = @vlplot(
+    detail="year(date)",
+    opacity={value=0.2}
+);
+
+data * rep * common * (details + vlplot())
 """
 Base.:*(a::VLSpec, b::VLSpec) = Base.:*(VLSpecTyped(a), VLSpecTyped(b))
 Base.:*(a::MultiView, b::MultiView) = error("Two multi-view specs (facet, repeat, concat) can not be composed. Tried to compose ($(typeof(a)), $(typeof(b)))")
