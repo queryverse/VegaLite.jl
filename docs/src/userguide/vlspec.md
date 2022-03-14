@@ -134,7 +134,7 @@ julia> spec2 = @set spec.mark = :line
 
 ## Loading and saving vega-lite specifications
 
-The `load` and `save` functions can be used to load and save vega-lite specifications to and from disc. The following example loads a vega-lite specification from a file named `myfigure.vegalite`:
+The `load` and `savefig` functions can be used to load and save vega-lite specifications to and from disc. The following example loads a vega-lite specification from a file named `myfigure.vegalite`:
 
 ```julia
 using VegaLite
@@ -149,7 +149,7 @@ using VegaLite
 
 spec = ... # Aquire a spec from somewhere
 
-spec |> save("myfigure.vegalite")
+spec |> savefig("myfigure.vegalite")
 ```
 
 ## [DataVoyager.jl](https://github.com/queryverse/DataVoyager.jl)
@@ -164,7 +164,7 @@ Simply viewing plots should work out of the box in all known Julia environments.
 
 ## Saving plots
 
-[VegaLite.jl](https://github.com/queryverse/VegaLite.jl) plots can be saved as [PNG](https://en.wikipedia.org/wiki/Portable_Network_Graphics), [SVG](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics), [PDF](https://en.wikipedia.org/wiki/PDF), [EPS](https://en.wikipedia.org/wiki/Encapsulated_PostScript) and HTML files. You can save a plot by calling the `save` function:
+[VegaLite.jl](https://github.com/queryverse/VegaLite.jl) plots can be saved as [PNG](https://en.wikipedia.org/wiki/Portable_Network_Graphics), [SVG](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics), [PDF](https://en.wikipedia.org/wiki/PDF), [EPS](https://en.wikipedia.org/wiki/Encapsulated_PostScript) and HTML files. You can save a plot by calling the `savefig` function:
 
 ```julia
 using VegaLite, VegaDatasets
@@ -172,19 +172,19 @@ using VegaLite, VegaDatasets
 p = dataset("cars") |> @vlplot(:point, x=:Horsepower, y=:Miles_per_Gallon)
 
 # Save as PNG file
-save("figure.png", p)
+savefig("figure.png", p)
 
 # Save as SVG file
-save("figure.svg", p)
+savefig("figure.svg", p)
 
 # Save as PDF file
-save("figure.pdf", p)
+savefig("figure.pdf", p)
 
 # Save EPS file
-save("figure.eps", p)
+savefig("figure.eps", p)
 
 # Save HTML file
-save("figure.html", p)
+savefig("figure.html", p)
 ```
 
 You can also use the `|>` operator with the `save` function:
@@ -194,5 +194,5 @@ using VegaLite, VegaDatasets
 
 dataset("cars") |>
     @vlplot(:point, x=:Horsepower, y=:Miles_per_Gallon) |>
-    save("figure.png")
+    savefig("figure.png")
 ```
