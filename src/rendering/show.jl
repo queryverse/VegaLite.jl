@@ -7,7 +7,6 @@ function convert_vl_to_x(v::VLSpec, fileformat; cmd_args="")
 
     writer = @async begin
         our_json_print(buffered_output_stream, v)
-        flush(buffered_output_stream)
         close(buffered_output_stream)
         close(p.in)
     end
