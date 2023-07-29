@@ -37,7 +37,7 @@ function decode_typ(s::AbstractString)
         s = "temporal"
     end
     for key in ("StandardType", "TypeForShape")
-        if s in vlschema["definitions"][key]["enum"]
+        if s in vlschema[]["definitions"][key]["enum"]
             return "type" => s
         end
     end
@@ -46,7 +46,7 @@ end
 
 function decode_func(s::AbstractString)
     s = lowercase(s)
-    if s in vlschema["definitions"]["AggregateOp"]["enum"]
+    if s in vlschema[]["definitions"]["AggregateOp"]["enum"]
         return "aggregate" => s
     end
     for key in (
@@ -55,7 +55,7 @@ function decode_func(s::AbstractString)
         "UtcMultiTimeUnit",
         "UtcSingleTimeUnit",
     )
-        if s in vlschema["definitions"][key]["enum"]
+        if s in vlschema[]["definitions"][key]["enum"]
             return "timeUnit" => s
         end
     end

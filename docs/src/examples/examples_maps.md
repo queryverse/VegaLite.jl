@@ -159,7 +159,7 @@ us10m = dataset("us-10m")
 rows = dataset("population_engineers_hurricanes")
 
 @vlplot(
-    description="the population per state, engineers per state, and hurricanes per state",
+    title="The population per state, engineers per state, and hurricanes per state",
     repeat={
         row=["population", "engineers", "hurricanes"]
     },

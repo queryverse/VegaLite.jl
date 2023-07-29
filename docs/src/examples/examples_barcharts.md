@@ -81,7 +81,38 @@ dataset("population") |>
 )
 ```
 
+## Grouped Bar Chart (Another Example)
+
+```@example
+using VegaLite, VegaDatasets
+
+dataset("seattle-weather") |>
+@vlplot(
+    :bar,
+    column="month(date):o",
+    x={"weather:n", axis={title="", labels=false}},
+    y={"count()", axis={title="Count", grid=false}},
+    color={
+        :weather,
+        scale={
+            domain=["sun","fog","drizzle","rain","snow"],
+            range=["#e7ba52","#c7c7c7","#aec7e8","#1f77b4","#9467bd"]
+        },
+        legend={
+            title="Weather type"
+        }
+    },
+    spacing=10,
+    config={
+        view={stroke=:transparent},
+        axis={domainWidth=1}
+    }
+)
+```
+
 ## Stacked Bar Chart
+
+This is exactly the same chart as the previous example, except it is stacked instead of grouped.
 
 ```@example
 using VegaLite, VegaDatasets

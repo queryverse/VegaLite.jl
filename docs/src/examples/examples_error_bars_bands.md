@@ -50,7 +50,7 @@ dataset("barley") |>
     color={value=:black}
 ) +
 @vlplot(
-    mark={:rule, extend=:stdev},
+    mark={:errorbar, extend=:stdev},
     x={:yield, title="Barley Yield"}
 )
 ```

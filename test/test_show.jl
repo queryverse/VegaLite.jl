@@ -1,27 +1,29 @@
-using Test
-using VegaLite
+@testitem "show" begin
+    using Vega
+    
+    vl = @vlplot(:point)
+    vg = Vega.VGSpec(Dict{String,Any}())
 
-@testset "show" begin
+    @test sprint(show, vl) == "VegaLite.VLSpec"
 
-vl = @vlplot(:point)
-vg = Vega.VGSpec(Dict{String,Any}())
+    @test sprint(show, "text/plain", vl) == "@vlplot(\n    mark=\"point\"\n)"
 
-@test sprint(show, vl) == "VegaLite.VLSpec"
+    @test sprint(show, vg) == "Vega.VGSpec"
 
-@test sprint(show, "text/plain", vl) == "@vlplot(\n    mark=\"point\"\n)"
+    @test sprint(show, "text/plain", vg) == "@vgplot(\n\n)"
 
-@test sprint(show, vg) == "Vega.VGSpec"
+    @test_throws ArgumentError sprint(show, "image/svg+xml", @vlplot())
 
-@test sprint(show, "text/plain", vg) == "@vgplot(\n\n)"
+    @test istextmime("application/vnd.vegalite.v5+json")
 
-@test_throws ArgumentError sprint(show, "image/svg+xml", @vlplot())
+    @test istextmime("application/vnd.vega.v5+json")
 
-@test istextmime("application/vnd.vegalite.v4+json")
+    @test sprint(show, "application/vnd.vegalite.v5+json", @vlplot(:point)) == "{\"mark\":\"point\"}"
 
-@test istextmime("application/vnd.vega.v5+json")
+    @test sprint(show, "application/vnd.vega.v5+json", vg"{}") == "{}"
 
-@test sprint(show, "application/vnd.vegalite.v4+json", @vlplot(:point)) == "{\"mark\":\"point\"}"
+    @test !showable(MIME("text/html"), vl)
 
-@test sprint(show, "application/vnd.vega.v5+json", vg"{}") == "{}"
+    @test occursin("var spec = {\"mark\":\"point\"}", sprint(show, "text/html",vl))
 
 end

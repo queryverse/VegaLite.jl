@@ -4,7 +4,8 @@ if isdefined(Base, :Experimental) && isdefined(Base.Experimental, Symbol("@optle
     @eval Base.Experimental.@optlevel 0
 end
 
-using JSON, NodeJS # 6s
+using JSON
+import NodeJS
 import IteratorInterfaceExtensions # 1s
 import TableTraits # 0
 using FileIO # 17s !!!
@@ -20,6 +21,7 @@ using DataStructures
 import TableTraitsUtils
 using Vega
 import Base64
+import BufferedStreams
 
 export renderer, actionlinks
 export @vl_str, @vlplot, vlplot, @vlfrag, vlfrag
@@ -27,12 +29,17 @@ export @vg_str, @vgplot, vgplot, @vgfrag, vgfrag
 export load, save
 export deletedata, deletedata!
 
-const vegaliate_app_path = artifact"vegalite_app"
-const vegaliate_app_includes_canvas = ispath(joinpath(vegaliate_app_path, "node_modules", "canvas"))
+vegalite_app_path(args...) = joinpath(artifact"vegalite_app", args...)
+const vegaliate_app_includes_canvas = Ref{Bool}()
 
-const vlschema = JSON.parsefile(
-    joinpath(vegaliate_app_path, "schemas", "vega-lite-schema.json")
-)
+const vlschema = Ref{Dict{String, Any}}()
+
+function __init__()
+    vegaliate_app_includes_canvas[] = ispath(vegalite_app_path("node_modules", "canvas"))
+    vlschema[] = JSON.parsefile(
+        vegalite_app_path("schemas", "vega-lite-schema.json")
+    )
+end
 
 include("vlspec.jl")
 

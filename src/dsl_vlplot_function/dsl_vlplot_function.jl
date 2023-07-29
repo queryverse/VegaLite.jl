@@ -118,7 +118,7 @@ function fix_shortcut_level_spec(spec_frag::VLFrag)
     # Move top level channels into encoding
     encodings_to_be_moved = filter(
         i -> i != "facet",
-        collect(keys(vlschema["definitions"]["FacetedEncoding"]["properties"])),
+        collect(keys(vlschema[]["definitions"]["FacetedEncoding"]["properties"])),
         )
     for k in collect(keys(spec))
         if string(k) in encodings_to_be_moved
@@ -222,7 +222,7 @@ function convert_frag_tree_to_dict(spec::VLFrag)
     spec_as_dict2 = Vega.walk_dict(spec_as_dict, "root") do p, parent
         if p[1] == "typ"
             Base.depwarn("`typ` in VegaLite.jl specs is deprecated, use `type` instead.", :vlplot)
-        
+
             return "type" => p[2]
         else
             return p
