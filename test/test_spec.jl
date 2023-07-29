@@ -85,7 +85,9 @@
     @test haskey(Vega.getparams(p5)["data"], "url")
 end
 
-@testset "Array tooltip data" begin
+@testitem "Array tooltip data" begin
+  using VegaDatasets
+  
   p10 = dataset("cars")|> @vlplot(:point,x=:Horsepower,y=:Miles_per_Gallon,tooltip=[:Horsepower,"Miles_per_Gallon:q"])
   @test isa(p10.encoding.tooltip, Vector)
 end
