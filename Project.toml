@@ -1,6 +1,6 @@
 name = "VegaLite"
 uuid = "112f6efa-9a02-5b7d-90c0-432ed331239a"
-version = "3.3.0"
+version = "3.3.1-DEV"
 
 [deps]
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
