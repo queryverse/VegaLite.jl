@@ -39,7 +39,7 @@ function augment_encoding_type(x::AbstractDict, data::Vega.DataValuesNode)
 end
 
 function augment_encoding_type(x::AbstractArray, data::Vega.DataValuesNode)
-    x = [augment_encoding_type(k,data) for k in x]
+    x = [augment_encoding_type(k, data) for k in x]
     return x
 end
 
@@ -49,8 +49,8 @@ function add_encoding_types(specdict, parentdata=nothing)
 
         newspec = OrderedDict{String,Any}(
             (k == "encoding" && v isa AbstractDict) ? k => OrderedDict{String,Any}(kk => augment_encoding_type(vv, data) for (kk, vv) in v) :
-                k == "spec" ? k => add_encoding_types(v, data) :
-                k in ("layer", "concat", "vconcat", "hconcat") ? k => [add_encoding_types(i, data) for i in v] : k => v for (k, v) in specdict
+            k == "spec" ? k => add_encoding_types(v, data) :
+            k in ("layer", "concat", "vconcat", "hconcat") ? k => [add_encoding_types(i, data) for i in v] : k => v for (k, v) in specdict
         )
 
         return newspec
@@ -75,7 +75,7 @@ function (p::VLSpec)(data)
     new_dict["data"] = OrderedDict{String,Any}("values" => datavaluesnode)
 
     return VLSpec(new_dict)
-    end
+end
 
 function (p::VLSpec)(uri::URI)
     new_dict = copy(Vega.getparams(p))
@@ -143,10 +143,10 @@ function Base.hcat(A::VLSpec...)
 end
 
 function Base.vcat(A::VLSpec...)
-  spec = VLSpec(OrderedDict{String,Any}())
-  Vega.getparams(spec)["vconcat"] = []
-  for i in A
-      push!(Vega.getparams(spec)["vconcat"], deepcopy(Vega.getparams(i)))
-  end
-  return spec
+    spec = VLSpec(OrderedDict{String,Any}())
+    Vega.getparams(spec)["vconcat"] = []
+    for i in A
+        push!(Vega.getparams(spec)["vconcat"], deepcopy(Vega.getparams(i)))
+    end
+    return spec
 end

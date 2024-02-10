@@ -32,7 +32,7 @@ export deletedata, deletedata!
 vegalite_app_path(args...) = joinpath(artifact"vegalite_app", args...)
 const vegaliate_app_includes_canvas = Ref{Bool}()
 
-const vlschema = Ref{Dict{String, Any}}()
+const vlschema = Ref{Dict{String,Any}}()
 
 function __init__()
     vegaliate_app_includes_canvas[] = ispath(vegalite_app_path("node_modules", "canvas"))

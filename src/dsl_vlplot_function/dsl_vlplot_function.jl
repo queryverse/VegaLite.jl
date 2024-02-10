@@ -96,7 +96,7 @@ function fix_shortcut_level_data(spec_frag)
     if TableTraits.isiterabletable(spec_frag)
         it = IteratorInterfaceExtensions.getiterator(spec_frag)
         return VLFrag([], OrderedDict{String,Any}("values" => Vega.DataValuesNode(it)))
-else
+    else
         return spec_frag
     end
 end
@@ -105,7 +105,7 @@ function fix_shortcut_level_spec(spec_frag::VLFrag)
     spec = copy(spec_frag.named)
 
     if length(spec_frag.positional) > 0
-    spec["mark"] = spec_frag.positional[1]
+        spec["mark"] = spec_frag.positional[1]
     elseif length(spec_frag.positional) > 3
         error("More than three positional element specified at the spec level.")
     end
@@ -119,7 +119,7 @@ function fix_shortcut_level_spec(spec_frag::VLFrag)
     encodings_to_be_moved = filter(
         i -> i != "facet",
         collect(keys(vlschema[]["definitions"]["FacetedEncoding"]["properties"])),
-        )
+    )
     for k in collect(keys(spec))
         if string(k) in encodings_to_be_moved
             if !haskey(spec, "encoding")
@@ -163,7 +163,7 @@ function fix_shortcut_level_spec(spec_frag::VLFrag)
     inline_unnamed_data = Pair{Symbol,AbstractVector}[]
 
     if haskey(spec, "encoding")
-            if spec["encoding"] isa VLFrag
+        if spec["encoding"] isa VLFrag
             if !isempty(spec["encoding"].positional)
                 error("Can't have positional arguments inside the encoding element.")
             else
@@ -226,12 +226,12 @@ function convert_frag_tree_to_dict(spec::VLFrag)
             return "type" => p[2]
         else
             return p
-end
+        end
     end
 
     return spec_as_dict2
 end
 
-function vlplot(args...;kwargs...)
-    return VLSpec(convert_frag_tree_to_dict(fix_shortcut_level_spec(vlfrag(args...;kwargs...))))
+function vlplot(args...; kwargs...)
+    return VLSpec(convert_frag_tree_to_dict(fix_shortcut_level_spec(vlfrag(args...; kwargs...))))
 end

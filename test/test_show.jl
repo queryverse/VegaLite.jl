@@ -1,6 +1,6 @@
 @testitem "show" begin
     using Vega
-    
+
     vl = @vlplot(:point)
     vg = Vega.VGSpec(Dict{String,Any}())
 
@@ -24,6 +24,6 @@
 
     @test !showable(MIME("text/html"), vl)
 
-    @test occursin("var spec = {\"mark\":\"point\"}", sprint(show, "text/html",vl))
+    @test occursin("var spec = {\"mark\":\"point\"}", sprint(show, "text/html", vl))
 
 end
