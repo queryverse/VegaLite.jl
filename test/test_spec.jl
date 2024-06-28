@@ -16,7 +16,7 @@
 
     @test_throws ArgumentError @vlplot()(5)
 
-    df = DataFrame(a=[1.,2.], b=["A", "B"], c=[Date(2000), Date(2001)])
+    df = DataFrame(a=[1., 2.], b=["A", "B"], c=[Date(2000), Date(2001)])
 
     p1 = (df |> @vlplot("line", x = :c, y = :a, color = :b))
     p2 = vl"""
@@ -44,7 +44,7 @@
 
     @test p1 == p2
 
-    p3 = DataFrame(a=[1,2,missing], b=[3.,2.,1.]) |> @vlplot(:point, x = :a, y = :b)
+    p3 = DataFrame(a=[1, 2, missing], b=[3., 2., 1.]) |> @vlplot(:point, x = :a, y = :b)
 
     p4 = vl"""
     {
@@ -86,8 +86,8 @@
 end
 
 @testitem "Array tooltip data" begin
-  using VegaDatasets
-  
-  p10 = dataset("cars")|> @vlplot(:point,x=:Horsepower,y=:Miles_per_Gallon,tooltip=[:Horsepower,"Miles_per_Gallon:q"])
-  @test isa(p10.encoding.tooltip, Vector)
+    using VegaDatasets
+
+    p10 = dataset("cars") |> @vlplot(:point, x = :Horsepower, y = :Miles_per_Gallon, tooltip = [:Horsepower, "Miles_per_Gallon:q"])
+    @test isa(p10.encoding.tooltip, Vector)
 end
