@@ -1,7 +1,7 @@
 function convert_vl_to_x(v::VLSpec, fileformat; cmd_args="")
     script_path = vegalite_app_path("node_modules", "vega-lite", "bin", "vl2$fileformat")
 
-    p = open(Cmd(`$(NodeJS.nodejs_cmd()) $script_path $cmd_args`, dir=vegalite_app_path()),"r+")
+    p = open(Cmd(`$(NodeJS.nodejs_cmd()) $script_path $cmd_args`, dir=vegalite_app_path()), "r+")
 
     buffered_output_stream = BufferedStreams.BufferedOutputStream(p.in)
 
@@ -13,10 +13,10 @@ function convert_vl_to_x(v::VLSpec, fileformat; cmd_args="")
 
     reader = @async read(p, String)
 
-    wait(writer)    
-    wait(p)   
+    wait(writer)
+    wait(p)
     res = fetch(reader)
-    
+
     if p.exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
@@ -76,7 +76,7 @@ function Base.show(io::IO, m::MIME"image/png", v::VLSpec)
     if vegaliate_app_includes_canvas[]
         if haskey(io, :ppi)
             print(io, convert_vl_to_x(v, "png", cmd_args="--ppi=$(io[:ppi])"))
-        else            
+        else
             print(io, convert_vl_to_x(v, "png"))
         end
     else

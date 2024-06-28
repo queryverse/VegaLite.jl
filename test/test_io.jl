@@ -6,18 +6,19 @@
     using FileIO
 
     include("testhelper_create_vg_plot.jl")
-        
-    p = DataFrame(x=[1,2,3], y=[1,2,3]) |> @vlplot(:point, x = "x:q", y = "y:q")
+
+    p = DataFrame(x=[1, 2, 3], y=[1, 2, 3]) |> @vlplot(:point, x = "x:q", y = "y:q")
     vgp = getvgplot()
     vlp = getvlplot()
 
     @testset "$fmt (indent=$(repr(indent)))" for (fmt, plt) in [
-        (format"vegalite", vlp)
-    ],
+            (format"vegalite", vlp)
+        ],
         indent in [nothing, 4]
 
         let json = sprint(io -> save(Stream{fmt}(io), plt, indent=indent)),
             code = "vg\"\"\"$json\"\"\""
+
             @test Vega.getparams(include_string(@__MODULE__, code)) == Vega.getparams(plt)
         end
 
@@ -31,7 +32,7 @@
             @test Vega.getparams(include_string(@__MODULE__, code)) == Vega.getparams(plt)
         end
     end
-    
+
     Base.Filesystem.mktempdir() do folder
         VegaLite.svg(joinpath(folder, "test1.svg"), p)
         @test isfile(joinpath(folder, "test1.svg"))

@@ -37,7 +37,7 @@
             """
     end
 
-    df = DataFrame(a=[1.,2.], b=["A", "B"], c=[Date(2000), Date(2001)])
+    df = DataFrame(a=[1., 2.], b=["A", "B"], c=[Date(2000), Date(2001)])
 
     p1 = getvgplot()
 
