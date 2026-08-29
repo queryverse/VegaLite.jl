@@ -1,6 +1,6 @@
 name = "VegaLite"
 uuid = "112f6efa-9a02-5b7d-90c0-432ed331239a"
-version = "3.3.1-DEV"
+version = "3.4.0-DEV"
 
 [deps]
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
@@ -41,8 +41,8 @@ NodeJS = "2"
 MacroTools = "0.4.4, 0.5"
 FileIO = "1.0.1"
 TableTraitsUtils = "1"
-julia = "1.6"
-DataValues = "0.4.4"
+julia = "1.12"
+DataValues = "0.4.4, 0.5"
 FilePaths = "0.7, 0.8"
 URIParser = "0.4"
 

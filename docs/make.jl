@@ -11,6 +11,7 @@ end
 makedocs(
   modules=[VegaLite],
   sitename="VegaLite.jl",
+  warnonly = [:missing_docs],
   pages=[
     "Home" => "index.md",
     "Getting Started" => Any[
