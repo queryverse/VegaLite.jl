@@ -158,7 +158,7 @@ dataset("cars") |>
 
 ## Image-based Scatter Plot
 
-```@example
+```julia
 using VegaLite, VegaDatasets, DataFrames
 data=DataFrame(
     x=[0.5,1.5,2.5],
