@@ -1,4 +1,5 @@
 using Documenter, VegaLite, UUIDs
+using VegaLite: Vega
 
 function Base.show(io::IO, m::MIME"text/html", v::VegaLite.VLSpec)
     divid = string("vl", replace(string(uuid4()), "-" => ""))
@@ -9,7 +10,7 @@ function Base.show(io::IO, m::MIME"text/html", v::VegaLite.VLSpec)
 end
 
 makedocs(
-  modules=[VegaLite],
+  modules=[VegaLite, Vega],
   sitename="VegaLite.jl",
   warnonly = [:missing_docs],
   pages=[
