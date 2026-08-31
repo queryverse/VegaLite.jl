@@ -1,9 +1,9 @@
 # Global settings
 
 ```@docs
-renderer
+Vega.renderer
 ```
 
 ```@docs
-actionlinks
+Vega.actionlinks
 ```
