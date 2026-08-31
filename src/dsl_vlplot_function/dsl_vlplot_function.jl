@@ -217,7 +217,18 @@ function convert_frag_tree_to_dict(spec::VLFrag)
     # and we can convert everything into a plain Dict structure
     isempty(spec.positional) || error("There shouldn't be any positional argument left.")
 
-    spec_as_dict = OrderedDict{String,Any}(k => Vega.replace_remaining_frag(v) for (k, v) in spec.named)
+    # Helper to safely replace fragments while allowing raw Dict/Array values
+    function _replace_frag_wrapper(v)
+        if v isa Dict
+            return OrderedDict{String,Any}(string(k) => _replace_frag_wrapper(vv) for (k, vv) in v)
+        elseif v isa AbstractArray
+            return [_replace_frag_wrapper(i) for i in v]
+        else
+            return Vega.replace_remaining_frag(v)
+        end
+    end
+
+    spec_as_dict = OrderedDict{String,Any}(k => _replace_frag_wrapper(v) for (k, v) in spec.named)
 
     spec_as_dict2 = Vega.walk_dict(spec_as_dict, "root") do p, parent
         if p[1] == "typ"
