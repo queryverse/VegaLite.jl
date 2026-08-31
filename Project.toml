@@ -43,7 +43,7 @@ FileIO = "1.0.1"
 TableTraitsUtils = "1"
 julia = "1.6"
 DataValues = "0.4.4, 0.5, 1"
-FilePaths = "0.7, 0.8"
+FilePaths = "0.7, 0.8, 0.9"
 URIParser = "0.4"
 
 [targets]
