@@ -25,6 +25,7 @@ import BufferedStreams
 
 export renderer, actionlinks
 export @vl_str, @vlplot, vlplot, @vlfrag, vlfrag
+export @vlmod
 export @vg_str, @vgplot, vgplot, @vgfrag, vgfrag
 export load, save
 export deletedata, deletedata!
@@ -47,6 +48,7 @@ include("dsl_vlplot_function/shorthandparser.jl")
 include("dsl_vlplot_function/dsl_vlplot_function.jl")
 include("dsl_vlplot_macro/dsl_vlplot_macro.jl")
 include("dsl_str_macro/dsl_str_macro.jl")
+include("vlmod.jl")
 
 include("rendering/to_julia.jl")
 include("rendering/render.jl")

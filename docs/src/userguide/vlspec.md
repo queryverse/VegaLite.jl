@@ -132,6 +132,8 @@ julia> spec2 = @set spec.mark = :line
        spec3 = @set spec2.encoding.y.field = "Miles_per_Gallon"
 ```
 
+For path-based immutable updates, VegaLite.jl also provides `@vlmod`. See the dedicated chapter [Spec modifications with `@vlmod`](@ref).
+
 ## Loading and saving vega-lite specifications
 
 The `load` and `save` functions can be used to load and save vega-lite specifications to and from disc. The following example loads a vega-lite specification from a file named `myfigure.vegalite`:
