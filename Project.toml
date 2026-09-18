@@ -32,6 +32,9 @@ Setfield = "efcf1570-3423-57d1-acb7-fd33fddbac46"
 
 [compat]
 Base64 = "< 0.0.1, 1.6"
+Random = "< 0.0.1, 1.6"
+Pkg = "< 0.0.1, 1.5"
+REPL = "< 0.0.1, 1.6"
 TableTraits = "0.3.1, 0.4, 1"
 IteratorInterfaceExtensions = "0.1.1, 1"
 JSON = "0.19, 0.20, 0.21, 1"
