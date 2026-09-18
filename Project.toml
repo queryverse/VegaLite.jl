@@ -31,6 +31,7 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Setfield = "efcf1570-3423-57d1-acb7-fd33fddbac46"
 
 [compat]
+Base64 = "< 0.0.1, 1.6"
 Random = "< 0.0.1, 1.6"
 Pkg = "< 0.0.1, 1.5"
 REPL = "< 0.0.1, 1.6"
