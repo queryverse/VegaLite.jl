@@ -32,6 +32,7 @@ Setfield = "efcf1570-3423-57d1-acb7-fd33fddbac46"
 
 [compat]
 Dates = "< 0.0.1, 1.6"
+Base64 = "< 0.0.1, 1.6"
 Random = "< 0.0.1, 1.6"
 Pkg = "< 0.0.1, 1.5"
 REPL = "< 0.0.1, 1.6"
