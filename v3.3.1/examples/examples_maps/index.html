@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Maps (Geographic Displays) · VegaLite.jl</title><meta name="title" content="Maps (Geographic Displays) · VegaLite.jl"/><meta property="og:title" content="Maps (Geographic Displays) · VegaLite.jl"/><meta property="twitter:title" content="Maps (Geographic Displays) · VegaLite.jl"/><meta name="description" content="Documentation for VegaLite.jl."/><meta property="og:description" content="Documentation for VegaLite.jl."/><meta property="twitter:description" content="Documentation for VegaLite.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">VegaLite.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../gettingstarted/installation/">Installation</a></li><li><a class="tocitem" href="../../gettingstarted/tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../../userguide/vlspec/">Vega-lite specifications</a></li><li><a class="tocitem" href="../../userguide/vlplotmacro/">The @vlplot command</a></li><li><a class="tocitem" href="../../userguide/data/">Data sources</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-4-1" type="checkbox"/><label class="tocitem" for="menuitem-4-1"><span class="docs-label">Single-View Plots</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_barcharts/">Bar Charts</a></li><li><a class="tocitem" href="../examples_histograms/">Histograms, Density Plots, and Dot Plots</a></li><li><a class="tocitem" href="../examples_scatter_strip_plots/">Scatter &amp; Strip Plots</a></li><li><a class="tocitem" href="../examples_line_charts/">Line Charts</a></li><li><a class="tocitem" href="../examples_area_Charts_streamgraphs/">Area Charts &amp; Streamgraphs</a></li><li><a class="tocitem" href="../examples_table_based_plots/">Table-based Plots</a></li><li><a class="tocitem" href="../examples_circular_plots/">Circular Plots</a></li><li><a class="tocitem" href="../examples_advancedcalculations/">Advanced Calculations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Composite Mark</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_error_bars_bands/">Error Bars &amp; Error Bands</a></li><li><a class="tocitem" href="../examples_box_plots/">Box Plots</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Multi-View Displays</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_faceting/">Faceting (Trellis Plot / Small Multiples)</a></li><li><a class="tocitem" href="../examples_repeat_concatenation/">Repeat &amp; Concatenation</a></li></ul></li><li class="is-active"><a class="tocitem" href>Maps (Geographic Displays)</a><ul class="internal"><li><a class="tocitem" href="#Choropleth-of-unemployment-rate-per-county"><span>Choropleth of unemployment rate per county</span></a></li><li><a class="tocitem" href="#One-dot-per-zipcode-in-the-U.S."><span>One dot per zipcode in the U.S.</span></a></li><li><a class="tocitem" href="#One-dot-per-airport-in-the-US-overlayed-on-geoshape"><span>One dot per airport in the US overlayed on geoshape</span></a></li><li><a class="tocitem" href="#Rules-(line-segments)-connecting-SEA-to-every-airport-reachable-via-direct-flight"><span>Rules (line segments) connecting SEA to every airport reachable via direct flight</span></a></li><li><a class="tocitem" href="#Three-choropleths-representing-disjoint-data-from-the-same-table"><span>Three choropleths representing disjoint data from the same table</span></a></li><li><a class="tocitem" href="#U.S.-state-capitals-overlayed-on-a-map-of-the-U.S"><span>U.S. state capitals overlayed on a map of the U.S</span></a></li><li><a class="tocitem" href="#Line-drawn-between-airports-in-the-U.S.-simulating-a-flight-itinerary"><span>Line drawn between airports in the U.S. simulating a flight itinerary</span></a></li><li><a class="tocitem" href="#Income-in-the-U.S.-by-state,-faceted-over-income-brackets"><span>Income in the U.S. by state, faceted over income brackets</span></a></li><li><a class="tocitem" href="#London-Tube-Lines"><span>London Tube Lines</span></a></li></ul></li></ul></li><li><span class="tocitem">Reference Manual</span><ul><li><a class="tocitem" href="../../referencemanual/global/">Global settings</a></li><li><a class="tocitem" href="../../referencemanual/output/">Outputs</a></li><li><a class="tocitem" href="../../referencemanual/performance/">Performance tips</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Maps (Geographic Displays)</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Maps (Geographic Displays)</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl/blob/main/docs/src/examples/examples_maps.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h2 id="Choropleth-of-unemployment-rate-per-county"><a class="docs-heading-anchor" href="#Choropleth-of-unemployment-rate-per-county">Choropleth of unemployment rate per county</a><a id="Choropleth-of-unemployment-rate-per-county-1"></a><a class="docs-heading-anchor-permalink" href="#Choropleth-of-unemployment-rate-per-county" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+unemployment = dataset(&quot;unemployment&quot;)
+
+@vlplot(
+    :geoshape,
+    width=500, height=300,
+    data={
+        values=us10m,
+        format={
+            type=:topojson,
+            feature=:counties
+        }
+    },
+    transform=[{
+        lookup=:id,
+        from={
+            data=unemployment,
+            key=:id,
+            fields=[&quot;rate&quot;]
+        }
+    }],
+    projection={
+        type=:albersUsa
+    },
+    color=&quot;rate:q&quot;
+)</code></pre><img src="46375be2.svg" alt="Example block output"/><h2 id="One-dot-per-zipcode-in-the-U.S."><a class="docs-heading-anchor" href="#One-dot-per-zipcode-in-the-U.S.">One dot per zipcode in the U.S.</a><a id="One-dot-per-zipcode-in-the-U.S.-1"></a><a class="docs-heading-anchor-permalink" href="#One-dot-per-zipcode-in-the-U.S." title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;zipcodes&quot;) |&gt;
+@vlplot(
+    :circle,
+    width=500, height=300,
+    transform=[{calculate=&quot;substring(datum.zip_code, 0, 1)&quot;, as=:digit}],
+    projection={type=:albersUsa},
+    longitude=:longitude,
+    latitude=:latitude,
+    size={value=1},
+    color=&quot;digit:n&quot;
+)</code></pre><img src="f9b28de5.svg" alt="Example block output"/><h2 id="One-dot-per-airport-in-the-US-overlayed-on-geoshape"><a class="docs-heading-anchor" href="#One-dot-per-airport-in-the-US-overlayed-on-geoshape">One dot per airport in the US overlayed on geoshape</a><a id="One-dot-per-airport-in-the-US-overlayed-on-geoshape-1"></a><a class="docs-heading-anchor-permalink" href="#One-dot-per-airport-in-the-US-overlayed-on-geoshape" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+airports = dataset(&quot;airports&quot;)
+
+@vlplot(width=500, height=300) +
+@vlplot(
+    mark={
+        :geoshape,
+        fill=:lightgray,
+        stroke=:white
+    },
+    data={
+        values=us10m,
+        format={
+            type=:topojson,
+            feature=:states
+        }
+    },
+    projection={type=:albersUsa},
+) +
+@vlplot(
+    :circle,
+    data=airports,
+    projection={type=:albersUsa},
+    longitude=&quot;longitude:q&quot;,
+    latitude=&quot;latitude:q&quot;,
+    size={value=10},
+    color={value=:steelblue}
+)</code></pre><img src="dc0bfa67.svg" alt="Example block output"/><h2 id="Rules-(line-segments)-connecting-SEA-to-every-airport-reachable-via-direct-flight"><a class="docs-heading-anchor" href="#Rules-(line-segments)-connecting-SEA-to-every-airport-reachable-via-direct-flight">Rules (line segments) connecting SEA to every airport reachable via direct flight</a><a id="Rules-(line-segments)-connecting-SEA-to-every-airport-reachable-via-direct-flight-1"></a><a class="docs-heading-anchor-permalink" href="#Rules-(line-segments)-connecting-SEA-to-every-airport-reachable-via-direct-flight" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+airports = dataset(&quot;airports&quot;)
+flightsairport = dataset(&quot;flights-airport&quot;)
+
+@vlplot(width=800, height=500) +
+@vlplot(
+    mark={
+        :geoshape,
+        fill=:lightgray,
+        stroke=:white
+    },
+    data={
+        values=us10m,
+        format={
+            type=:topojson,
+            feature=:states
+        }
+    },
+    projection={type=:albersUsa}
+) +
+@vlplot(
+    :circle,
+    data=airports,
+    projection={type=:albersUsa},
+    longitude=&quot;longitude:q&quot;,
+    latitude=&quot;latitude:q&quot;,
+    size={value=5},
+    color={value=:gray}
+) +
+@vlplot(
+    :rule,
+    data=flightsairport,
+    transform=[
+        {filter={field=:origin,equal=:SEA}},
+        {
+            lookup=:origin,
+            from={
+                data=airports,
+                key=:iata,
+                fields=[&quot;latitude&quot;, &quot;longitude&quot;]
+            },
+            as=[&quot;origin_latitude&quot;, &quot;origin_longitude&quot;]
+        },
+        {
+            lookup=:destination,
+            from={
+                data=airports,
+                key=:iata,
+                fields=[&quot;latitude&quot;, &quot;longitude&quot;]
+            },
+            as=[&quot;dest_latitude&quot;, &quot;dest_longitude&quot;]
+        }
+    ],
+    projection={type=:albersUsa},
+    longitude=&quot;origin_longitude:q&quot;,
+    latitude=&quot;origin_latitude:q&quot;,
+    longitude2=&quot;dest_longitude:q&quot;,
+    latitude2=&quot;dest_latitude:q&quot;
+)</code></pre><img src="3cae06b3.svg" alt="Example block output"/><h2 id="Three-choropleths-representing-disjoint-data-from-the-same-table"><a class="docs-heading-anchor" href="#Three-choropleths-representing-disjoint-data-from-the-same-table">Three choropleths representing disjoint data from the same table</a><a id="Three-choropleths-representing-disjoint-data-from-the-same-table-1"></a><a class="docs-heading-anchor-permalink" href="#Three-choropleths-representing-disjoint-data-from-the-same-table" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+rows = dataset(&quot;population_engineers_hurricanes&quot;)
+
+@vlplot(
+    title=&quot;The population per state, engineers per state, and hurricanes per state&quot;,
+    repeat={
+        row=[&quot;population&quot;, &quot;engineers&quot;, &quot;hurricanes&quot;]
+    },
+    resolve={
+        scale={
+            color=:independent
+        }
+    }
+) +
+@vlplot(
+    width=500,
+    height=300,
+    data=rows,
+    transform=[{
+        lookup=:id,
+        from={
+            data={
+                values=us10m,
+                format={
+                    type=:topojson,
+                    feature=:states
+                }
+            },
+            key=:id
+        },
+        as=:geo
+    }],
+    projection={type=:albersUsa},
+    mark=:geoshape,
+    shape={
+        field=:geo,
+        type=:geojson
+    },
+    color={
+        field={repeat=:row},
+        type=:quantitative
+    }
+)</code></pre><img src="245af39c.svg" alt="Example block output"/><h2 id="U.S.-state-capitals-overlayed-on-a-map-of-the-U.S"><a class="docs-heading-anchor" href="#U.S.-state-capitals-overlayed-on-a-map-of-the-U.S">U.S. state capitals overlayed on a map of the U.S</a><a id="U.S.-state-capitals-overlayed-on-a-map-of-the-U.S-1"></a><a class="docs-heading-anchor-permalink" href="#U.S.-state-capitals-overlayed-on-a-map-of-the-U.S" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+capitals = dataset(&quot;us-state-capitals&quot;)
+
+@vlplot(width=800, height=500) +
+@vlplot(
+    mark={
+        :geoshape,
+        fill=:lightgray,
+        stroke=:white
+    },
+    data={
+        values=us10m,
+        format={
+            type=:topojson,
+            feature=:states
+        }
+    },
+    projection={type=:albersUsa},
+) +
+@vlplot(
+    :circle,
+    data=capitals,
+    longitude=&quot;lon:q&quot;,
+    latitude=&quot;lat:q&quot;,
+    color={value=:orange}
+) +
+@vlplot(
+    mark={
+        type=:text,
+        dy=-10
+    },
+    data=capitals,
+    longitude=&quot;lon:q&quot;,
+    latitude=&quot;lat:q&quot;,
+    text={
+        field=:city,
+        type=:nominal
+    }
+)</code></pre><img src="c35bdb86.svg" alt="Example block output"/><h2 id="Line-drawn-between-airports-in-the-U.S.-simulating-a-flight-itinerary"><a class="docs-heading-anchor" href="#Line-drawn-between-airports-in-the-U.S.-simulating-a-flight-itinerary">Line drawn between airports in the U.S. simulating a flight itinerary</a><a id="Line-drawn-between-airports-in-the-U.S.-simulating-a-flight-itinerary-1"></a><a class="docs-heading-anchor-permalink" href="#Line-drawn-between-airports-in-the-U.S.-simulating-a-flight-itinerary" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+airports = dataset(&quot;airports&quot;)
+
+@vlplot(width=800, height=500) +
+@vlplot(
+    mark={
+        :geoshape,
+        fill=&quot;#eee&quot;,
+        stroke=:white
+    },
+    data={
+        values=us10m,
+        format={
+            type=:topojson,
+            feature=:states
+        }
+    },
+    projection={type=:albersUsa},
+) +
+@vlplot(
+    :circle,
+    data=airports,
+    projection={type=:albersUsa},
+    longitude=&quot;longitude:q&quot;,
+    latitude=&quot;latitude:q&quot;,
+    size={value=5},
+    color={value=:gray}
+) +
+@vlplot(
+    :line,
+    data={
+        values=[
+            {airport=:SEA,order=1},
+            {airport=:SFO,order=2},
+            {airport=:LAX,order=3},
+            {airport=:LAS,order=4},
+            {airport=:DFW,order=5},
+            {airport=:DEN,order=6},
+            {airport=:ORD,order=7},
+            {airport=:JFK,order=8}
+        ]
+    },
+    transform=[{
+        lookup=:airport,
+        from={
+            data=airports,
+            key=:iata,
+            fields=[&quot;latitude&quot;,&quot;longitude&quot;]
+        }
+    }],
+    projection={type=:albersUsa},
+    longitude=&quot;longitude:q&quot;,
+    latitude=&quot;latitude:q&quot;,
+    order={field=:order,type=:ordinal}
+)</code></pre><img src="2a012914.svg" alt="Example block output"/><h2 id="Income-in-the-U.S.-by-state,-faceted-over-income-brackets"><a class="docs-heading-anchor" href="#Income-in-the-U.S.-by-state,-faceted-over-income-brackets">Income in the U.S. by state, faceted over income brackets</a><a id="Income-in-the-U.S.-by-state,-faceted-over-income-brackets-1"></a><a class="docs-heading-anchor-permalink" href="#Income-in-the-U.S.-by-state,-faceted-over-income-brackets" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+us10m = dataset(&quot;us-10m&quot;)
+income = dataset(&quot;income&quot;)
+
+@vlplot(
+    width=500,
+    height=300,
+    :geoshape,
+    data=income,
+    transform=[{
+        lookup=:id,
+        from={
+            data={
+                values=us10m,
+                format={
+                    type=:topojson,
+                    feature=:states
+                }
+            },
+            key=:id
+        },
+        as=:geo
+    }],
+    projection={type=:albersUsa},
+    encoding={
+        shape={field=:geo,type=:geojson},
+        color={field=:pct,type=:quantitative},
+        row={field=:group,type=:nominal}
+    }
+)</code></pre><img src="3c01f75f.svg" alt="Example block output"/><h2 id="London-Tube-Lines"><a class="docs-heading-anchor" href="#London-Tube-Lines">London Tube Lines</a><a id="London-Tube-Lines-1"></a><a class="docs-heading-anchor-permalink" href="#London-Tube-Lines" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+londonBoroughs = dataset(&quot;londonBoroughs&quot;)
+londonCentroids = dataset(&quot;londonCentroids&quot;)
+londonTubeLines = dataset(&quot;londonTubeLines&quot;)
+
+@vlplot(
+    width=700, height=500,
+    config={
+        view={
+            stroke=:transparent
+        }
+    }
+) +
+@vlplot(
+    data={
+        values=londonBoroughs,
+        format={
+            type=:topojson,
+            feature=:boroughs
+        }
+    },
+    mark={
+        :geoshape,
+        stroke=:white,
+        strokeWidth=2
+    },
+    color={value=&quot;#eee&quot;}
+) +
+@vlplot(
+    data=londonCentroids,
+    transform=[{
+        calculate=&quot;indexof (datum.name,&#39; &#39;) &gt; 0  ? substring(datum.name,0,indexof(datum.name, &#39; &#39;)) : datum.name&quot;,
+        as=:bLabel
+    }],
+    mark=:text,
+    longitude=&quot;cx:q&quot;,
+    latitude=&quot;cy:q&quot;,
+    text=&quot;bLabel:n&quot;,
+    size={value=8},
+    opacity={value=0.6}
+) +
+@vlplot(
+    data={
+        values=londonTubeLines,
+        format={
+            type=:topojson,
+            feature=:line
+        }
+    },
+    mark={
+        :geoshape,
+        filled=false,
+        strokeWidth=2
+    },
+    color={
+        &quot;id:n&quot;,
+        legend={
+            title=nothing,
+            orient=&quot;bottom-right&quot;,
+            offset=0
+        },
+        scale={
+            domain=[
+                &quot;Bakerloo&quot;,
+                &quot;Central&quot;,
+                &quot;Circle&quot;,
+                &quot;District&quot;,
+                &quot;DLR&quot;,
+                &quot;Hammersmith &amp; City&quot;,
+                &quot;Jubilee&quot;,
+                &quot;Metropolitan&quot;,
+                &quot;Northern&quot;,
+                &quot;Piccadilly&quot;,
+                &quot;Victoria&quot;,
+                &quot;Waterloo &amp; City&quot;
+            ],
+            range=[
+                &quot;rgb(137,78,36)&quot;,
+                &quot;rgb(220,36,30)&quot;,
+                &quot;rgb(255,206,0)&quot;,
+                &quot;rgb(1,114,41)&quot;,
+                &quot;rgb(0,175,173)&quot;,
+                &quot;rgb(215,153,175)&quot;,
+                &quot;rgb(106,114,120)&quot;,
+                &quot;rgb(114,17,84)&quot;,
+                &quot;rgb(0,0,0)&quot;,
+                &quot;rgb(0,24,168)&quot;,
+                &quot;rgb(0,160,226)&quot;,
+                &quot;rgb(106,187,170)&quot;
+            ]
+        }
+    }
+)</code></pre><img src="23f54f4f.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../examples_repeat_concatenation/">« Repeat &amp; Concatenation</a><a class="docs-footer-nextpage" href="../../referencemanual/global/">Global settings »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Saturday 19 September 2026 05:33">Saturday 19 September 2026</span>. Using Julia version 1.12.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

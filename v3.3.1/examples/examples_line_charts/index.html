@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Line Charts · VegaLite.jl</title><meta name="title" content="Line Charts · VegaLite.jl"/><meta property="og:title" content="Line Charts · VegaLite.jl"/><meta property="twitter:title" content="Line Charts · VegaLite.jl"/><meta name="description" content="Documentation for VegaLite.jl."/><meta property="og:description" content="Documentation for VegaLite.jl."/><meta property="twitter:description" content="Documentation for VegaLite.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">VegaLite.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../gettingstarted/installation/">Installation</a></li><li><a class="tocitem" href="../../gettingstarted/tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../../userguide/vlspec/">Vega-lite specifications</a></li><li><a class="tocitem" href="../../userguide/vlplotmacro/">The @vlplot command</a></li><li><a class="tocitem" href="../../userguide/data/">Data sources</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-4-1" type="checkbox" checked/><label class="tocitem" for="menuitem-4-1"><span class="docs-label">Single-View Plots</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_barcharts/">Bar Charts</a></li><li><a class="tocitem" href="../examples_histograms/">Histograms, Density Plots, and Dot Plots</a></li><li><a class="tocitem" href="../examples_scatter_strip_plots/">Scatter &amp; Strip Plots</a></li><li class="is-active"><a class="tocitem" href>Line Charts</a><ul class="internal"><li><a class="tocitem" href="#Line-Chart"><span>Line Chart</span></a></li><li><a class="tocitem" href="#Line-Chart-with-Point-Markers"><span>Line Chart with Point Markers</span></a></li><li><a class="tocitem" href="#Line-Chart-with-Stroked-Point-Markers"><span>Line Chart with Stroked Point Markers</span></a></li><li><a class="tocitem" href="#Multi-Series-Line-Chart"><span>Multi Series Line Chart</span></a></li><li><a class="tocitem" href="#Slope-Graph"><span>Slope Graph</span></a></li><li><a class="tocitem" href="#Step-Chart"><span>Step Chart</span></a></li><li><a class="tocitem" href="#Line-Chart-with-Monotone-Interpolation"><span>Line Chart with Monotone Interpolation</span></a></li><li><a class="tocitem" href="#Connected-Scatterplot-(Lines-with-Custom-Paths)"><span>Connected Scatterplot (Lines with Custom Paths)</span></a></li><li><a class="tocitem" href="#Line-Chart-with-Varying-Size-(using-the-trail-mark)"><span>Line Chart with Varying Size (using the trail mark)</span></a></li><li><a class="tocitem" href="#Line-Chart-with-Markers-and-Invalid-Values"><span>Line Chart with Markers and Invalid Values</span></a></li><li><a class="tocitem" href="#Carbon-Dioxide-in-the-Atmosphere"><span>Carbon Dioxide in the Atmosphere</span></a></li><li><a class="tocitem" href="#Line-Charts-Showing-Ranks-Over-Time"><span>Line Charts Showing Ranks Over Time</span></a></li><li><a class="tocitem" href="#Drawing-Sine-and-Cosine-Curves-with-the-Sequence-Generator"><span>Drawing Sine and Cosine Curves with the Sequence Generator</span></a></li></ul></li><li><a class="tocitem" href="../examples_area_Charts_streamgraphs/">Area Charts &amp; Streamgraphs</a></li><li><a class="tocitem" href="../examples_table_based_plots/">Table-based Plots</a></li><li><a class="tocitem" href="../examples_circular_plots/">Circular Plots</a></li><li><a class="tocitem" href="../examples_advancedcalculations/">Advanced Calculations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Composite Mark</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_error_bars_bands/">Error Bars &amp; Error Bands</a></li><li><a class="tocitem" href="../examples_box_plots/">Box Plots</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Multi-View Displays</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_faceting/">Faceting (Trellis Plot / Small Multiples)</a></li><li><a class="tocitem" href="../examples_repeat_concatenation/">Repeat &amp; Concatenation</a></li></ul></li><li><a class="tocitem" href="../examples_maps/">Maps (Geographic Displays)</a></li></ul></li><li><span class="tocitem">Reference Manual</span><ul><li><a class="tocitem" href="../../referencemanual/global/">Global settings</a></li><li><a class="tocitem" href="../../referencemanual/output/">Outputs</a></li><li><a class="tocitem" href="../../referencemanual/performance/">Performance tips</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li><a class="is-disabled">Single-View Plots</a></li><li class="is-active"><a href>Line Charts</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Line Charts</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl/blob/main/docs/src/examples/examples_line_charts.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Line-Charts"><a class="docs-heading-anchor" href="#Line-Charts">Line Charts</a><a id="Line-Charts-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Charts" title="Permalink"></a></h1><h2 id="Line-Chart"><a class="docs-heading-anchor" href="#Line-Chart">Line Chart</a><a id="Line-Chart-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    :line,
+    transform=[
+        {filter=&quot;datum.symbol==&#39;GOOG&#39;&quot;}
+    ],
+    x=&quot;date:t&quot;,
+    y=:price
+)</code></pre><img src='data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="marks" width="259" height="247" viewBox="0 0 259 247"><rect width="259" height="247" fill="white"/><g fill="none" stroke-miterlimit="10" transform="translate(47,10)"><g class="mark-group role-frame root" role="graphics-object" aria-roledescription="group mark container"><g transform="translate(0,0)"><path class="background" aria-hidden="true" d="M0.5,0.5h200v200h-200Z" stroke="%23ddd"/><g><g class="mark-group role-axis" aria-hidden="true"><g transform="translate(0.5,200.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-grid" pointer-events="none"><line transform="translate(15,-200)" x2="0" y2="200" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(51,-200)" x2="0" y2="200" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(87,-200)" x2="0" y2="200" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(122,-200)" x2="0" y2="200" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(158,-200)" x2="0" y2="200" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(194,-200)" x2="0" y2="200" stroke="%23ddd" stroke-width="1" opacity="1"/></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" aria-hidden="true"><g transform="translate(0.5,0.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-grid" pointer-events="none"><line transform="translate(0,200)" x2="200" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,150)" x2="200" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,100)" x2="200" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,50)" x2="200" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,0)" x2="200" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="X-axis titled %27date%27 for a time scale with values from Sunday, 01 August 2004, 12:00:00 AM to Monday, 01 March 2010, 12:00:00 AM"><g transform="translate(0.5,200.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(15,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(51,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(87,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(122,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(158,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(194,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="middle" transform="translate(15.014720314033367,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2005</text><text text-anchor="middle" transform="translate(50.834151128557416,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2006</text><text text-anchor="middle" transform="translate(86.65358194308145,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2007</text><text text-anchor="middle" transform="translate(122.47301275760549,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2008</text><text text-anchor="middle" transform="translate(158.39057899901866,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2009</text><text text-anchor="middle" transform="translate(194.21000981354268,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2010</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="200" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(100,30)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">date</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="Y-axis titled %27price%27 for a linear scale with values from 0 to 800"><g transform="translate(0.5,0.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(0,200)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,150)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,100)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,50)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,0)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="end" transform="translate(-7,203)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">0</text><text text-anchor="end" transform="translate(-7,153)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">200</text><text text-anchor="end" transform="translate(-7,103)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">400</text><text text-anchor="end" transform="translate(-7,53)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">600</text><text text-anchor="end" transform="translate(-7,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">800</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,200)" x2="0" y2="-200" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(-30.0869140625,100) rotate(-90) translate(0,-2)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">price</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-line role-mark marks" role="graphics-object" aria-roledescription="line mark container"><path aria-label="date: Aug 01, 2004; price: 102.37" role="graphics-symbol" aria-roledescription="line mark" d="M0,174.408L3.042,167.6L5.986,152.34L9.028,154.505L11.973,151.803L15.015,151.095L18.057,153.003L20.805,154.873L23.847,145L26.791,130.683L29.833,126.463L32.777,128.06L35.819,128.5L38.862,120.885L41.806,106.965L44.848,98.773L47.792,96.285L50.834,91.835L53.876,109.345L56.624,102.5L59.666,95.515L62.61,107.045L65.653,95.168L68.597,103.35L71.639,105.368L74.681,99.525L77.625,80.903L80.667,78.798L83.611,84.88L86.654,74.625L89.696,87.638L92.444,85.46L95.486,82.155L98.43,75.523L101.472,69.325L104.416,72.5L107.458,71.188L110.5,58.183L113.445,23.25L116.487,26.75L119.431,27.13L122.473,58.925L125.515,82.205L128.361,89.883L131.403,56.428L134.347,53.55L137.39,68.395L140.334,81.563L143.376,84.178L146.418,99.87L149.362,110.16L152.404,126.76L155.348,123.088L158.391,115.368L161.433,115.503L164.181,112.985L167.223,101.008L170.167,95.693L173.209,94.603L176.153,89.238L179.195,84.583L182.237,76.038L185.182,65.97L188.224,54.25L191.168,45.005L194.21,67.515L197.252,68.3L200,59.952" stroke="%234c78a8" stroke-width="2"/></g></g><path class="foreground" aria-hidden="true" d="" display="none"/></g></g></g></svg>'/><h2 id="Line-Chart-with-Point-Markers"><a class="docs-heading-anchor" href="#Line-Chart-with-Point-Markers">Line Chart with Point Markers</a><a id="Line-Chart-with-Point-Markers-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart-with-Point-Markers" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    transform=[{filter=&quot;datum.symbol===&#39;GOOG&#39;&quot;}],
+    mark={
+        :line,
+        point=true
+    },
+    x=&quot;year(date)&quot;,
+    y=&quot;mean(price)&quot;,
+    color=:symbol
+)</code></pre><img src="406dcdbb.svg" alt="Example block output"/><h2 id="Line-Chart-with-Stroked-Point-Markers"><a class="docs-heading-anchor" href="#Line-Chart-with-Stroked-Point-Markers">Line Chart with Stroked Point Markers</a><a id="Line-Chart-with-Stroked-Point-Markers-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart-with-Stroked-Point-Markers" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    transform=[{filter=&quot;datum.symbol===&#39;GOOG&#39;&quot;}],
+    mark={
+        :line,
+        point={filled=false, fill=:white}
+    },
+    x=&quot;year(date)&quot;,
+    y=&quot;mean(price)&quot;,
+    color=:symbol
+)</code></pre><img src="890cd616.svg" alt="Example block output"/><h2 id="Multi-Series-Line-Chart"><a class="docs-heading-anchor" href="#Multi-Series-Line-Chart">Multi Series Line Chart</a><a id="Multi-Series-Line-Chart-1"></a><a class="docs-heading-anchor-permalink" href="#Multi-Series-Line-Chart" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    :line,
+    x=&quot;date:t&quot;,
+    y=:price,
+    color=:symbol
+)</code></pre><img src="a9728a5f.svg" alt="Example block output"/><h2 id="Slope-Graph"><a class="docs-heading-anchor" href="#Slope-Graph">Slope Graph</a><a id="Slope-Graph-1"></a><a class="docs-heading-anchor-permalink" href="#Slope-Graph" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;barley&quot;) |&gt;
+@vlplot(
+    :line,
+    width={step=50},
+    x={
+        &quot;year:o&quot;,
+        scale={
+            padding=0.5
+        }
+    },
+    y=&quot;median(yield)&quot;,
+    color=:site
+)</code></pre><img src="d92234ff.svg" alt="Example block output"/><h2 id="Step-Chart"><a class="docs-heading-anchor" href="#Step-Chart">Step Chart</a><a id="Step-Chart-1"></a><a class="docs-heading-anchor-permalink" href="#Step-Chart" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    transform=[{filter=&quot;datum.symbol===&#39;GOOG&#39;&quot;}],
+    mark={
+        :line,
+        interpolate=&quot;step-after&quot;
+    },
+    x=&quot;date:t&quot;,
+    y=:price
+)</code></pre><img src="c0d505d8.svg" alt="Example block output"/><h2 id="Line-Chart-with-Monotone-Interpolation"><a class="docs-heading-anchor" href="#Line-Chart-with-Monotone-Interpolation">Line Chart with Monotone Interpolation</a><a id="Line-Chart-with-Monotone-Interpolation-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart-with-Monotone-Interpolation" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    transform=[{filter=&quot;datum.symbol===&#39;GOOG&#39;&quot;}],
+    mark={
+        :line,
+        interpolate=&quot;monotone&quot;
+    },
+    x=&quot;date:t&quot;,
+    y=:price
+)</code></pre><img src="bab544f0.svg" alt="Example block output"/><h2 id="Connected-Scatterplot-(Lines-with-Custom-Paths)"><a class="docs-heading-anchor" href="#Connected-Scatterplot-(Lines-with-Custom-Paths)">Connected Scatterplot (Lines with Custom Paths)</a><a id="Connected-Scatterplot-(Lines-with-Custom-Paths)-1"></a><a class="docs-heading-anchor-permalink" href="#Connected-Scatterplot-(Lines-with-Custom-Paths)" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;driving&quot;) |&gt;
+@vlplot(
+    mark={
+        :line,
+        point=true
+    },
+    x={
+        :miles,
+        scale={zero=false}
+    },
+    y={
+        :gas,
+        scale={zero=false}
+    },
+    order=&quot;year:t&quot;
+)</code></pre><img src="b4587358.svg" alt="Example block output"/><h2 id="Line-Chart-with-Varying-Size-(using-the-trail-mark)"><a class="docs-heading-anchor" href="#Line-Chart-with-Varying-Size-(using-the-trail-mark)">Line Chart with Varying Size (using the trail mark)</a><a id="Line-Chart-with-Varying-Size-(using-the-trail-mark)-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart-with-Varying-Size-(using-the-trail-mark)" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    :trail,
+    x={
+        &quot;date:t&quot;,
+        axis={format=&quot;%Y&quot;}
+    },
+    y=:price,
+    size=:price,
+    color=:symbol
+)</code></pre><img src="8cf72b6e.svg" alt="Example block output"/><h2 id="Line-Chart-with-Markers-and-Invalid-Values"><a class="docs-heading-anchor" href="#Line-Chart-with-Markers-and-Invalid-Values">Line Chart with Markers and Invalid Values</a><a id="Line-Chart-with-Markers-and-Invalid-Values-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart-with-Markers-and-Invalid-Values" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data = DataFrame(
+    x=[1,2,3,4,5,6,7],
+    y=[10,30,missing,15,missing,40,20]
+)
+
+data |&gt;
+@vlplot(
+    mark={
+        :line,
+        point=true
+    },
+    x=:x,
+    y=:y
+)</code></pre><img src="c67b0c64.svg" alt="Example block output"/><h2 id="Carbon-Dioxide-in-the-Atmosphere"><a class="docs-heading-anchor" href="#Carbon-Dioxide-in-the-Atmosphere">Carbon Dioxide in the Atmosphere</a><a id="Carbon-Dioxide-in-the-Atmosphere-1"></a><a class="docs-heading-anchor-permalink" href="#Carbon-Dioxide-in-the-Atmosphere" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;co2-concentration&quot;) |&gt; @vlplot(
+    width=800,
+    height=500,
+    transform=[
+        {
+            calculate=&quot;year(datum.Date)&quot;,
+            as=:year
+        },
+        {
+            calculate=&quot;month(datum.Date)&quot;,
+            as=:month
+        },
+        {
+            calculate=&quot;floor(datum.year / 10) + &#39;x&#39;&quot;,
+            as=:decade
+        },
+        {
+            calculate=&quot;(datum.year % 10) + (datum.month/12)&quot;,
+            as=:scaled_date
+        }
+    ]
+) +
+@vlplot(
+    :line,
+    x={
+        &quot;scaled_date:q&quot;,
+        axis={
+            title=&quot;Year into Decade&quot;,
+            tickCount=11
+        }
+    },
+    y={
+        &quot;CO2:q&quot;,
+        axis={title=&quot;CO2 concentration in ppm&quot;},
+        scale={zero=false}
+    },
+    detail=&quot;decade:o&quot;,
+    color={&quot;decade:n&quot;, scale={scheme=&quot;magma&quot;}, legend={offset=40}}
+) +
+(
+    @vlplot(
+        transform=[
+            {
+                aggregate=[{
+                    op=&quot;argmin&quot;,
+                    field=&quot;scaled_date&quot;,
+                    as=&quot;start&quot;
+                }, {
+                    op=&quot;argmax&quot;,
+                    field=&quot;scaled_date&quot;,
+                    as=&quot;end&quot;
+                }],
+                groupby=[&quot;decade&quot;]
+            },
+            {
+                calculate=&quot;datum.start.scaled_date&quot;,
+                as=&quot;scaled_date_start&quot;
+            },
+            {
+                calculate=&quot;datum.start.CO2&quot;,
+                as=&quot;CO2_start&quot;
+            },
+            {
+                calculate=&quot;datum.start.year&quot;,
+                as=&quot;year_start&quot;
+            },
+            {
+                calculate=&quot;datum.end.scaled_date&quot;,
+                as=&quot;scaled_date_end&quot;
+            },
+            {
+                calculate=&quot;datum.end.CO2&quot;,
+                as=&quot;CO2_end&quot;
+            },
+            {
+                calculate=&quot;datum.end.year&quot;,
+                as=&quot;year_end&quot;
+            }
+        ]
+    ) +
+    @vlplot(
+        mark={
+            :text,
+            aligh=:left,
+            baseline=:top,
+            dx=3,
+            dy=1
+        },
+        x=&quot;scaled_date_start:q&quot;,
+        y=&quot;CO2_start:q&quot;,
+        text=&quot;year_start:n&quot;
+    ) +
+    @vlplot(
+        mark={
+            :text,
+            align=:left,
+            baseline=:bottom,
+            dx=3,
+            dy=1
+        },
+        x=&quot;scaled_date_end:q&quot;,
+        y=&quot;CO2_end:q&quot;,
+        text=&quot;year_end:n&quot;
+    )
+)</code></pre><img src="da6e3f98.svg" alt="Example block output"/><h2 id="Line-Charts-Showing-Ranks-Over-Time"><a class="docs-heading-anchor" href="#Line-Charts-Showing-Ranks-Over-Time">Line Charts Showing Ranks Over Time</a><a id="Line-Charts-Showing-Ranks-Over-Time-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Charts-Showing-Ranks-Over-Time" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data = DataFrame(
+    team=[&quot;Germany&quot;, &quot;Mexico&quot;, &quot;South Korea&quot;, &quot;Sweden&quot;, &quot;Germany&quot;, &quot;Mexico&quot;,
+        &quot;South Korea&quot;, &quot;Sweden&quot;, &quot;Germany&quot;, &quot;Mexico&quot;, &quot;South Korea&quot;, &quot;Sweden&quot;],
+    matchday=[1,1,1,1,2,2,2,2,3,3,3,3],
+    point=[0,3,0,3,3,6,0,3,3,6,3,6],
+    diff=[-1,1,-1,1,0,2,-2,0,-2,-1,0,3]
+)
+
+data |&gt;
+@vlplot(
+    title={text=&quot;World Cup 2018: Group F Rankings&quot;},
+    transform=[{
+        sort=[
+            {field=&quot;point&quot;, order=&quot;descending&quot;},
+            {field=&quot;diff&quot;, order=&quot;descending&quot;}
+        ],
+        window=[{
+            op=&quot;rank&quot;,
+            as=&quot;rank&quot;
+        }],
+        groupby=[&quot;matchday&quot;]
+    }],
+    mark={
+        :line,
+        orient=&quot;vertical&quot;
+    },
+    x=&quot;matchday:o&quot;,
+    y=&quot;rank:o&quot;,
+    color={
+        :team,
+        scale={
+            domain=[&quot;Germany&quot;, &quot;Mexico&quot;, &quot;South Korea&quot;, &quot;Sweden&quot;],
+            range=[&quot;black&quot;, &quot;#127153&quot;, &quot;#C91A3C&quot;, &quot;#0C71AB&quot;]
+        }
+    }
+)</code></pre><img src="4dfa4dc7.svg" alt="Example block output"/><h2 id="Drawing-Sine-and-Cosine-Curves-with-the-Sequence-Generator"><a class="docs-heading-anchor" href="#Drawing-Sine-and-Cosine-Curves-with-the-Sequence-Generator">Drawing Sine and Cosine Curves with the Sequence Generator</a><a id="Drawing-Sine-and-Cosine-Curves-with-the-Sequence-Generator-1"></a><a class="docs-heading-anchor-permalink" href="#Drawing-Sine-and-Cosine-Curves-with-the-Sequence-Generator" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite
+
+@vlplot(
+    width=300,
+    height=150,
+    data={sequence={start=0,stop=12.7,step=0.1,as=&quot;x&quot;}},
+    transform=[
+        {calculate=&quot;sin(datum.x)&quot;, as=&quot;sin(x)&quot;},
+        {calculate=&quot;cos(datum.x)&quot;, as=&quot;cos(x)&quot;},
+        {fold=[&quot;sin(x)&quot;, &quot;cos(x)&quot;]}
+    ],
+    mark=:line,
+    x=&quot;x:q&quot;,
+    y=&quot;value:q&quot;,
+    color={&quot;key:n&quot;,title=nothing}
+)</code></pre><img src="733e9ddb.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../examples_scatter_strip_plots/">« Scatter &amp; Strip Plots</a><a class="docs-footer-nextpage" href="../examples_area_Charts_streamgraphs/">Area Charts &amp; Streamgraphs »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Saturday 19 September 2026 05:25">Saturday 19 September 2026</span>. Using Julia version 1.12.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

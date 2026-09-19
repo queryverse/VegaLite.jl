@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Histograms, Density Plots, and Dot Plots · VegaLite.jl</title><meta name="title" content="Histograms, Density Plots, and Dot Plots · VegaLite.jl"/><meta property="og:title" content="Histograms, Density Plots, and Dot Plots · VegaLite.jl"/><meta property="twitter:title" content="Histograms, Density Plots, and Dot Plots · VegaLite.jl"/><meta name="description" content="Documentation for VegaLite.jl."/><meta property="og:description" content="Documentation for VegaLite.jl."/><meta property="twitter:description" content="Documentation for VegaLite.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">VegaLite.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../gettingstarted/installation/">Installation</a></li><li><a class="tocitem" href="../../gettingstarted/tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../../userguide/vlspec/">Vega-lite specifications</a></li><li><a class="tocitem" href="../../userguide/vlplotmacro/">The @vlplot command</a></li><li><a class="tocitem" href="../../userguide/data/">Data sources</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-4-1" type="checkbox" checked/><label class="tocitem" for="menuitem-4-1"><span class="docs-label">Single-View Plots</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_barcharts/">Bar Charts</a></li><li class="is-active"><a class="tocitem" href>Histograms, Density Plots, and Dot Plots</a><ul class="internal"><li><a class="tocitem" href="#Histogram"><span>Histogram</span></a></li><li><a class="tocitem" href="#Histogram-(from-Binned-Data)"><span>Histogram (from Binned Data)</span></a></li><li><a class="tocitem" href="#Log-scaled-Histogram"><span>Log-scaled Histogram</span></a></li><li><a class="tocitem" href="#Density-Plot"><span>Density Plot</span></a></li><li><a class="tocitem" href="#Stacked-Density-Estimates"><span>Stacked Density Estimates</span></a></li><li><a class="tocitem" href="#2D-Histogram-Scatterplot"><span>2D Histogram Scatterplot</span></a></li><li><a class="tocitem" href="#2D-Histogram-Heatmap"><span>2D Histogram Heatmap</span></a></li><li><a class="tocitem" href="#Cumulative-Frequency-Distribution"><span>Cumulative Frequency Distribution</span></a></li><li><a class="tocitem" href="#Layered-Histogram-and-Cumulative-Histogram"><span>Layered Histogram and Cumulative Histogram</span></a></li><li><a class="tocitem" href="#Violin-Plot"><span>Violin Plot</span></a></li><li><a class="tocitem" href="#Wilkinson-Dot-Plot"><span>Wilkinson Dot Plot</span></a></li><li><a class="tocitem" href="#Isotype-Dot-Plot"><span>Isotype Dot Plot</span></a></li><li><a class="tocitem" href="#Isotype-Dot-Plot-with-Emoji"><span>Isotype Dot Plot with Emoji</span></a></li></ul></li><li><a class="tocitem" href="../examples_scatter_strip_plots/">Scatter &amp; Strip Plots</a></li><li><a class="tocitem" href="../examples_line_charts/">Line Charts</a></li><li><a class="tocitem" href="../examples_area_Charts_streamgraphs/">Area Charts &amp; Streamgraphs</a></li><li><a class="tocitem" href="../examples_table_based_plots/">Table-based Plots</a></li><li><a class="tocitem" href="../examples_circular_plots/">Circular Plots</a></li><li><a class="tocitem" href="../examples_advancedcalculations/">Advanced Calculations</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Composite Mark</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_error_bars_bands/">Error Bars &amp; Error Bands</a></li><li><a class="tocitem" href="../examples_box_plots/">Box Plots</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Multi-View Displays</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_faceting/">Faceting (Trellis Plot / Small Multiples)</a></li><li><a class="tocitem" href="../examples_repeat_concatenation/">Repeat &amp; Concatenation</a></li></ul></li><li><a class="tocitem" href="../examples_maps/">Maps (Geographic Displays)</a></li></ul></li><li><span class="tocitem">Reference Manual</span><ul><li><a class="tocitem" href="../../referencemanual/global/">Global settings</a></li><li><a class="tocitem" href="../../referencemanual/output/">Outputs</a></li><li><a class="tocitem" href="../../referencemanual/performance/">Performance tips</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li><a class="is-disabled">Single-View Plots</a></li><li class="is-active"><a href>Histograms, Density Plots, and Dot Plots</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Histograms, Density Plots, and Dot Plots</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl/blob/main/docs/src/examples/examples_histograms.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Histograms,-Density-Plots,-and-Dot-Plots"><a class="docs-heading-anchor" href="#Histograms,-Density-Plots,-and-Dot-Plots">Histograms, Density Plots, and Dot Plots</a><a id="Histograms,-Density-Plots,-and-Dot-Plots-1"></a><a class="docs-heading-anchor-permalink" href="#Histograms,-Density-Plots,-and-Dot-Plots" title="Permalink"></a></h1><h2 id="Histogram"><a class="docs-heading-anchor" href="#Histogram">Histogram</a><a id="Histogram-1"></a><a class="docs-heading-anchor-permalink" href="#Histogram" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(:bar, x={:IMDB_Rating, bin=true}, y=&quot;count()&quot;)</code></pre><img src="06c58223.svg" alt="Example block output"/><h2 id="Histogram-(from-Binned-Data)"><a class="docs-heading-anchor" href="#Histogram-(from-Binned-Data)">Histogram (from Binned Data)</a><a id="Histogram-(from-Binned-Data)-1"></a><a class="docs-heading-anchor-permalink" href="#Histogram-(from-Binned-Data)" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data=DataFrame(
+    bin_start=[8,10,12,14,16,18,20,22],
+    bin_end=[10,12,14,16,18,20,22,24],
+    count=[7,29,71,127,94,54,17,5]
+)
+data |&gt; @vlplot(
+    :bar,
+    x={:bin_start, bin={binned=true,step=2}},
+    x2=:bin_end,
+    y=:count
+)</code></pre><img src="a7086789.svg" alt="Example block output"/><h2 id="Log-scaled-Histogram"><a class="docs-heading-anchor" href="#Log-scaled-Histogram">Log-scaled Histogram</a><a id="Log-scaled-Histogram-1"></a><a class="docs-heading-anchor-permalink" href="#Log-scaled-Histogram" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data=DataFrame(
+    x=[0.01,0.1,1,1,1,1,10,10,100,500,800]
+)
+
+data |&gt; @vlplot(
+    :bar,
+    transform=[
+        {calculate=&quot;log(datum.x)/log(10)&quot;, as=&quot;log_x&quot;},
+        {field=&quot;log_x&quot;,bin=true,as=&quot;bin_log_x&quot;},
+        {calculate=&quot;pow(10, datum.bin_log_x)&quot;, as=&quot;x1&quot;},
+        {calculate=&quot;pow(10, datum.bin_log_x_end)&quot;, as=&quot;x2&quot;}
+    ],
+    x={&quot;x1:q&quot;, scale={type=&quot;log&quot;,base=10},axis={tickCount=5}},
+    x2=:x2,
+    y={aggregate=&quot;count&quot;,type=&quot;quantitative&quot;}
+)</code></pre><img src="02d73317.svg" alt="Example block output"/><h2 id="Density-Plot"><a class="docs-heading-anchor" href="#Density-Plot">Density Plot</a><a id="Density-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#Density-Plot" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    width=400,
+    height=100,
+    :area,
+    transform=[
+        {density=&quot;IMDB_Rating&quot;,bandwidth=0.3}
+    ],
+    x={&quot;value:q&quot;, title=&quot;IMDB Rating&quot;},
+    y=&quot;density:q&quot;
+)</code></pre><img src="0501c1fd.svg" alt="Example block output"/><h2 id="Stacked-Density-Estimates"><a class="docs-heading-anchor" href="#Stacked-Density-Estimates">Stacked Density Estimates</a><a id="Stacked-Density-Estimates-1"></a><a class="docs-heading-anchor-permalink" href="#Stacked-Density-Estimates" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    width=400,
+    height=100,
+    :area,
+    transform=[
+        {density=&quot;IMDB_Rating&quot;,bandwidth=0.3,groupby=[&quot;Major_Genre&quot;],extent=[0, 10],counts=true,steps=50}
+    ],
+    x={&quot;value:q&quot;, title=&quot;IMDB Rating&quot;},
+    y= {&quot;density:q&quot;,stack=true},
+    color={&quot;Major_Genre:n&quot;,scale={scheme=:category20}}
+)</code></pre><img src="38670b08.svg" alt="Example block output"/><h2 id="2D-Histogram-Scatterplot"><a class="docs-heading-anchor" href="#2D-Histogram-Scatterplot">2D Histogram Scatterplot</a><a id="2D-Histogram-Scatterplot-1"></a><a class="docs-heading-anchor-permalink" href="#2D-Histogram-Scatterplot" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    :circle,
+    x={:IMDB_Rating, bin={maxbins=10}},
+    y={:Rotten_Tomatoes_Rating, bin={maxbins=10}},
+    size=&quot;count()&quot;
+)</code></pre><img src="74863699.svg" alt="Example block output"/><h2 id="2D-Histogram-Heatmap"><a class="docs-heading-anchor" href="#2D-Histogram-Heatmap">2D Histogram Heatmap</a><a id="2D-Histogram-Heatmap-1"></a><a class="docs-heading-anchor-permalink" href="#2D-Histogram-Heatmap" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    :rect,
+    width=300, height=200,
+    x={:IMDB_Rating, bin={maxbins=60}},
+    y={:Rotten_Tomatoes_Rating, bin={maxbins=40}},
+    color=&quot;count()&quot;,
+    config={
+        range={
+            heatmap={
+                scheme=&quot;greenblue&quot;
+            }
+        },
+        view={
+            stroke=&quot;transparent&quot;
+        }
+    }
+)</code></pre><img src="6174bc2b.svg" alt="Example block output"/><h2 id="Cumulative-Frequency-Distribution"><a class="docs-heading-anchor" href="#Cumulative-Frequency-Distribution">Cumulative Frequency Distribution</a><a id="Cumulative-Frequency-Distribution-1"></a><a class="docs-heading-anchor-permalink" href="#Cumulative-Frequency-Distribution" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    :area,
+    transform=[{
+        sort=[{field=:IMDB_Rating}],
+        window=[{field=:count,op=&quot;count&quot;,as=&quot;cumulative_count&quot;}],
+        frame=[nothing,0]
+    }],
+    x=&quot;IMDB_Rating:q&quot;,
+    y=&quot;cumulative_count:q&quot;
+)</code></pre><img src="58deec17.svg" alt="Example block output"/><h2 id="Layered-Histogram-and-Cumulative-Histogram"><a class="docs-heading-anchor" href="#Layered-Histogram-and-Cumulative-Histogram">Layered Histogram and Cumulative Histogram</a><a id="Layered-Histogram-and-Cumulative-Histogram-1"></a><a class="docs-heading-anchor-permalink" href="#Layered-Histogram-and-Cumulative-Histogram" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    transform=[
+        {bin=true,field=:IMDB_Rating,as=&quot;bin_IMDB_Rating&quot;},
+        {
+            aggregate=[{op=:count,as=&quot;count&quot;}],
+            groupby=[&quot;bin_IMDB_Rating&quot;, &quot;bin_IMDB_Rating_end&quot;]
+        },
+        {filter=&quot;datum.bin_IMDB_Rating !== null&quot;},
+        {
+            sort=[{field=:bin_IMDB_Rating}],
+            window=[{field=:count,op=&quot;sum&quot;,as=&quot;cumulative_count&quot;}],
+            frame=[nothing,0]
+        }
+    ],
+    x={&quot;bin_IMDB_Rating:q&quot;,scale={zero=false},title=&quot;IMDB Rating&quot;},
+    x2=:bin_IMDB_Rating_end
+) +
+@vlplot(
+    :bar,
+    y=&quot;cumulative_count:q&quot;
+) +
+@vlplot(
+    mark={:bar,color=:yellow,opacity=0.5},
+    y=&quot;count:q&quot;
+)</code></pre><img src="5a9bdcbf.svg" alt="Example block output"/><h2 id="Violin-Plot"><a class="docs-heading-anchor" href="#Violin-Plot">Violin Plot</a><a id="Violin-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#Violin-Plot" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;cars&quot;) |&gt; @vlplot(
+    mark={:area, orient=&quot;horizontal&quot;},
+    transform=[
+        {density=&quot;Miles_per_Gallon&quot;, groupby=[&quot;Origin&quot;], extent=[5, 50],
+        as=[&quot;Miles_per_Gallon&quot;, &quot;density&quot;]}
+    ],
+    y=&quot;Miles_per_Gallon:q&quot;,
+    x= {&quot;density:q&quot;, stack=&quot;center&quot;, impute=nothing, title=nothing,
+        axis={labels=false, values=[0], grid=false, ticks=true}},
+    column={&quot;Origin:n&quot;, header={titleOrient=&quot;bottom&quot;, labelOrient=&quot;bottom&quot;,
+            labelPadding=0}},
+    color = &quot;Origin:n&quot;,
+    width=70,
+    spacing=0,
+    config={view={stroke=nothing}}
+)</code></pre><img src="0249370c.svg" alt="Example block output"/><h2 id="Wilkinson-Dot-Plot"><a class="docs-heading-anchor" href="#Wilkinson-Dot-Plot">Wilkinson Dot Plot</a><a id="Wilkinson-Dot-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#Wilkinson-Dot-Plot" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data=DataFrame(data=[
+    1,1,1,1,1,1,1,1,1,1,
+    2,2,2,
+    3,3,
+    4,4,4,4,4,4
+])
+
+data |&gt; @vlplot(
+    height=100,
+    mark={:circle,opacity=1},
+    transform=[{
+        window=[{op=:rank,as=&quot;id&quot;}],
+        groupby= [:data]
+    }],
+    x=&quot;data:o&quot;,
+    y={&quot;id:o&quot;,axis=nothing,sort=:descending}
+)</code></pre><img src='data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="marks" width="90" height="139" viewBox="0 0 90 139"><rect width="90" height="139" fill="white"/><g fill="none" stroke-miterlimit="10" transform="translate(5,5)"><g class="mark-group role-frame root" role="graphics-object" aria-roledescription="group mark container"><g transform="translate(0,0)"><path class="background" aria-hidden="true" d="M0.5,0.5h80v100h-80Z" stroke="%23ddd"/><g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="X-axis titled %27data%27 for a discrete scale with 4 values: 1, 2, 3, 4"><g transform="translate(0.5,100.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(10,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(30,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(50,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(70,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="end" transform="translate(10,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">1</text><text text-anchor="end" transform="translate(30,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2</text><text text-anchor="end" transform="translate(50,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">3</text><text text-anchor="end" transform="translate(70,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">4</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="80" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(40,26.3623046875)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">data</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-symbol role-mark marks" role="graphics-object" aria-roledescription="symbol mark container"><path aria-label="data: 1; id: 1" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,95)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 2" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,85)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 3" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,75)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 4" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,65)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 5" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,55)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 6" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,45)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 7" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,35)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 8" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,25)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 9" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,15)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 1; id: 10" role="graphics-symbol" aria-roledescription="circle" transform="translate(10,5)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 2; id: 1" role="graphics-symbol" aria-roledescription="circle" transform="translate(30,95)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 2; id: 2" role="graphics-symbol" aria-roledescription="circle" transform="translate(30,85)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 2; id: 3" role="graphics-symbol" aria-roledescription="circle" transform="translate(30,75)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 3; id: 1" role="graphics-symbol" aria-roledescription="circle" transform="translate(50,95)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 3; id: 2" role="graphics-symbol" aria-roledescription="circle" transform="translate(50,85)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 4; id: 1" role="graphics-symbol" aria-roledescription="circle" transform="translate(70,95)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 4; id: 2" role="graphics-symbol" aria-roledescription="circle" transform="translate(70,85)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 4; id: 3" role="graphics-symbol" aria-roledescription="circle" transform="translate(70,75)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 4; id: 4" role="graphics-symbol" aria-roledescription="circle" transform="translate(70,65)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 4; id: 5" role="graphics-symbol" aria-roledescription="circle" transform="translate(70,55)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/><path aria-label="data: 4; id: 6" role="graphics-symbol" aria-roledescription="circle" transform="translate(70,45)" d="M2.739,0A2.739,2.739,0,1,1,-2.739,0A2.739,2.739,0,1,1,2.739,0" fill="%234c78a8" stroke-width="2" opacity="1"/></g></g><path class="foreground" aria-hidden="true" d="" display="none"/></g></g></g></svg>'/><h2 id="Isotype-Dot-Plot"><a class="docs-heading-anchor" href="#Isotype-Dot-Plot">Isotype Dot Plot</a><a id="Isotype-Dot-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#Isotype-Dot-Plot" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+df=DataFrame(
+    country=[&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;],
+    animal=[&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;],
+    col=[3,2,1,2,1,10,9,8,7,6,5,4,3,2,1,9,8,7,6,5,4,3,2,1,6,5,4,3,2,1,7,6,5,4,3,2,1]
+)
+personSVGPath=&quot;M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z&quot;
+cattleSVGPath=&quot;M4 -2c0 0 0.9 -0.7 1.1 -0.8c0.1 -0.1 -0.1 0.5 -0.3 0.7c-0.2 0.2 1.1 1.1 1.1 1.2c0 0.2 -0.2 0.8 -0.4 0.7c-0.1 0 -0.8 -0.3 -1.3 -0.2c-0.5 0.1 -1.3 1.6 -1.5 2c-0.3 0.4 -0.6 0.4 -0.6 0.4c0 0.1 0.3 1.7 0.4 1.8c0.1 0.1 -0.4 0.1 -0.5 0c0 0 -0.6 -1.9 -0.6 -1.9c-0.1 0 -0.3 -0.1 -0.3 -0.1c0 0.1 -0.5 1.4 -0.4 1.6c0.1 0.2 0.1 0.3 0.1 0.3c0 0 -0.4 0 -0.4 0c0 0 -0.2 -0.1 -0.1 -0.3c0 -0.2 0.3 -1.7 0.3 -1.7c0 0 -2.8 -0.9 -2.9 -0.8c-0.2 0.1 -0.4 0.6 -0.4 1c0 0.4 0.5 1.9 0.5 1.9l-0.5 0l-0.6 -2l0 -0.6c0 0 -1 0.8 -1 1c0 0.2 -0.2 1.3 -0.2 1.3c0 0 0.3 0.3 0.2 0.3c0 0 -0.5 0 -0.5 0c0 0 -0.2 -0.2 -0.1 -0.4c0 -0.1 0.2 -1.6 0.2 -1.6c0 0 0.5 -0.4 0.5 -0.5c0 -0.1 0 -2.7 -0.2 -2.7c-0.1 0 -0.4 2 -0.4 2c0 0 0 0.2 -0.2 0.5c-0.1 0.4 -0.2 1.1 -0.2 1.1c0 0 -0.2 -0.1 -0.2 -0.2c0 -0.1 -0.1 -0.7 0 -0.7c0.1 -0.1 0.3 -0.8 0.4 -1.4c0 -0.6 0.2 -1.3 0.4 -1.5c0.1 -0.2 0.6 -0.4 0.6 -0.4z&quot;
+pigsSVGPath=&quot;M1.2 -2c0 0 0.7 0 1.2 0.5c0.5 0.5 0.4 0.6 0.5 0.6c0.1 0 0.7 0 0.8 0.1c0.1 0 0.2 0.2 0.2 0.2c0 0 -0.6 0.2 -0.6 0.3c0 0.1 0.4 0.9 0.6 0.9c0.1 0 0.6 0 0.6 0.1c0 0.1 0 0.7 -0.1 0.7c-0.1 0 -1.2 0.4 -1.5 0.5c-0.3 0.1 -1.1 0.5 -1.1 0.7c-0.1 0.2 0.4 1.2 0.4 1.2l-0.4 0c0 0 -0.4 -0.8 -0.4 -0.9c0 -0.1 -0.1 -0.3 -0.1 -0.3l-0.2 0l-0.5 1.3l-0.4 0c0 0 -0.1 -0.4 0 -0.6c0.1 -0.1 0.3 -0.6 0.3 -0.7c0 0 -0.8 0 -1.5 -0.1c-0.7 -0.1 -1.2 -0.3 -1.2 -0.2c0 0.1 -0.4 0.6 -0.5 0.6c0 0 0.3 0.9 0.3 0.9l-0.4 0c0 0 -0.4 -0.5 -0.4 -0.6c0 -0.1 -0.2 -0.6 -0.2 -0.5c0 0 -0.4 0.4 -0.6 0.4c-0.2 0.1 -0.4 0.1 -0.4 0.1c0 0 -0.1 0.6 -0.1 0.6l-0.5 0l0 -1c0 0 0.5 -0.4 0.5 -0.5c0 -0.1 -0.7 -1.2 -0.6 -1.4c0.1 -0.1 0.1 -1.1 0.1 -1.1c0 0 -0.2 0.1 -0.2 0.1c0 0 0 0.9 0 1c0 0.1 -0.2 0.3 -0.3 0.3c-0.1 0 0 -0.5 0 -0.9c0 -0.4 0 -0.4 0.2 -0.6c0.2 -0.2 0.6 -0.3 0.8 -0.8c0.3 -0.5 1 -0.6 1 -0.6z&quot;
+sheepSVGPath=&quot;M-4.1 -0.5c0.2 0 0.2 0.2 0.5 0.2c0.3 0 0.3 -0.2 0.5 -0.2c0.2 0 0.2 0.2 0.4 0.2c0.2 0 0.2 -0.2 0.5 -0.2c0.2 0 0.2 0.2 0.4 0.2c0.2 0 0.2 -0.2 0.4 -0.2c0.1 0 0.2 0.2 0.4 0.1c0.2 0 0.2 -0.2 0.4 -0.3c0.1 0 0.1 -0.1 0.4 0c0.3 0 0.3 -0.4 0.6 -0.4c0.3 0 0.6 -0.3 0.7 -0.2c0.1 0.1 1.4 1 1.3 1.4c-0.1 0.4 -0.3 0.3 -0.4 0.3c-0.1 0 -0.5 -0.4 -0.7 -0.2c-0.3 0.2 -0.1 0.4 -0.2 0.6c-0.1 0.1 -0.2 0.2 -0.3 0.4c0 0.2 0.1 0.3 0 0.5c-0.1 0.2 -0.3 0.2 -0.3 0.5c0 0.3 -0.2 0.3 -0.3 0.6c-0.1 0.2 0 0.3 -0.1 0.5c-0.1 0.2 -0.1 0.2 -0.2 0.3c-0.1 0.1 0.3 1.1 0.3 1.1l-0.3 0c0 0 -0.3 -0.9 -0.3 -1c0 -0.1 -0.1 -0.2 -0.3 -0.2c-0.2 0 -0.3 0.1 -0.4 0.4c0 0.3 -0.2 0.8 -0.2 0.8l-0.3 0l0.3 -1c0 0 0.1 -0.6 -0.2 -0.5c-0.3 0.1 -0.2 -0.1 -0.4 -0.1c-0.2 -0.1 -0.3 0.1 -0.4 0c-0.2 -0.1 -0.3 0.1 -0.5 0c-0.2 -0.1 -0.1 0 -0.3 0.3c-0.2 0.3 -0.4 0.3 -0.4 0.3l0.2 1.1l-0.3 0l-0.2 -1.1c0 0 -0.4 -0.6 -0.5 -0.4c-0.1 0.3 -0.1 0.4 -0.3 0.4c-0.1 -0.1 -0.2 1.1 -0.2 1.1l-0.3 0l0.2 -1.1c0 0 -0.3 -0.1 -0.3 -0.5c0 -0.3 0.1 -0.5 0.1 -0.7c0.1 -0.2 -0.1 -1 -0.2 -1.1c-0.1 -0.2 -0.2 -0.8 -0.2 -0.8c0 0 -0.1 -0.5 0.4 -0.8z&quot;
+
+df |&gt; @vlplot(
+    config={view={stroke=nothing}},
+    height=200,
+    width=800,
+    mark={:point, filled=true},
+    x={&quot;col:o&quot;, axis=nothing},
+    y={&quot;animal:o&quot;, axis=nothing},
+    row={&quot;country:n&quot;, header={title=nothing}},
+    shape={
+        &quot;animal:n&quot;,
+        scale={
+            domain=[ &quot;person&quot;, &quot;cattle&quot;, &quot;pigs&quot;, &quot;sheep&quot; ],
+            range=[ personSVGPath, cattleSVGPath, pigsSVGPath, sheepSVGPath ]
+        },
+        legend=nothing
+    },
+    color={
+        &quot;animal:n&quot;,
+        legend=nothing,
+        scale={
+            domain=[ &quot;person&quot;, &quot;cattle&quot;, &quot;pigs&quot;, &quot;sheep&quot; ],
+            range=[
+                &quot;rgb(162,160,152)&quot;,
+                &quot;rgb(194,81,64)&quot;,
+                &quot;rgb(93,93,93)&quot;,
+                &quot;rgb(91,131,149)&quot;
+            ]
+        }
+    },
+    opacity={ value=1 },
+    size={ value=200 }
+)</code></pre><img src="c97132ce.svg" alt="Example block output"/><h2 id="Isotype-Dot-Plot-with-Emoji"><a class="docs-heading-anchor" href="#Isotype-Dot-Plot-with-Emoji">Isotype Dot Plot with Emoji</a><a id="Isotype-Dot-Plot-with-Emoji-1"></a><a class="docs-heading-anchor-permalink" href="#Isotype-Dot-Plot-with-Emoji" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+df=DataFrame(
+    country=[&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;Great,Britain&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;,&quot;United,States&quot;],
+    animal=[&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;cattle&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;pigs&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;,&quot;sheep&quot;],
+    col=[3,2,1,2,1,10,9,8,7,6,5,4,3,2,1,9,8,7,6,5,4,3,2,1,6,5,4,3,2,1,7,6,5,4,3,2,1]
+)
+personSVGPath=&quot;M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z&quot;
+cattleSVGPath=&quot;M4 -2c0 0 0.9 -0.7 1.1 -0.8c0.1 -0.1 -0.1 0.5 -0.3 0.7c-0.2 0.2 1.1 1.1 1.1 1.2c0 0.2 -0.2 0.8 -0.4 0.7c-0.1 0 -0.8 -0.3 -1.3 -0.2c-0.5 0.1 -1.3 1.6 -1.5 2c-0.3 0.4 -0.6 0.4 -0.6 0.4c0 0.1 0.3 1.7 0.4 1.8c0.1 0.1 -0.4 0.1 -0.5 0c0 0 -0.6 -1.9 -0.6 -1.9c-0.1 0 -0.3 -0.1 -0.3 -0.1c0 0.1 -0.5 1.4 -0.4 1.6c0.1 0.2 0.1 0.3 0.1 0.3c0 0 -0.4 0 -0.4 0c0 0 -0.2 -0.1 -0.1 -0.3c0 -0.2 0.3 -1.7 0.3 -1.7c0 0 -2.8 -0.9 -2.9 -0.8c-0.2 0.1 -0.4 0.6 -0.4 1c0 0.4 0.5 1.9 0.5 1.9l-0.5 0l-0.6 -2l0 -0.6c0 0 -1 0.8 -1 1c0 0.2 -0.2 1.3 -0.2 1.3c0 0 0.3 0.3 0.2 0.3c0 0 -0.5 0 -0.5 0c0 0 -0.2 -0.2 -0.1 -0.4c0 -0.1 0.2 -1.6 0.2 -1.6c0 0 0.5 -0.4 0.5 -0.5c0 -0.1 0 -2.7 -0.2 -2.7c-0.1 0 -0.4 2 -0.4 2c0 0 0 0.2 -0.2 0.5c-0.1 0.4 -0.2 1.1 -0.2 1.1c0 0 -0.2 -0.1 -0.2 -0.2c0 -0.1 -0.1 -0.7 0 -0.7c0.1 -0.1 0.3 -0.8 0.4 -1.4c0 -0.6 0.2 -1.3 0.4 -1.5c0.1 -0.2 0.6 -0.4 0.6 -0.4z&quot;
+pigsSVGPath=&quot;M1.2 -2c0 0 0.7 0 1.2 0.5c0.5 0.5 0.4 0.6 0.5 0.6c0.1 0 0.7 0 0.8 0.1c0.1 0 0.2 0.2 0.2 0.2c0 0 -0.6 0.2 -0.6 0.3c0 0.1 0.4 0.9 0.6 0.9c0.1 0 0.6 0 0.6 0.1c0 0.1 0 0.7 -0.1 0.7c-0.1 0 -1.2 0.4 -1.5 0.5c-0.3 0.1 -1.1 0.5 -1.1 0.7c-0.1 0.2 0.4 1.2 0.4 1.2l-0.4 0c0 0 -0.4 -0.8 -0.4 -0.9c0 -0.1 -0.1 -0.3 -0.1 -0.3l-0.2 0l-0.5 1.3l-0.4 0c0 0 -0.1 -0.4 0 -0.6c0.1 -0.1 0.3 -0.6 0.3 -0.7c0 0 -0.8 0 -1.5 -0.1c-0.7 -0.1 -1.2 -0.3 -1.2 -0.2c0 0.1 -0.4 0.6 -0.5 0.6c0 0 0.3 0.9 0.3 0.9l-0.4 0c0 0 -0.4 -0.5 -0.4 -0.6c0 -0.1 -0.2 -0.6 -0.2 -0.5c0 0 -0.4 0.4 -0.6 0.4c-0.2 0.1 -0.4 0.1 -0.4 0.1c0 0 -0.1 0.6 -0.1 0.6l-0.5 0l0 -1c0 0 0.5 -0.4 0.5 -0.5c0 -0.1 -0.7 -1.2 -0.6 -1.4c0.1 -0.1 0.1 -1.1 0.1 -1.1c0 0 -0.2 0.1 -0.2 0.1c0 0 0 0.9 0 1c0 0.1 -0.2 0.3 -0.3 0.3c-0.1 0 0 -0.5 0 -0.9c0 -0.4 0 -0.4 0.2 -0.6c0.2 -0.2 0.6 -0.3 0.8 -0.8c0.3 -0.5 1 -0.6 1 -0.6z&quot;
+sheepSVGPath=&quot;M-4.1 -0.5c0.2 0 0.2 0.2 0.5 0.2c0.3 0 0.3 -0.2 0.5 -0.2c0.2 0 0.2 0.2 0.4 0.2c0.2 0 0.2 -0.2 0.5 -0.2c0.2 0 0.2 0.2 0.4 0.2c0.2 0 0.2 -0.2 0.4 -0.2c0.1 0 0.2 0.2 0.4 0.1c0.2 0 0.2 -0.2 0.4 -0.3c0.1 0 0.1 -0.1 0.4 0c0.3 0 0.3 -0.4 0.6 -0.4c0.3 0 0.6 -0.3 0.7 -0.2c0.1 0.1 1.4 1 1.3 1.4c-0.1 0.4 -0.3 0.3 -0.4 0.3c-0.1 0 -0.5 -0.4 -0.7 -0.2c-0.3 0.2 -0.1 0.4 -0.2 0.6c-0.1 0.1 -0.2 0.2 -0.3 0.4c0 0.2 0.1 0.3 0 0.5c-0.1 0.2 -0.3 0.2 -0.3 0.5c0 0.3 -0.2 0.3 -0.3 0.6c-0.1 0.2 0 0.3 -0.1 0.5c-0.1 0.2 -0.1 0.2 -0.2 0.3c-0.1 0.1 0.3 1.1 0.3 1.1l-0.3 0c0 0 -0.3 -0.9 -0.3 -1c0 -0.1 -0.1 -0.2 -0.3 -0.2c-0.2 0 -0.3 0.1 -0.4 0.4c0 0.3 -0.2 0.8 -0.2 0.8l-0.3 0l0.3 -1c0 0 0.1 -0.6 -0.2 -0.5c-0.3 0.1 -0.2 -0.1 -0.4 -0.1c-0.2 -0.1 -0.3 0.1 -0.4 0c-0.2 -0.1 -0.3 0.1 -0.5 0c-0.2 -0.1 -0.1 0 -0.3 0.3c-0.2 0.3 -0.4 0.3 -0.4 0.3l0.2 1.1l-0.3 0l-0.2 -1.1c0 0 -0.4 -0.6 -0.5 -0.4c-0.1 0.3 -0.1 0.4 -0.3 0.4c-0.1 -0.1 -0.2 1.1 -0.2 1.1l-0.3 0l0.2 -1.1c0 0 -0.3 -0.1 -0.3 -0.5c0 -0.3 0.1 -0.5 0.1 -0.7c0.1 -0.2 -0.1 -1 -0.2 -1.1c-0.1 -0.2 -0.2 -0.8 -0.2 -0.8c0 0 -0.1 -0.5 0.4 -0.8z&quot;
+
+df |&gt; @vlplot(
+    config={view={stroke=nothing}},
+    height=200,
+    width=800,
+    transform= [
+        {
+            calculate=&quot;{&#39;cattle&#39;: &#39;🐄&#39;, &#39;pigs&#39;: &#39;🐖&#39;, &#39;sheep&#39;: &#39;🐏&#39;}[datum.animal]&quot;,
+            as=:emoji
+        },
+        {window=[{op=:rank, as=:rank}], groupby=[:country, :animal]}
+    ],
+    mark={:text, baseline=:middle},
+    x={&quot;rank:o&quot;, axis=nothing},
+    y={&quot;animal:n&quot;, axis=nothing, sort=nothing},
+    row={&quot;country:n&quot;, header={title=nothing}},
+    text=&quot;emoji:n&quot;,
+    size={ value=65 }
+)</code></pre><img src="8fadd3f9.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../examples_barcharts/">« Bar Charts</a><a class="docs-footer-nextpage" href="../examples_scatter_strip_plots/">Scatter &amp; Strip Plots »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Saturday 19 September 2026 05:25">Saturday 19 September 2026</span>. Using Julia version 1.12.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

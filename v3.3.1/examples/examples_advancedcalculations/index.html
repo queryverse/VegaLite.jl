@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Advanced Calculations · VegaLite.jl</title><meta name="title" content="Advanced Calculations · VegaLite.jl"/><meta property="og:title" content="Advanced Calculations · VegaLite.jl"/><meta property="twitter:title" content="Advanced Calculations · VegaLite.jl"/><meta name="description" content="Documentation for VegaLite.jl."/><meta property="og:description" content="Documentation for VegaLite.jl."/><meta property="twitter:description" content="Documentation for VegaLite.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">VegaLite.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Getting Started</span><ul><li><a class="tocitem" href="../../gettingstarted/installation/">Installation</a></li><li><a class="tocitem" href="../../gettingstarted/tutorial/">Tutorial</a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../../userguide/vlspec/">Vega-lite specifications</a></li><li><a class="tocitem" href="../../userguide/vlplotmacro/">The @vlplot command</a></li><li><a class="tocitem" href="../../userguide/data/">Data sources</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-4-1" type="checkbox" checked/><label class="tocitem" for="menuitem-4-1"><span class="docs-label">Single-View Plots</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_barcharts/">Bar Charts</a></li><li><a class="tocitem" href="../examples_histograms/">Histograms, Density Plots, and Dot Plots</a></li><li><a class="tocitem" href="../examples_scatter_strip_plots/">Scatter &amp; Strip Plots</a></li><li><a class="tocitem" href="../examples_line_charts/">Line Charts</a></li><li><a class="tocitem" href="../examples_area_Charts_streamgraphs/">Area Charts &amp; Streamgraphs</a></li><li><a class="tocitem" href="../examples_table_based_plots/">Table-based Plots</a></li><li><a class="tocitem" href="../examples_circular_plots/">Circular Plots</a></li><li class="is-active"><a class="tocitem" href>Advanced Calculations</a><ul class="internal"><li><a class="tocitem" href="#Calculate-Percentage-of-Total"><span>Calculate Percentage of Total</span></a></li><li><a class="tocitem" href="#Calculate-Difference-from-Average"><span>Calculate Difference from Average</span></a></li><li><a class="tocitem" href="#Calculate-Difference-from-Annual-Average"><span>Calculate Difference from Annual Average</span></a></li><li><a class="tocitem" href="#Calculate-Residuals"><span>Calculate Residuals</span></a></li><li><a class="tocitem" href="#Line-Charts-Showing-Ranks-Over-Time"><span>Line Charts Showing Ranks Over Time</span></a></li><li><a class="tocitem" href="#Waterfall-Chart-of-Monthly-Profit-and-Loss"><span>Waterfall Chart of Monthly Profit and Loss</span></a></li><li><a class="tocitem" href="#Filtering-Top-K-Items"><span>Filtering Top-K Items</span></a></li><li><a class="tocitem" href="#Top-K-Plot-with-&quot;Others&quot;"><span>Top-K Plot with &quot;Others&quot;</span></a></li><li><a class="tocitem" href="#Using-the-lookup-transform-to-combine-data"><span>Using the lookup transform to combine data</span></a></li><li><a class="tocitem" href="#Cumulative-Frequency-Distribution"><span>Cumulative Frequency Distribution</span></a></li><li><a class="tocitem" href="#Layered-Histogram-and-Cumulative-Histogram"><span>Layered Histogram and Cumulative Histogram</span></a></li><li><a class="tocitem" href="#Parallel-Coordinate-Plot"><span>Parallel Coordinate Plot</span></a></li><li><a class="tocitem" href="#Bar-Chart-Showing-Argmax-Value"><span>Bar Chart Showing Argmax Value</span></a></li><li><a class="tocitem" href="#Layering-Averages-over-Raw-Values"><span>Layering Averages over Raw Values</span></a></li><li><a class="tocitem" href="#Layering-Rolling-Averages-over-Raw-Values"><span>Layering Rolling Averages over Raw Values</span></a></li><li><a class="tocitem" href="#Line-Chart-to-Show-Benchmarking-Results"><span>Line Chart to Show Benchmarking Results</span></a></li><li><a class="tocitem" href="#Quantile-Quantile-Plot-(QQ-Plot)"><span>Quantile-Quantile Plot (QQ Plot)</span></a></li><li><a class="tocitem" href="#Linear-Regression"><span>Linear Regression</span></a></li><li><a class="tocitem" href="#Loess-Regression"><span>Loess Regression</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-2" type="checkbox"/><label class="tocitem" for="menuitem-4-2"><span class="docs-label">Composite Mark</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_error_bars_bands/">Error Bars &amp; Error Bands</a></li><li><a class="tocitem" href="../examples_box_plots/">Box Plots</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-4-3" type="checkbox"/><label class="tocitem" for="menuitem-4-3"><span class="docs-label">Multi-View Displays</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples_faceting/">Faceting (Trellis Plot / Small Multiples)</a></li><li><a class="tocitem" href="../examples_repeat_concatenation/">Repeat &amp; Concatenation</a></li></ul></li><li><a class="tocitem" href="../examples_maps/">Maps (Geographic Displays)</a></li></ul></li><li><span class="tocitem">Reference Manual</span><ul><li><a class="tocitem" href="../../referencemanual/global/">Global settings</a></li><li><a class="tocitem" href="../../referencemanual/output/">Outputs</a></li><li><a class="tocitem" href="../../referencemanual/performance/">Performance tips</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li><a class="is-disabled">Single-View Plots</a></li><li class="is-active"><a href>Advanced Calculations</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Advanced Calculations</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/queryverse/VegaLite.jl/blob/main/docs/src/examples/examples_advancedcalculations.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Advanced-Calculations"><a class="docs-heading-anchor" href="#Advanced-Calculations">Advanced Calculations</a><a id="Advanced-Calculations-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Calculations" title="Permalink"></a></h1><h2 id="Calculate-Percentage-of-Total"><a class="docs-heading-anchor" href="#Calculate-Percentage-of-Total">Calculate Percentage of Total</a><a id="Calculate-Percentage-of-Total-1"></a><a class="docs-heading-anchor-permalink" href="#Calculate-Percentage-of-Total" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data = DataFrame(
+    Activity=[&quot;Sleeping&quot;,&quot;Eating&quot;,&quot;TV&quot;,&quot;Work&quot;,&quot;Exercise&quot;],
+    Time=[8,2,4,8,2]
+)
+
+data |&gt;
+@vlplot(
+    height={step=12},
+    :bar,
+    transform=[
+        {
+            window=[{op=&quot;sum&quot;,field=&quot;Time&quot;,as=&quot;TotalTime&quot;}],
+            frame=[nothing,nothing]
+        },
+        {
+            calculate=&quot;datum.Time/datum.TotalTime * 100&quot;,
+            as=&quot;PercentOfTotal&quot;
+        }
+    ],
+    x={&quot;PercentOfTotal:q&quot;, axis={title=&quot;% of total Time&quot;}},
+    y={&quot;Activity:n&quot;}
+)</code></pre><img src='data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="marks" width="277" height="102" viewBox="0 0 277 102"><rect width="277" height="102" fill="white"/><g fill="none" stroke-miterlimit="10" transform="translate(71,5)"><g class="mark-group role-frame root" role="graphics-object" aria-roledescription="group mark container"><g transform="translate(0,0)"><path class="background" aria-hidden="true" d="M0.5,0.5h200v60h-200Z" stroke="%23ddd"/><g><g class="mark-group role-axis" aria-hidden="true"><g transform="translate(0.5,60.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-grid" pointer-events="none"><line transform="translate(0,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(29,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(57,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(86,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(114,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(143,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(171,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(200,0)" x2="0" y2="-60" stroke="%23ddd" stroke-width="1" opacity="1"/></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="X-axis titled %27%25 of total Time%27 for a linear scale with values from 0 to 35"><g transform="translate(0.5,60.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(0,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(29,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(57,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(86,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(114,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(143,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(171,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(200,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="start" transform="translate(0,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">0</text><text text-anchor="middle" transform="translate(28.57142857142857,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">5</text><text text-anchor="middle" transform="translate(57.14285714285714,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">10</text><text text-anchor="middle" transform="translate(85.71428571428571,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">15</text><text text-anchor="middle" transform="translate(114.28571428571428,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">20</text><text text-anchor="middle" transform="translate(142.85714285714286,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">25</text><text text-anchor="middle" transform="translate(171.42857142857142,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">30</text><text text-anchor="end" transform="translate(200,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">35</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="200" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(100,30)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">%25 of total Time</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="Y-axis titled %27Activity%27 for a discrete scale with 5 values: Eating, Exercise, Sleeping, TV, Work"><g transform="translate(0.5,0.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(0,5)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,18)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,30)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,41)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,53)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="end" transform="translate(-7,8.499999999999998)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">Eating</text><text text-anchor="end" transform="translate(-7,20.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">Exercise</text><text text-anchor="end" transform="translate(-7,32.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">Sleeping</text><text text-anchor="end" transform="translate(-7,44.49999999999999)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">TV</text><text text-anchor="end" transform="translate(-7,56.49999999999999)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">Work</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="0" y2="60" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(-54.2421875,30) rotate(-90) translate(0,-2)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">Activity</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-rect role-mark marks" role="graphics-object" aria-roledescription="rect mark container"><path aria-label="PercentOfTotal: 33.3333333333; Activity: Sleeping" role="graphics-symbol" aria-roledescription="bar" d="M0,24.599999999999998h190.47619047619045v10.8h-190.47619047619045Z" fill="%234c78a8"/><path aria-label="PercentOfTotal: 8.33333333333; Activity: Eating" role="graphics-symbol" aria-roledescription="bar" d="M0,0.5999999999999979h47.61904761904761v10.8h-47.61904761904761Z" fill="%234c78a8"/><path aria-label="PercentOfTotal: 16.6666666667; Activity: TV" role="graphics-symbol" aria-roledescription="bar" d="M0,36.599999999999994h95.23809523809523v10.8h-95.23809523809523Z" fill="%234c78a8"/><path aria-label="PercentOfTotal: 33.3333333333; Activity: Work" role="graphics-symbol" aria-roledescription="bar" d="M0,48.599999999999994h190.47619047619045v10.8h-190.47619047619045Z" fill="%234c78a8"/><path aria-label="PercentOfTotal: 8.33333333333; Activity: Exercise" role="graphics-symbol" aria-roledescription="bar" d="M0,12.599999999999998h47.61904761904761v10.8h-47.61904761904761Z" fill="%234c78a8"/></g></g><path class="foreground" aria-hidden="true" d="" display="none"/></g></g></g></svg>'/><p>A bar graph showing what activites consume what percentage of the day.</p><h2 id="Calculate-Difference-from-Average"><a class="docs-heading-anchor" href="#Calculate-Difference-from-Average">Calculate Difference from Average</a><a id="Calculate-Difference-from-Average-1"></a><a class="docs-heading-anchor-permalink" href="#Calculate-Difference-from-Average" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    transform=[
+        {filter=&quot;datum.IMDB_Rating != null&quot;},
+        {
+            joinaggregate= [{
+                op=:mean,
+                field=:IMDB_Rating,
+                as=&quot;AverageRating&quot;
+            }]
+        },
+        {filter=&quot;(datum.IMDB_Rating - datum.AverageRating) &gt; 2.5&quot;}
+    ]
+) +
+@vlplot(
+    :bar,
+    x={&quot;IMDB_Rating:q&quot;,axis={title=&quot;IMDB Rating&quot;}},
+    y={&quot;Title:o&quot;}
+) +
+@vlplot(
+    mark={
+        :rule,
+        color=&quot;red&quot;
+    },
+    x={&quot;AverageRating:q&quot;, aggregate=&quot;average&quot;}
+)</code></pre><img src="b6e8c2f9.svg" alt="Example block output"/><h2 id="Calculate-Difference-from-Annual-Average"><a class="docs-heading-anchor" href="#Calculate-Difference-from-Annual-Average">Calculate Difference from Annual Average</a><a id="Calculate-Difference-from-Annual-Average-1"></a><a class="docs-heading-anchor-permalink" href="#Calculate-Difference-from-Annual-Average" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    transform=[
+        {filter=&quot;datum.IMDB_Rating != null&quot;},
+        {timeUnit=&quot;year&quot;,field=&quot;Release_Date&quot;,as=&quot;year&quot;},
+        {
+            joinaggregate= [{
+                op=:mean,
+                field=:IMDB_Rating,
+                as=&quot;AverageYearRating&quot;
+            }],
+            groupby=[&quot;year&quot;]
+        },
+        {
+            filter=&quot;(datum.IMDB_Rating - datum.AverageYearRating) &gt; 2.5&quot;
+        }
+    ]
+) +
+@vlplot(
+    mark={:bar,clip=true},
+    x={&quot;IMDB_Rating:q&quot;,axis={title=&quot;IMDB Rating&quot;}},
+    y={&quot;Title:o&quot;}
+) +
+@vlplot(
+    mark=:tick,
+    color={value=&quot;red&quot;},
+    x=&quot;AverageYearRating:q&quot;,
+    y=&quot;Title:o&quot;
+)</code></pre><img src="03959932.svg" alt="Example block output"/><p>Bar graph showing the best films for the year they were produced, where best is defined by at least 2.5 points above average for that year. The red point shows the average rating for a film in that year, and the bar is the rating that the film recieved.</p><h2 id="Calculate-Residuals"><a class="docs-heading-anchor" href="#Calculate-Residuals">Calculate Residuals</a><a id="Calculate-Residuals-1"></a><a class="docs-heading-anchor-permalink" href="#Calculate-Residuals" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    transform=[
+        {filter=&quot;datum.IMDB_Rating != null&quot;},
+        {filter={timeUnit=&quot;year&quot;,field=&quot;Release_Date&quot;,range=[1900,2019]}},
+        {
+            joinaggregate=[{
+                op=&quot;mean&quot;,
+                field=&quot;IMDB_Rating&quot;,
+                as=&quot;AverageRating&quot;
+            }]
+        },
+        {
+            calculate=&quot;datum.IMDB_Rating - datum.AverageRating&quot;,
+            as=&quot;RatingDelta&quot;
+        }
+    ],
+    :point,
+    x=&quot;Release_Date:t&quot;,
+    y={&quot;RatingDelta:q&quot;, axis={title=&quot;Rating Delta&quot;}},
+    color={&quot;RatingDelta:q&quot;,scale={domainMid=0},title=&quot;Rating Delta&quot;}
+)</code></pre><img src="167cc892.svg" alt="Example block output"/><p>A dot plot showing each movie in the database, and the difference from the average movie rating. The display is sorted by year to visualize everything in sequential order. The graph is for all Movies before 2019.</p><h2 id="Line-Charts-Showing-Ranks-Over-Time"><a class="docs-heading-anchor" href="#Line-Charts-Showing-Ranks-Over-Time">Line Charts Showing Ranks Over Time</a><a id="Line-Charts-Showing-Ranks-Over-Time-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Charts-Showing-Ranks-Over-Time" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data = DataFrame(
+    team=[&quot;Germany&quot;, &quot;Mexico&quot;, &quot;South Korea&quot;, &quot;Sweden&quot;, &quot;Germany&quot;, &quot;Mexico&quot;,
+        &quot;South Korea&quot;, &quot;Sweden&quot;, &quot;Germany&quot;, &quot;Mexico&quot;, &quot;South Korea&quot;, &quot;Sweden&quot;],
+    matchday=[1,1,1,1,2,2,2,2,3,3,3,3],
+    point=[0,3,0,3,3,6,0,3,3,6,3,6],
+    diff=[-1,1,-1,1,0,2,-2,0,-2,-1,0,3]
+)
+
+data |&gt;
+@vlplot(
+    title={text=&quot;World Cup 2018: Group F Rankings&quot;},
+    transform=[{
+        sort=[
+            {field=&quot;point&quot;, order=&quot;descending&quot;},
+            {field=&quot;diff&quot;, order=&quot;descending&quot;}
+        ],
+        window=[{
+            op=&quot;rank&quot;,
+            as=&quot;rank&quot;
+        }],
+        groupby=[&quot;matchday&quot;]
+    }],
+    mark={
+        :line,
+        orient=&quot;vertical&quot;
+    },
+    x=&quot;matchday:o&quot;,
+    y=&quot;rank:o&quot;,
+    color={
+        :team,
+        scale={
+            domain=[&quot;Germany&quot;, &quot;Mexico&quot;, &quot;South Korea&quot;, &quot;Sweden&quot;],
+            range=[&quot;black&quot;, &quot;#127153&quot;, &quot;#C91A3C&quot;, &quot;#0C71AB&quot;]
+        }
+    }
+)</code></pre><img src="4dfa4dc7.svg" alt="Example block output"/><h2 id="Waterfall-Chart-of-Monthly-Profit-and-Loss"><a class="docs-heading-anchor" href="#Waterfall-Chart-of-Monthly-Profit-and-Loss">Waterfall Chart of Monthly Profit and Loss</a><a id="Waterfall-Chart-of-Monthly-Profit-and-Loss-1"></a><a class="docs-heading-anchor-permalink" href="#Waterfall-Chart-of-Monthly-Profit-and-Loss" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data = DataFrame(
+    label=[&quot;Begin&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;, &quot;End&quot;],
+    amount=[4000,1707,-1425,-1030,1812,-1067,-1481,1228,1176,1146,1205,-1388,1492,0]
+)
+
+data |&gt;
+@vlplot(
+    width=800,
+    height=450,
+    transform=[
+        {window=[{op=&quot;sum&quot;,field=&quot;amount&quot;,as=&quot;sum&quot;}]},
+        {window=[{op=&quot;lead&quot;,field=&quot;label&quot;,as=&quot;lead&quot;}]},
+        {
+            calculate=&quot;datum.lead === null ? datum.label : datum.lead&quot;,
+            as=&quot;lead&quot;
+        },
+        {
+            calculate=&quot;datum.label === &#39;End&#39; ? 0 : datum.sum - datum.amount&quot;,
+            as=&quot;previous_sum&quot;
+        },
+        {
+            calculate=&quot;datum.label === &#39;End&#39; ? datum.sum : datum.amount&quot;,
+            as=&quot;amount&quot;
+        },
+        {
+            calculate=&quot;(datum.label !== &#39;Begin&#39; &amp;&amp; datum.label !== &#39;End&#39; &amp;&amp; datum.amount &gt; 0 ? &#39;+&#39; : &#39;&#39;) + datum.amount&quot;,
+            as=&quot;text_amount&quot;
+        },
+        {
+            calculate=&quot;(datum.sum + datum.previous_sum) / 2&quot;,
+            as=&quot;center&quot;
+        },
+        {
+            calculate=&quot;datum.sum &lt; datum.previous_sum ? datum.sum : &#39;&#39;&quot;,
+            as=&quot;sum_dec&quot;
+        },
+        {
+            calculate=&quot;datum.sum &gt; datum.previous_sum ? datum.sum : &#39;&#39;&quot;,
+            as=&quot;sum_inc&quot;
+        }
+    ],
+    x={&quot;label:o&quot;,sort=nothing,axis={labelAngle=0,title=&quot;Months&quot;}},
+    config={
+        text={
+            fontWeight=&quot;bold&quot;,
+            color=&quot;#404040&quot;
+        }
+    }
+) +
+@vlplot(
+    mark={:bar,size=45},
+    y={&quot;previous_sum:q&quot;,title=&quot;Amount&quot;},
+    y2=:sum,
+    color={
+        condition=[
+            {test=&quot;datum.label === &#39;Begin&#39; || datum.label === &#39;End&#39;&quot;,value=&quot;#f7e0b6&quot;},
+            {test=&quot;datum.sum &lt; datum.previous_sum&quot;,value=&quot;#f78a64&quot;}
+        ],
+        value=&quot;#93c4aa&quot;
+    }
+) +
+@vlplot(
+    mark={
+        :rule,
+        color=&quot;#404040&quot;,
+        opacity=1,
+        strokeWidth=2,
+        xOffset=-22.5,
+        x2Offset=22.5
+    },
+    x2=:lead,
+    y=&quot;sum:q&quot;
+) +
+@vlplot(
+    mark={
+        :text,
+        dy=-4,
+        baseline=&quot;bottom&quot;
+    },
+    y=&quot;sum_inc:q&quot;,
+    text=&quot;sum_inc:n&quot;
+) +
+@vlplot(
+    mark={
+        :text,
+        dy=4,
+        baseline=&quot;top&quot;
+    },
+    y=&quot;sum_dec:q&quot;,
+    text=&quot;sum_dec:n&quot;
+) +
+@vlplot(
+    mark={
+        :text,
+        fontWeight=&quot;bold&quot;,
+        baseline=&quot;middle&quot;
+    },
+    y=&quot;center:q&quot;,
+    text=&quot;text_amount:n&quot;,
+    color={
+        condition=[
+            {test=&quot;datum.label === &#39;Begin&#39; || datum.label === &#39;End&#39;&quot;,value=&quot;#725a30&quot;}
+        ],
+        value=&quot;white&quot;
+    }
+)</code></pre><img src="9b29d7b2.svg" alt="Example block output"/><h2 id="Filtering-Top-K-Items"><a class="docs-heading-anchor" href="#Filtering-Top-K-Items">Filtering Top-K Items</a><a id="Filtering-Top-K-Items-1"></a><a class="docs-heading-anchor-permalink" href="#Filtering-Top-K-Items" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data = DataFrame(
+    student=[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;,&quot;F&quot;,&quot;G&quot;,&quot;H&quot;,&quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;,&quot;M&quot;,&quot;N&quot;,&quot;O&quot;,&quot;P&quot;,&quot;Q&quot;,&quot;R&quot;,&quot;S&quot;,&quot;T&quot;,&quot;U&quot;,&quot;V&quot;],
+    score=[100,56,88,65,45,23,66,67,13,12,50,78,66,30,97,75,24,42,76,78,21,46]
+)
+
+data |&gt;
+@vlplot(
+    transform=[
+        {
+            window=[{ op=&quot;rank&quot;, as=&quot;rank&quot; }],
+            sort=[{ field=&quot;score&quot;, order=&quot;descending&quot; }]
+        },
+        {filter=&quot;datum.rank &lt;= 5&quot;}
+    ],
+    mark=:bar,
+    x=&quot;score:q&quot;,
+    y={
+        &quot;student:n&quot;,
+        sort={field=&quot;score&quot;,op=&quot;average&quot;,order=&quot;descending&quot;}
+    }
+)</code></pre><img src='data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="marks" width="241" height="142" viewBox="0 0 241 142"><rect width="241" height="142" fill="white"/><g fill="none" stroke-miterlimit="10" transform="translate(35,5)"><g class="mark-group role-frame root" role="graphics-object" aria-roledescription="group mark container"><g transform="translate(0,0)"><path class="background" aria-hidden="true" d="M0.5,0.5h200v100h-200Z" stroke="%23ddd"/><g><g class="mark-group role-axis" aria-hidden="true"><g transform="translate(0.5,100.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-grid" pointer-events="none"><line transform="translate(0,0)" x2="0" y2="-100" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(40,0)" x2="0" y2="-100" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(80,0)" x2="0" y2="-100" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(120,0)" x2="0" y2="-100" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(160,0)" x2="0" y2="-100" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(200,0)" x2="0" y2="-100" stroke="%23ddd" stroke-width="1" opacity="1"/></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="X-axis titled %27score%27 for a linear scale with values from 0 to 100"><g transform="translate(0.5,100.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(0,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(40,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(80,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(120,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(160,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(200,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="start" transform="translate(0,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">0</text><text text-anchor="middle" transform="translate(40,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">20</text><text text-anchor="middle" transform="translate(80,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">40</text><text text-anchor="middle" transform="translate(120,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">60</text><text text-anchor="middle" transform="translate(160,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">80</text><text text-anchor="end" transform="translate(200,15)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">100</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="200" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(100,30)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">score</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="Y-axis titled %27student%27 for a discrete scale with 5 values: A, O, C, L, T"><g transform="translate(0.5,0.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(0,10)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,30)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,50)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,70)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,90)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="end" transform="translate(-7,12.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">A</text><text text-anchor="end" transform="translate(-7,32.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">O</text><text text-anchor="end" transform="translate(-7,52.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">C</text><text text-anchor="end" transform="translate(-7,72.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">L</text><text text-anchor="end" transform="translate(-7,92.5)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">T</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="0" y2="100" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(-18.87109375,50) rotate(-90) translate(0,-2)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">student</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-rect role-mark marks" role="graphics-object" aria-roledescription="rect mark container"><path aria-label="score: 100; student: A" role="graphics-symbol" aria-roledescription="bar" d="M0,1h200v18h-200Z" fill="%234c78a8"/><path aria-label="score: 88; student: C" role="graphics-symbol" aria-roledescription="bar" d="M0,41h176v18h-176Z" fill="%234c78a8"/><path aria-label="score: 78; student: L" role="graphics-symbol" aria-roledescription="bar" d="M0,61h156v18h-156Z" fill="%234c78a8"/><path aria-label="score: 97; student: O" role="graphics-symbol" aria-roledescription="bar" d="M0,21h194v18h-194Z" fill="%234c78a8"/><path aria-label="score: 78; student: T" role="graphics-symbol" aria-roledescription="bar" d="M0,81h156v18h-156Z" fill="%234c78a8"/></g></g><path class="foreground" aria-hidden="true" d="" display="none"/></g></g></g></svg>'/><p>Here we use window transform to derive the total number of students along with the rank of the current student to determine the top K students and display their score.</p><h2 id="Top-K-Plot-with-&quot;Others&quot;"><a class="docs-heading-anchor" href="#Top-K-Plot-with-&quot;Others&quot;">Top-K Plot with &quot;Others&quot;</a><a id="Top-K-Plot-with-&quot;Others&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#Top-K-Plot-with-&quot;Others&quot;" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    title=&quot;Top Directors by Average Worldwide Gross&quot;,
+    transform=[
+        {
+            aggregate=[{op=&quot;mean&quot;,field=&quot;Worldwide_Gross&quot;,as=&quot;aggregate_gross&quot;}],
+            groupby=[&quot;Director&quot;]
+        },
+        {
+            window=[{op=&quot;row_number&quot;, as=&quot;rank&quot;}],
+            sort=[{field=&quot;aggregate_gross&quot;,order=&quot;descending&quot;}]
+        },
+        {
+            calculate=&quot;datum.rank &lt; 10 ? datum.Director : &#39;All Others&#39;&quot;, as=&quot;ranked_director&quot;
+        }
+    ],
+    :bar,
+    x={aggregate=&quot;mean&quot;,&quot;aggregate_gross:q&quot;,title=nothing},
+    y={
+        sort={op=&quot;mean&quot;,field=&quot;aggregate_gross&quot;,order=&quot;descending&quot;},
+        &quot;ranked_director:o&quot;,
+        title=nothing
+    }
+)</code></pre><img src="a02c4e7c.svg" alt="Example block output"/><p>Top-K plot with \&quot;others\&quot; by Trevor Manz, adapted from https://observablehq.com/@manzt/top-k-plot-with-others-vega-lite-example.</p><h2 id="Using-the-lookup-transform-to-combine-data"><a class="docs-heading-anchor" href="#Using-the-lookup-transform-to-combine-data">Using the lookup transform to combine data</a><a id="Using-the-lookup-transform-to-combine-data-1"></a><a class="docs-heading-anchor-permalink" href="#Using-the-lookup-transform-to-combine-data" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;lookup_groups&quot;) |&gt;
+@vlplot(
+    transform=[
+        {
+            lookup=&quot;person&quot;,
+            from={
+                data=dataset(&quot;lookup_people&quot;),
+                key=&quot;name&quot;,
+                fields=[&quot;age&quot;,&quot;height&quot;]
+            }
+        }
+    ],
+    :bar,
+    x=&quot;group:o&quot;,
+    y={&quot;age:q&quot;,aggregate=&quot;mean&quot;}
+)</code></pre><img src='data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="marks" width="105" height="244" viewBox="0 0 105 244"><rect width="105" height="244" fill="white"/><g fill="none" stroke-miterlimit="10" transform="translate(40,10)"><g class="mark-group role-frame root" role="graphics-object" aria-roledescription="group mark container"><g transform="translate(0,0)"><path class="background" aria-hidden="true" d="M0.5,0.5h60v200h-60Z" stroke="%23ddd"/><g><g class="mark-group role-axis" aria-hidden="true"><g transform="translate(0.5,0.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-grid" pointer-events="none"><line transform="translate(0,200)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,167)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,133)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,100)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,67)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,33)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/><line transform="translate(0,0)" x2="60" y2="0" stroke="%23ddd" stroke-width="1" opacity="1"/></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="X-axis titled %27group%27 for a discrete scale with 3 values: 1, 2, 3"><g transform="translate(0.5,200.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(10,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(30,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(50,0)" x2="0" y2="5" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="end" transform="translate(9.5,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">1</text><text text-anchor="end" transform="translate(29.5,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">2</text><text text-anchor="end" transform="translate(49.5,7) rotate(270) translate(0,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">3</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,0)" x2="60" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(30,26.3623046875)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">group</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-group role-axis" role="graphics-symbol" aria-roledescription="axis" aria-label="Y-axis titled %27Mean of age%27 for a linear scale with values from 0 to 60"><g transform="translate(0.5,0.5)"><path class="background" aria-hidden="true" d="M0,0h0v0h0Z" pointer-events="none"/><g><g class="mark-rule role-axis-tick" pointer-events="none"><line transform="translate(0,200)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,167)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,133)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,100)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,67)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,33)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/><line transform="translate(0,0)" x2="-5" y2="0" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-label" pointer-events="none"><text text-anchor="end" transform="translate(-7,203)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">0</text><text text-anchor="end" transform="translate(-7,169.66666666666669)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">10</text><text text-anchor="end" transform="translate(-7,136.33333333333334)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">20</text><text text-anchor="end" transform="translate(-7,103)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">30</text><text text-anchor="end" transform="translate(-7,69.66666666666667)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">40</text><text text-anchor="end" transform="translate(-7,36.33333333333333)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">50</text><text text-anchor="end" transform="translate(-7,3)" font-family="sans-serif" font-size="10px" fill="%23000" opacity="1">60</text></g><g class="mark-rule role-axis-domain" pointer-events="none"><line transform="translate(0,200)" x2="0" y2="-200" stroke="%23888" stroke-width="1" opacity="1"/></g><g class="mark-text role-axis-title" pointer-events="none"><text text-anchor="middle" transform="translate(-23.724609375,100) rotate(-90) translate(0,-2)" font-family="sans-serif" font-size="11px" font-weight="bold" fill="%23000" opacity="1">Mean of age</text></g></g><path class="foreground" aria-hidden="true" d="" pointer-events="none" display="none"/></g></g><g class="mark-rect role-mark marks" role="graphics-object" aria-roledescription="rect mark container"><path aria-label="group: 1; Mean of age: 32" role="graphics-symbol" aria-roledescription="bar" d="M1,93.33333333333333h18v106.66666666666667h-18Z" fill="%234c78a8"/><path aria-label="group: 2; Mean of age: 28.6666666667" role="graphics-symbol" aria-roledescription="bar" d="M21,104.44444444444443h18v95.55555555555557h-18Z" fill="%234c78a8"/><path aria-label="group: 3; Mean of age: 56" role="graphics-symbol" aria-roledescription="bar" d="M41,13.33333333333333h18v186.66666666666666h-18Z" fill="%234c78a8"/></g></g><path class="foreground" aria-hidden="true" d="" display="none"/></g></g></g></svg>'/><h2 id="Cumulative-Frequency-Distribution"><a class="docs-heading-anchor" href="#Cumulative-Frequency-Distribution">Cumulative Frequency Distribution</a><a id="Cumulative-Frequency-Distribution-1"></a><a class="docs-heading-anchor-permalink" href="#Cumulative-Frequency-Distribution" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    :area,
+    transform=[{
+        sort=[{field=:IMDB_Rating}],
+        window=[{field=:count,op=&quot;count&quot;,as=&quot;cumulative_count&quot;}],
+        frame=[nothing,0]
+    }],
+    x=&quot;IMDB_Rating:q&quot;,
+    y=&quot;cumulative_count:q&quot;
+)</code></pre><img src="58deec17.svg" alt="Example block output"/><h2 id="Layered-Histogram-and-Cumulative-Histogram"><a class="docs-heading-anchor" href="#Layered-Histogram-and-Cumulative-Histogram">Layered Histogram and Cumulative Histogram</a><a id="Layered-Histogram-and-Cumulative-Histogram-1"></a><a class="docs-heading-anchor-permalink" href="#Layered-Histogram-and-Cumulative-Histogram" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    transform=[
+        {bin=true,field=:IMDB_Rating,as=&quot;bin_IMDB_Rating&quot;},
+        {
+            aggregate=[{op=:count,as=&quot;count&quot;}],
+            groupby=[&quot;bin_IMDB_Rating&quot;, &quot;bin_IMDB_Rating_end&quot;]
+        },
+        {filter=&quot;datum.bin_IMDB_Rating !== null&quot;},
+        {
+            sort=[{field=:bin_IMDB_Rating}],
+            window=[{field=:count,op=&quot;sum&quot;,as=&quot;cumulative_count&quot;}],
+            frame=[nothing,0]
+        }
+    ],
+    x={&quot;bin_IMDB_Rating:q&quot;,scale={zero=false},title=&quot;IMDB Rating&quot;},
+    x2=:bin_IMDB_Rating_end
+) +
+@vlplot(
+    :bar,
+    y=&quot;cumulative_count:q&quot;
+) +
+@vlplot(
+    mark={:bar,color=:yellow,opacity=0.5},
+    y=&quot;count:q&quot;
+)</code></pre><img src="5a9bdcbf.svg" alt="Example block output"/><h2 id="Parallel-Coordinate-Plot"><a class="docs-heading-anchor" href="#Parallel-Coordinate-Plot">Parallel Coordinate Plot</a><a id="Parallel-Coordinate-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#Parallel-Coordinate-Plot" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;iris&quot;) |&gt;
+@vlplot(
+    width=600,
+    height=300,
+    config={
+        axisX={domain=false, labelAngle=0, tickColor=&quot;#ccc&quot;, &quot;title&quot;=nothing},
+        view={stroke=nothing},
+        style={
+            label={baseline=&quot;middle&quot;, align=&quot;right&quot;, dx=-5},
+            tick={orient=&quot;horizontal&quot;}
+        }
+    },
+    transform=[
+        { window=[{op=&quot;count&quot;, as=&quot;index&quot; }] },
+        {fold=[&quot;petalLength&quot;, &quot;petalWidth&quot;, &quot;sepalLength&quot;, &quot;sepalWidth&quot;]},
+        {
+            joinaggregate=[
+                {op=&quot;min&quot;,field=&quot;value&quot;,as=&quot;min&quot;},
+                {op=&quot;max&quot;,field=&quot;value&quot;,as=&quot;max&quot;}
+            ],
+            groupby=[&quot;key&quot;]
+        },
+        {
+            calculate=&quot;(datum.value - datum.min) / (datum.max-datum.min)&quot;,
+            as=&quot;norm_val&quot;
+        },
+        {
+            calculate=&quot;(datum.min + datum.max) / 2&quot;,
+            as=&quot;mid&quot;
+        },
+        {
+            calculate=&quot;&#39;petalLength: &#39;+datum.petalLength+&#39;, &#39;+&#39;petalWidth: &#39;+datum.petalWidth+&#39;, sepalLength: &#39;+datum.sepalLength+&#39;, &#39;+&#39;sepalWidth: &#39;+datum.sepalWidth&quot;,
+            as=&quot;tt&quot;
+        } #How to add a line break?
+    ]
+) +
+@vlplot(
+    mark={:rule,color=&quot;#ccc&quot;},
+    detail={aggregate=&quot;count&quot;,type=&quot;quantitative&quot;},
+    x=&quot;key:n&quot;
+) +
+@vlplot(
+    mark=:line,
+    color={field=&quot;species&quot;,type=&quot;nominal&quot;},
+    detail={field=&quot;index&quot;,type=&quot;nominal&quot;},
+    opacity={value=0.3},
+    x=&quot;key:n&quot;,
+    y={&quot;norm_val:q&quot;,axis=nothing},
+    tooltip={&quot;tt:n&quot;}
+)  +
+@vlplot(
+    mark={:text,style=&quot;label&quot;},
+    text={aggregate=&quot;max&quot;,field=&quot;max&quot;,type=&quot;quantitative&quot;},
+    x=&quot;key:n&quot;,
+    y={value=0}
+)  +
+@vlplot(
+    mark={:tick,style=&quot;tick&quot;,size=8,color=&quot;#ccc&quot;},
+    x=&quot;key:n&quot;,
+    y={value=0}
+)  +
+@vlplot(
+    mark={:text,style=&quot;label&quot;},
+    text={aggregate=&quot;min&quot;,field=&quot;mid&quot;,type=&quot;quantitative&quot;},
+    x=&quot;key:n&quot;,
+    y={value=150}
+)  +
+@vlplot(
+    mark={:tick,style=&quot;tick&quot;,size=8,color=&quot;#ccc&quot;},
+    x=&quot;key:n&quot;,
+    y={value=150}
+)  +
+@vlplot(
+    mark={:text,style=&quot;label&quot;},
+    text={aggregate=&quot;min&quot;,field=&quot;min&quot;,type=&quot;quantitative&quot;},
+    x=&quot;key:n&quot;,
+    y={value=300}
+)  +
+@vlplot(
+    mark={:tick,style=&quot;tick&quot;,size=8,color=&quot;#ccc&quot;},
+    x=&quot;key:n&quot;,
+    y={value=300}
+)</code></pre><img src="2b97dea0.svg" alt="Example block output"/><p>Though Vega-Lite supports only one scale per axes, one can create a parallel coordinate plot by folding variables, using <code>joinaggregate</code> to normalize their values and using ticks and rules to manually create axes.</p><h2 id="Bar-Chart-Showing-Argmax-Value"><a class="docs-heading-anchor" href="#Bar-Chart-Showing-Argmax-Value">Bar Chart Showing Argmax Value</a><a id="Bar-Chart-Showing-Argmax-Value-1"></a><a class="docs-heading-anchor-permalink" href="#Bar-Chart-Showing-Argmax-Value" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+    mark=:bar,
+    x={aggregate={argmax=&quot;US_Gross&quot;},&quot;Production_Budget:q&quot;},
+    y={&quot;Major_Genre:n&quot;}
+)</code></pre><img src="3d8ab504.svg" alt="Example block output"/><p>The production budget of the movie that has the highest US Gross in each major genre.</p><h2 id="Layering-Averages-over-Raw-Values"><a class="docs-heading-anchor" href="#Layering-Averages-over-Raw-Values">Layering Averages over Raw Values</a><a id="Layering-Averages-over-Raw-Values-1"></a><a class="docs-heading-anchor-permalink" href="#Layering-Averages-over-Raw-Values" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;stocks&quot;) |&gt;
+@vlplot(
+    transform=[{filter=&quot;datum.symbol===&#39;GOOG&#39;&quot;}]
+) +
+@vlplot(
+    mark={:point,opacity=0.3},
+    x={timeUnit=&quot;year&quot;,&quot;date:t&quot;},
+    y=&quot;price:q&quot;
+) +
+@vlplot(
+    mark=:line,
+    x={timeUnit=&quot;year&quot;,&quot;date:t&quot;},
+    y={aggregate=&quot;mean&quot;,&quot;price:q&quot;}
+)</code></pre><img src="253554a7.svg" alt="Example block output"/><p>Plot showing average data with raw values in the background.</p><h2 id="Layering-Rolling-Averages-over-Raw-Values"><a class="docs-heading-anchor" href="#Layering-Rolling-Averages-over-Raw-Values">Layering Rolling Averages over Raw Values</a><a id="Layering-Rolling-Averages-over-Raw-Values-1"></a><a class="docs-heading-anchor-permalink" href="#Layering-Rolling-Averages-over-Raw-Values" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;seattle-weather&quot;) |&gt;
+@vlplot(
+    width=400,
+    height=300,
+    transform=[{
+        frame=[-15,15],
+        window=[{field=&quot;temp_max&quot;,op=&quot;mean&quot;,as=&quot;rolling_mean&quot;}]
+    }]
+) +
+@vlplot(
+    mark={:point,opacity=0.3},
+    x={&quot;date:t&quot;,title=&quot;Date&quot;},
+    y={&quot;temp_max:q&quot;,title=&quot;Max Temperature&quot;}
+) +
+@vlplot(
+    mark={:line,size=3,color=&quot;red&quot;},
+    x={&quot;date:t&quot;,title=&quot;Date&quot;},
+    y={&quot;rolling_mean:q&quot;}
+)</code></pre><img src="1e0246e9.svg" alt="Example block output"/><p>Plot showing a 30 day rolling average with raw values in the background.</p><h2 id="Line-Chart-to-Show-Benchmarking-Results"><a class="docs-heading-anchor" href="#Line-Chart-to-Show-Benchmarking-Results">Line Chart to Show Benchmarking Results</a><a id="Line-Chart-to-Show-Benchmarking-Results-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Chart-to-Show-Benchmarking-Results" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, DataFrames
+
+data=DataFrame(
+    falcon= [16.81999969482422,19.759998321533203,16.079999923706055,19.579999923706055,16.420000076293945,16.200000762939453,16.020000457763672,15.9399995803833,16.280000686645508,16.119998931884766,16.15999984741211,16.119998931884766,16.139999389648438,16.100000381469727,16.200000762939453,16.260000228881836,19.35999870300293,19.700000762939453,15.9399995803833,19.139999389648438,16.200000762939453,16.119998931884766,19.520000457763672,19.700000762939453,16.200000762939453,20.979999542236328,16.299999237060547,16.420000076293945,16.81999969482422,16.5,16.560001373291016,16.18000030517578,16.079999923706055,16.239999771118164,16.040000915527344,16.299999237060547,19.399999618530273,15.699999809265137,16.239999771118164,15.920000076293945,16.259998321533203,16.219999313354492,16.520000457763672,16.459999084472656,16.360000610351562,15.719999313354492,16.060001373291016,15.960000991821289,16.479999542236328,16.600000381469727,16.240001678466797,16.940000534057617,16.220001220703125,15.959999084472656,15.899999618530273,16.479999542236328,16.31999969482422,15.75999927520752,15.999998092651367,16.18000030517578,16.219999313354492,15.800000190734863,16.139999389648438,16.299999237060547,16.360000610351562,16.260000228881836,15.959999084472656,15.9399995803833,16.53999900817871,16.139999389648438,16.259998321533203,16.200000762939453,15.899999618530273,16.079999923706055,16.079999923706055,15.699999809265137,15.660000801086426,16.139999389648438,23.100000381469727,16.600000381469727,16.420000076293945,16.020000457763672,15.619999885559082,16.35999870300293,15.719999313354492,15.920001029968262,15.5600004196167,16.34000015258789,22.82000160217285,15.660000801086426,15.5600004196167,16,16,15.819999694824219,16.399999618530273,16.46000099182129,16.059999465942383,16.239999771118164,15.800000190734863,16.15999984741211,16.360000610351562,19.700000762939453,16.10000228881836,16.139999389648438,15.819999694824219,16.439998626708984,16.139999389648438,16.020000457763672,15.860000610351562,16.059999465942383,16.020000457763672,15.920000076293945,15.819999694824219,16.579999923706055,15.880000114440918,16.579999923706055,15.699999809265137,19.380001068115234,19.239999771118164,16,15.980000495910645,15.959999084472656,16.200000762939453,15.980000495910645,16.34000015258789,16.31999969482422,16.260000228881836,15.920000076293945,15.540000915527344,16.139999389648438,16.459999084472656,16.34000015258789,15.819999694824219,19.719999313354492,15.75999927520752,16.499998092651367,15.719999313354492,16.079999923706055,16.439998626708984,16.200000762939453,15.959999084472656,16,16.100000381469727,19.31999969482422,16.100000381469727,16.18000030517578,15.959999084472656,22.639999389648438,15.899999618530273,16.279998779296875,16.100000381469727,15.920000076293945,16.079999923706055,16.260000228881836,15.899999618530273,15.820001602172852,15.699999809265137,15.979998588562012,16.380001068115234,16.040000915527344,19.420000076293945,15.9399995803833,16.15999984741211,15.960000991821289,16.259998321533203,15.780000686645508,15.880000114440918,15.980000495910645,16.060001373291016,16.119998931884766,23.020000457763672,15.619999885559082,15.920000076293945,16.060001373291016,14.780000686645508,16.260000228881836,19.520000457763672,16.31999969482422,16.600000381469727,16.219999313354492,19.740001678466797,19.46000099182129,15.940000534057617,15.839999198913574,16.100000381469727,16.46000099182129,16.17999839782715,16.100000381469727,15.9399995803833,16.060001373291016,15.860000610351562,15.819999694824219,16.03999900817871,16.17999839782715,15.819999694824219,17.299999237060547,15.9399995803833,15.739999771118164,15.719999313354492,15.679998397827148,15.619999885559082,15.600000381469727,16.03999900817871,15.5,15.600001335144043,19.439998626708984,15.960000991821289,16.239999771118164,16.040000915527344,16.239999771118164],
+    square= [24.200000762939453,17.899999618530273,15.800000190734863,58.400001525878906,151,2523.10009765625,245.3000030517578,136,72.30000305175781,55.70000076293945,42.400001525878906,37.70000076293945,30.100000381469727,30.100000381469727,21.799999237060547,20.600000381469727,21.799999237060547,17.600000381469727,18.200000762939453,21,941.7000122070312,177.39999389648438,2821.800048828125,359.20001220703125,318,217.10000610351562,126,69,57.79999923706055,45.29999923706055,35.599998474121094,29.100000381469727,23.799999237060547,44.20000076293945,17.700000762939453,17.700000762939453,15.699999809265137,27.799999237060547,22.799999237060547,3853.60009765625,91.5999984741211,181.39999389648438,476.29998779296875,265.8999938964844,254.60000610351562,2583.199951171875,124.80000305175781,73.19999694824219,56.400001525878906,48.70000076293945,41.599998474121094,21.100000381469727,20.299999237060547,21.299999237060547,18.299999237060547,17.100000381469727,19.5,828.2000122070312,162.1999969482422,217.89999389648438,205.5,197.60000610351562,2249.800048828125,103.0999984741211,71.69999694824219,57.599998474121094,41.400001525878906,34.5,22,20.5,21.700000762939453,18.299999237060547,17.299999237060547,19.399999618530273,666.7999877929688,214.89999389648438,212.3000030517578,125.80000305175781,67.69999694824219,56.099998474121094,45.79999923706055,38.29999923706055,33,35.400001525878906,22.700000762939453,19.399999618530273,19.899999618530273,24.100000381469727,19.299999237060547,21.299999237060547,3508.699951171875,204.10000610351562,125.4000015258789,65.30000305175781,60.79999923706055,44.099998474121094,36.29999923706055,30.5,28.600000381469727,16.5,18.600000381469727,23.700000762939453,22.299999237060547,17.600000381469727,19.200000762939453,448.79998779296875,124.4000015258789,66.5999984741211,53.5,51,45.20000076293945,28.399999618530273,29.200000762939453,26.700000762939453,25.899999618530273,18.100000381469727,17.600000381469727,20.100000381469727,25.200000762939453,3332,67.5,53.599998474121094,56.599998474121094,39.900001525878906,27.600000381469727,29.600000381469727,33.5,17.200000762939453,18.799999237060547,25.200000762939453,16.700000762939453,16.899999618530273,240.1999969482422,52.400001525878906,42.099998474121094,33.900001525878906,28,28.600000381469727,17.299999237060547,20,21,22.799999237060547,16.700000762939453,19.200000762939453,175.39999389648438,43.5,34.70000076293945,29.700000762939453,34.900001525878906,25.799999237060547,17.299999237060547,22.600000381469727,17.600000381469727,17.200000762939453,19.200000762939453,111.80000305175781,35.400001525878906,27.600000381469727,25.399999618530273,21.899999618530273,18.600000381469727,18.100000381469727,21.200000762939453,17.899999618530273,17,80.5999984741211,29.799999237060547,30.100000381469727,16,26.799999237060547,17.5,22.299999237060547,16.799999237060547,22.399999618530273,77.4000015258789,31,29.700000762939453,28.700000762939453,26,16.899999618530273,15.800000190734863,19,52.599998474121094,25.200000762939453,16.700000762939453,17.899999618530273,21,19.799999237060547,18.799999237060547,46.5,17.5,16.799999237060547,18.299999237060547,18.299999237060547,14.899999618530273,41,18.299999237060547,17.299999237060547,17,17.5,32.29999923706055,22.600000381469727,16.600000381469727,17.899999618530273,25.600000381469727,17.5,20.299999237060547,25.200000762939453,18.600000381469727,17.700000762939453]
+)
+
+data |&gt;
+@vlplot(
+    width=400,
+    height=200,
+    x={
+        &quot;row:q&quot;,
+        title=&quot;Trial&quot;,
+        scale={nice=false},
+        axis={grid=false}
+    },
+    y={
+        &quot;fps:q&quot;,
+        title=&quot;Frames Per Second (fps)&quot;,
+        scale={type=&quot;log&quot;},
+        axis={grid=false}
+    },
+    color={
+        &quot;system:n&quot;,
+        title=&quot;System&quot;,
+        legend={orient=&quot;bottom-right&quot;}
+    },
+    &quot;size&quot;={value=1}
+) +
+@vlplot(
+    mark=:line,
+    transform=[
+        {window=[{field=&quot;falcon&quot;,op=&quot;row_number&quot;,as=&quot;row&quot;}]},
+        {calculate=&quot;1000/datum.falcon&quot;,as=&quot;fps&quot;},
+        {calculate=&quot;&#39;Falcon&#39;&quot;,as=&quot;system&quot;}
+    ]
+) +
+@vlplot(
+    mark=:line,
+    transform=[
+        {window=[{field=&quot;square&quot;,op=&quot;row_number&quot;,as=&quot;row&quot;}]},
+        {calculate=&quot;1000/datum.square&quot;,as=&quot;fps&quot;},
+        {calculate=&quot;&#39;Square Crossfilter (3M)&#39;&quot;,as=&quot;system&quot;}
+    ]
+)</code></pre><img src="f4884e05.svg" alt="Example block output"/><h2 id="Quantile-Quantile-Plot-(QQ-Plot)"><a class="docs-heading-anchor" href="#Quantile-Quantile-Plot-(QQ-Plot)">Quantile-Quantile Plot (QQ Plot)</a><a id="Quantile-Quantile-Plot-(QQ-Plot)-1"></a><a class="docs-heading-anchor-permalink" href="#Quantile-Quantile-Plot-(QQ-Plot)" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;normal-2d&quot;) |&gt;
+@vlplot(
+    columns=2,
+    transform=[
+        {
+            quantile=&quot;u&quot;,
+            step=0.01,
+            as=[&quot;p&quot;,&quot;v&quot;]
+        },
+        {
+           calculate=&quot;quantileUniform(datum.p)&quot;,as=&quot;unif&quot;
+        },
+        {
+           calculate=&quot;quantileNormal(datum.p)&quot;,as=&quot;norm&quot;
+        }
+    ]
+) + [
+    @vlplot(
+        mark=:point,
+        x=&quot;unif:q&quot;,
+        y=&quot;v:q&quot;
+    );
+    @vlplot(
+        mark=:point,
+        x=&quot;norm:q&quot;,
+        y=&quot;v:q&quot;
+    )
+]</code></pre><img src="dcbc53b1.svg" alt="Example block output"/><h2 id="Linear-Regression"><a class="docs-heading-anchor" href="#Linear-Regression">Linear Regression</a><a id="Linear-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Linear-Regression" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+layer=[{
+    mark={:point,filled=true},
+    x=&quot;Rotten_Tomatoes_Rating:q&quot;,
+    y=&quot;IMDB_Rating:q&quot;
+},
+{
+    transform=[
+        {
+            regression=&quot;IMDB_Rating&quot;,
+            on=&quot;Rotten_Tomatoes_Rating&quot;
+        }
+    ],
+    mark={:line,color=&quot;firebrick&quot;},
+    x=&quot;Rotten_Tomatoes_Rating:q&quot;,
+    y=&quot;IMDB_Rating:q&quot;
+},
+{
+    transform=[
+        {
+            regression=&quot;IMDB_Rating&quot;,
+            on=&quot;Rotten_Tomatoes_Rating&quot;,
+            params=true
+        },
+        {
+            calculate=&quot;&#39;R²: &#39;+format(datum.rSquared, &#39;.2f&#39;)&quot;,
+            as=&quot;R2&quot;
+        }
+    ],
+    mark={:text,color=&quot;firebrick&quot;,x=&quot;width&quot;,align=&quot;right&quot;,y=-5},
+    text={&quot;R2:n&quot;}
+}]
+)</code></pre><img src="8f835172.svg" alt="Example block output"/><h2 id="Loess-Regression"><a class="docs-heading-anchor" href="#Loess-Regression">Loess Regression</a><a id="Loess-Regression-1"></a><a class="docs-heading-anchor-permalink" href="#Loess-Regression" title="Permalink"></a></h2><pre><code class="language-julia hljs">using VegaLite, VegaDatasets
+
+dataset(&quot;movies&quot;) |&gt;
+@vlplot(
+layer=[{
+    mark={:point,filled=true},
+    x=&quot;Rotten_Tomatoes_Rating:q&quot;,
+    y=&quot;IMDB_Rating:q&quot;
+},
+{
+    transform=[
+        {
+            loess=&quot;IMDB_Rating&quot;,
+            on=&quot;Rotten_Tomatoes_Rating&quot;
+        }
+    ],
+    mark={:line,color=&quot;firebrick&quot;},
+    x=&quot;Rotten_Tomatoes_Rating:q&quot;,
+    y=&quot;IMDB_Rating:q&quot;
+}]
+)</code></pre><img src="495d8aaa.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../examples_circular_plots/">« Circular Plots</a><a class="docs-footer-nextpage" href="../examples_error_bars_bands/">Error Bars &amp; Error Bands »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Saturday 19 September 2026 05:26">Saturday 19 September 2026</span>. Using Julia version 1.12.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
