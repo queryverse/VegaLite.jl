@@ -11,7 +11,7 @@ const package_json = Ref{Dict{String, Any}}()
 
 function version(package)
   if !isassigned(package_json)
-    package_json[] = JSON.parsefile(vegalite_app_path("package.json"))
+    package_json[] = JSON.parsefile(vegalite_app_path("package.json"), dicttype=Dict{String,Any})
   end
   
   return package_json[]["dependencies"][package]
