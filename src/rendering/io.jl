@@ -37,7 +37,7 @@ Load a vega-lite specification from a file with name `filename`. An `IO`
 object can also be passed. Returns a `VLSpec` object.
 """
 loadspec(filename::AbstractString) = open(loadspec, filename)
-loadspec(io::IO) = VLSpec(JSON.parse(io))
+loadspec(io::IO) = VLSpec(Vega.json_parse(io))
 
 """
     svg(filename::AbstractString, v::VLSpec)
@@ -77,8 +77,8 @@ function Vega.savespec(io::IO, v::VLSpec; include_data=false, indent=nothing)
         delete!(output_dict, "data")
     end
     if indent === nothing
-        JSON.print(io, output_dict)
+        Vega.json_print(io, output_dict)
     else
-        JSON.print(io, output_dict, indent)
+        Vega.json_print(io, output_dict, indent)
     end
 end

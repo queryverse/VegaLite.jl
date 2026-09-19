@@ -60,7 +60,7 @@ function add_encoding_types(specdict, parentdata=nothing)
 end
 
 function our_json_print(io, spec::VLSpec)
-    JSON.print(io, add_encoding_types(Vega.getparams(spec)))
+    Vega.json_print(io, add_encoding_types(Vega.getparams(spec)))
 end
 
 function (p::VLSpec)(data)
