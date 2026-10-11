@@ -13,10 +13,10 @@ function convert_vl_to_x(v::VLSpec, fileformat; cmd_args="")
 
     reader = @async read(p, String)
 
-    wait(writer)    
-    wait(p)   
+    wait(writer)
+    wait(p)
     res = fetch(reader)
-    
+
     if p.exitcode != 0
         throw(ArgumentError("Invalid spec"))
     end
@@ -76,7 +76,7 @@ function Base.show(io::IO, m::MIME"image/png", v::VLSpec)
     if vegaliate_app_includes_canvas[]
         if haskey(io, :ppi)
             print(io, convert_vl_to_x(v, "png", cmd_args="--ppi=$(io[:ppi])"))
-        else            
+        else
             print(io, convert_vl_to_x(v, "png"))
         end
     else
@@ -101,7 +101,8 @@ function Base.show(io::IO, m::MIME"application/prs.juno.plotpane+html", v::VLSpe
     writehtml_full(io, v)
 end
 
-Base.showable(m::MIME"text/html", v::VLSpec) = isdefined(Main, :PlutoRunner)
+Base.showable(m::MIME"text/html", v::VLSpec) = isdefined(Main, :PlutoRunner) || isdefined(Main, :makedocs)
+
 function Base.show(io::IO, m::MIME"text/html", v::VLSpec)
     writehtml_partial_script(io, v)
 end
