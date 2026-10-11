@@ -60,6 +60,42 @@ function fix_shortcut_level_encoding(name, spec_frag::VLFrag, unnamed_inline_dat
     return VLFrag(Any[], spec)
 end
 
+# Handle dictionary-like encoding fragments (e.g. facet = {row = "Origin:n"})
+function fix_shortcut_level_encoding(name, spec_frag::AbstractDict, unnamed_inline_data)
+    spec = OrderedDict{String,Any}()
+    for (k,v) in spec_frag
+        kstr = string(k)
+        if v isa Union{AbstractString,Symbol}
+            # string shorthand -> parse into a VLFrag-like named dict
+            parsed = parse_shortcut(string(v))
+            spec[kstr] = VLFrag(Any[], OrderedDict{String,Any}(parsed...))
+        elseif v isa VLFrag
+            spec[kstr] = fix_shortcut_level_encoding(kstr, v, unnamed_inline_data)
+        elseif v isa AbstractDict
+            spec[kstr] = fix_shortcut_level_encoding(kstr, v, unnamed_inline_data)
+        elseif v isa AbstractArray
+            spec[kstr] = [_replace_for_encoding_element(kstr, i, unnamed_inline_data) for i in v]
+        else
+            spec[kstr] = v
+        end
+    end
+
+    return VLFrag(Any[], spec)
+end
+
+# small helper to reuse existing handlers for array elements inside dicts
+function _replace_for_encoding_element(name, elt, unnamed_inline_data)
+    if elt isa Union{AbstractString,Symbol}
+        return VLFrag(Any[], OrderedDict{String,Any}(parse_shortcut(string(elt))...))
+    elseif elt isa VLFrag
+        return fix_shortcut_level_encoding(name, elt, unnamed_inline_data)
+    elseif elt isa AbstractDict
+        return fix_shortcut_level_encoding(name, elt, unnamed_inline_data)
+    else
+        return elt
+    end
+end
+
 function fix_shortcut_level_data(spec_frag::VLFrag)
     if !isempty(spec_frag.positional)
         error("Positional arguments are invalid in data elements.")
