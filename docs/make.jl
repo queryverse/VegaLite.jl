@@ -21,6 +21,7 @@ makedocs(
     ],
     "User Guide" => Any[
         "Vega-lite specifications" => "userguide/vlspec.md",
+        "Spec modifications with @vlmod" => "userguide/vlmod.md",
         "The @vlplot command" => "userguide/vlplotmacro.md",
         "Data sources" => "userguide/data.md"
     ],
